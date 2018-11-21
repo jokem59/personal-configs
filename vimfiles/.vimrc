@@ -1,4 +1,4 @@
-set statusline+=%F
+"set statusline+=%F
 
 set number                   "Show number lines
 
@@ -21,3 +21,14 @@ set guioptions-=T            "remove toolbar
 set guioptions-=r            "remove right-hand scroll bar
 set guioptions-=L            "remove left-hand scroll bar
 
+set history=1000
+
+" This strips all trailing whitespace when saving
+autocmd BufWritePre * :call StripTrailingWhitespace()
+
+function! StripTrailingWhitespace()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
