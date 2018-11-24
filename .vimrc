@@ -1,16 +1,28 @@
 "set statusline+=%F
 
+set noshowmode               " Setting only if running lightline.vim
+set nocompatible             " For vimwiki to work
 set number                   "Show number lines
+set guifont=Lucida_Console:h12:cANSI:qDRAFT
+set autoread                 " If another editor changes file, reload
 
 "filetype plugin on           " Setting required for proper syntax highlighting
 syntax on                    " Setting to turn on syntax colors
 colorscheme Monokai          " Setting to utilize the colorscheme
 
+set ignorecase               " Setting for case insensitive search
+set incsearch                " Setting to search as I type query
+" Setting that highlights matches vs underlines
+hi search gui=reverse
+" Setting, after searcing, press space to remove all other highlights
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+set hlsearch                 " Setting to highlight search item
+set showmatch                " Setting to show matching braces
+
 filetype plugin indent on    "show existeing tab with 4 spaces width
 set tabstop=4		         "when indenting with '>', use 4 spaces
 set shiftwidth=4	         "when indenting with tab, use 4 spaces
 set expandtab
-set clipboard=unnamedplus     "use the system clipboard as default yank/put register
 
 set backspace=2              "backspace should work as intended
 "Ctrl-Backspace deletes previous work like Ctrl-W (default)
@@ -32,3 +44,6 @@ function! StripTrailingWhitespace()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
+
+" Enables pathogen plugin
+execute pathogen#infect()
