@@ -5,8 +5,9 @@ set nocompatible             " For vimwiki to work
 set number                   "Show number lines
 set guifont=Lucida_Console:h12:cANSI:qDRAFT
 set autoread                 " If another editor changes file, reload
+set guitablabel=%N/\ %t\ %M  " Show tab numbers and (+) if file in tab has been edited
 
-"filetype plugin on           " Setting required for proper syntax highlighting
+filetype plugin on           " Setting required for proper syntax highlighting
 syntax on                    " Setting to turn on syntax colors
 colorscheme Monokai          " Setting to utilize the colorscheme
 
@@ -21,6 +22,7 @@ set showmatch                " Setting to show matching braces
 
 filetype plugin indent on    "show existeing tab with 4 spaces width
 set tabstop=4		         "when indenting with '>', use 4 spaces
+set softtabstop=4            "If tabbed, backspace will delete the 4 spaces
 set shiftwidth=4	         "when indenting with tab, use 4 spaces
 set expandtab
 

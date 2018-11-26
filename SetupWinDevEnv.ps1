@@ -18,7 +18,10 @@ function Get-ChocoPackages {
     choco install cmder;
     choco install ripgrep;
     choco install vim;
+    choco install cmake;
 }
+
+# TOOD: Create generic set symlink function
 
 # Creates symlink to $CONFIG_HOME for easy git management
 function Set-VimrcSymLink {
@@ -34,6 +37,7 @@ function Set-PSProfileSymLink {
     #   Create symlink to the powershell profile ps1 in personal-configs
 }
 
+# TODO: Create function that symlinks all of ~/vimfiles to c:\tools\personal-configs
 
 # TODO: Create function to setup cmder
 # Cmder should point to $Profile (this is mainly to support FcShell)
