@@ -3,7 +3,7 @@
 set noshowmode               " Setting only if running lightline.vim
 set nocompatible             " For vimwiki to work
 set number                   "Show number lines
-set guifont=Lucida_Console:h12:cANSI:qDRAFT
+set guifont=Lucida_Console:h11:cANSI:qDRAFT
 set autoread                 " If another editor changes file, reload
 set guitablabel=%N/\ %t\ %M  " Show tab numbers and (+) if file in tab has been edited
 

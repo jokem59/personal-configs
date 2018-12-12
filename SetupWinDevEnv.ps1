@@ -13,21 +13,35 @@ function Get-PersonalConfigs {
     Remove-Item -Path $GIT_TEMP -Recurse -Force;
 }
 
+function Get-Choco {
+    Set-ExecutionPolicy Bypass -Scope Process -Force;
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));
+}
+
+# TODO: Move tools to c:\tools
 function Get-ChocoPackages {
 
-    choco install cmder;
-    choco install ripgrep;
-    choco install vim;
-    choco install cmake;
+    choco install git -y;
+    choco install cmder -y;
+    choco install ripgrep -y;
+    choco install vim -y;
+    choco install sysinternals -y;
+
 }
+
+# TODO: Download dependency walker tool
 
 # TOOD: Create generic set symlink function
 
+# Need to test how symlink works (does file/dir need to exist first)?
 # Creates symlink to $CONFIG_HOME for easy git management
 function Set-VimrcSymLink {
     New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\.vimrc;
 
     New-Item -ItemType SymbolicLink -Path $home -Name vimfiles -Value $CONFIG_HOME\vimfiles;
+
+    # TODO: Create symlink to ~/vimwiki to get access to all my notes
+    New-Item -ItemType SymbolicLink -Path $home -Name vimwiki -Value $CONFIG_HOME\vimwiki;
 }
 
 function Set-PSProfileSymLink {
