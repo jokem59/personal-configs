@@ -1,0 +1,44 @@
+= Creating a C++ Wrapper around SDL2 =
+
+
+== Tasks ==
+- [ ] Refactor project directory src -> TestLib (executable) src->SDL2Wrapper (make into *.lib and place into $root/lib
+- [ ] Need vcxproj file for standalone sandbox
+- [ ] Need vcxproj file for wrapperlib
+- [ ] Implement dirs.proj structure to build each in dependent order
+- [ ] Put Surface/Window in separate vcxproj and link test executable to that library
+- [ ] Implement dirs.proj structure to build at the lowest common ancestor
+- [ ] Modify test code to use SDL2 wrapper library
+- [ ] Figure out how to use precompiled headers in vcxproj file
+- [ ] Create basic SDL_Surface and SDL_Window wrappers and verify function test
+    http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index2.php
+
+
+== Intent ==
+    * This is as much a learning project as it is to make a working product
+    * Get familiar with modern C++ features
+    * Learn build systems from scratch
+    * Eventually make a game using my SDL2 library
+
+== Build System ==
+For starters, plan on using MSBuild (from scratch), primarily to help me undersand the build system we use at Microsoft.  Once I set this up correctly, I'd like to also use CMAKE as a build system.
+
+
+    === CMake ===
+    CMake manages the build process on an OS in a compiler-independent manner.  It's used in conjunction
+    with the native build environment (i.e. Windows == MSBuild), therefore it generates all the native
+    build files necessary to build the project per the CMakeLists.txt specifications.
+
+
+
+== Text Editor ==
+Going to do this all in Vim =)
+
+== Design Choices ==
+* Make use of Precompiled Headers: http://itscompiling.eu/2017/01/12/precompiled-headers-cpp-compilation/
+    * This is done using the stdafx.h convention for windows - MUST include "stdafx.h" first in every
+        source file
+* SDL_Surface
+    * There are several ways to get a SDL_Surface object, e.g.: from SDL_Window, loading from file, manually
+        creating via SDL_CreateSurface, SDL_TTF to render a font
+    * Therefore, SDL2::Surface class shouldn't care about how the surface is created.  Only needs to accept         a SDL_Surface object and know whether that Surface should be cleaned up on destruction.

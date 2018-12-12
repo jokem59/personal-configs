@@ -33,15 +33,16 @@ function Get-ChocoPackages {
 
 # TOOD: Create generic set symlink function
 
-# Need to test how symlink works (does file/dir need to exist first)?
+# NOTE: This must be run BEFORE the files/directories references are created
 # Creates symlink to $CONFIG_HOME for easy git management
 function Set-VimrcSymLink {
+    # Creates new symbolic link file in $home/.vimrc that is linked to $CONFIG_HOME\.vimrc
     New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\.vimrc;
 
     New-Item -ItemType SymbolicLink -Path $home -Name vimfiles -Value $CONFIG_HOME\vimfiles;
 
-    # TODO: Create symlink to ~/vimwiki to get access to all my notes
-    New-Item -ItemType SymbolicLink -Path $home -Name vimwiki -Value $CONFIG_HOME\vimwiki;
+    New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vimwiki;
+
 }
 
 function Set-PSProfileSymLink {
