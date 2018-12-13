@@ -15,6 +15,7 @@ function Get-PersonalConfigs {
 
 function Get-ChocoPackages {
 
+    choco install git;
     choco install cmder;
     choco install ripgrep;
     choco install vim;
@@ -40,7 +41,7 @@ function Set-PSProfileSymLink {
 # TODO: Create function that symlinks all of ~/vimfiles to c:\tools\personal-configs
 
 # TODO: Create function to setup cmder
-# Cmder should point to $Profile (this is mainly to support FcShell)
+# Cmder should point to $Profile (this is mainly to support FcShell) (or change conemu settings and remove the default `-NoProfile` setting
 
 
 # MAIN

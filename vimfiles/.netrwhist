@@ -1,9 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='d:\rdnext\Compute\Fabric\HostAgent\src\agent\AgentMonitoring'
-let g:netrw_dirhist_2='C:/Users/joskim'
-let g:netrw_dirhist_3='C:\Users\joeki'
-let g:netrw_dirhist_4='c:/tools/personal-configs'
-let g:netrw_dirhist_5='C:\Projects\SDL2plusplus\src'
-let g:netrw_dirhist_6='C:/Projects/SDL2plusplus'
-let g:netrw_dirhist_7='c:\projects/sdl2plusplus/include'
+let g:netrw_dirhist_cnt =0
