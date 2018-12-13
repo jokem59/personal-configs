@@ -1,2 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='c:/projects/SDL2plusplus/src/wrapperlib'
+let g:netrw_dirhist_2='c:/projects/SDL2plusplus/src'
+let g:netrw_dirhist_3='c:/projects/SDL2plusplus/include'
+let g:netrw_dirhist_4='C:\projects\SDL2plusplus\include'
+let g:netrw_dirhist_5='C:/projects/SDL2plusplus'
+let g:netrw_dirhist_6='C:/projects/SDL2plusplus/src'
+let g:netrw_dirhist_7='C:/projects/SDL2plusplus/src/wrapperlib'

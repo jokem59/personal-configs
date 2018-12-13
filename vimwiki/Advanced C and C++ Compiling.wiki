@@ -1,0 +1,197 @@
+= Advanced C and C++ Compiling =
+Copyright 2014
+
+== Chapter 1: Multitasking OS Basics ==
+
+=== Useful Abstractions ===
+Overall computer architecture can be represented as a structed set of abstractions
+
+Figure 1-1
+<----------------------------------Virtual Machine---------------------->
+                                                        Operating System
+<--------------------Process----------------------->
+<--------Virtual Memory---------><-Instruction Set->
+                                        CPU
+                   Main Memory
+<--Byte Stream-->
+   I/O Devices
+
+Memory Caching Hierarchy principle
+<--Smaller/Faster-------------------------------------------------------Larger/Slower---->
+CPU Registers < L1 Cache < L2 Cache < L3 Cache < Main Memory < Local Disk < Remote Storage
+
+
+=== Virtual Memory ===
+Modern OS designed to allow one more more users to concurrently run several programs.  The disproportion between needs of memory and limited memory available is addressed by the concept of virtual memory.
+    - Program memory allowances are fixed, equal for all programs, and declarative in nature
+        - Typcally 2^32 or 2^64
+    - Physical memory at runtime is divided in small fragments (pages), with each page being used for programs simultaneously
+    - Complete memory layout of running program is kept on slow memory (i.e. hard disk). Only parts of memory (code and data) that are about to be executed are loaded into physical memory page
+
+
+=== Virtual Addressing ===
+Programming model assumes that address range is between 0 and 2^n.  This simplified and unified addressing scheme has benefits:
+    - Linking is simplified
+    - Loading is simplified
+    - Runtime process sharing becomes available
+    - Memory allocation is simplified
+
+Actual runtime placement of program memory in a concrete address range is via h/w module called Memory Manamgement Unit (MMU).
+
+
+=== Process Memory Division Scheme ===
+Previous section explained why it's possible to provide the identical memory map to any program.  This section discusses details of internal organization of the process memory map.  It's assumed that the program address (as viewed by programmer) is between 0 and 2^n (n = 32 or 64)
+
+    - Code section: carrying the machine code instructions for CPU to execute (.text)
+    - Data section: carrying the data on which the CPU will operate.  Typically separate sections are kept for initialized data (.data) and uninitialized data (.bss) and for constant data (.rdata)
+    - Heap: dynamic amemory allocation is run
+    - Stack: used to provide independent space for functions
+    - TOpmost Part: blongs to kernel where process-specific environment variables stored
+
+    More: https://manybutfinite.com/post/anatomy-of-a-program-in-memory/
+
+
+=== Roles of Binaries, Compiler, Linker, and Loader ===
+    - Program binaries carry details of the blueprint of the running process memory map
+    - Skeleton of binary file is created by the linker.  Linker combines the binary files created by compiler in order to fill out variety of memory map sections
+    - Inital creation of the process memory map is performed by system utility called program loader.  A loader opens the binary executable file, reads information related to sections, and populates the process memory map structure
+
+
+== Chapter 2: Simple Program Lifetime Stages ==
+
+    1. Create source code
+    2. Compile
+    3. Linking
+    4. Loading
+    5. Executing
+
+=== Code Writing ===
+To organize source code, various functional parts of the code are in separate files which result in various source and header files.  Though useful, it leads to certain amount of indeterminism in subsequent stages of building process which requires careful thought.
+
+
+=== Compiling ===
+Compiling can be defined as the process of transforming source code written in one programming language into another programming language.
+    - Process of compiling is performed by the program called a `compiler`
+    - Input for the compiler is a `translation unit` (e.g. text file containing source code)
+    - Program is typically comprised of many `translation units`
+    - Output of compilation is a collection of binary `object files`, one for each of the input `translation units`
+    - To become suitable for execution, object files need to be processed through another stage of program building called `linking`
+
+Related Definitions:
+    - `Compilation` in the strict meaning denotes process of translating the code of higher-leve language to code of a lower-level language
+    - `Cross-compilation` is if compilation is performed on one platform to produce source code to be run on some other platform
+    - `Decompilation` (Disassembling) is converting source code of lower-level language to a higher-level language
+    - `Language translation` process of transfomring source code of one programming language to another programming language of same level and complexity
+    - `Language rewriting` process of rewriting language expressions into a form more suitable for ertain tasks (i.e. optimization)
+
+
+Stages of Compiling
+    1. Pre-processing
+    2. Linguistic analysis
+    3. Assembling
+    4. Optimization
+    5. Code emission
+
+
+=== Preprocessing ===
+    - Includes the files containing definitions (include/header files) into the source files
+    - Converts values specified by using #define statements into the constants
+    - Converts macro definitions into code at the locations in which macros are invoked
+    - Conditionally includes or excludes certain parts of code based on #if, #elif, #endif
+
+The output of the preprocessor is the C/C++ code in its final shape which is passed onto next stage
+
+
+=== Linguistic Analysis ===
+First converts C/C++ code into a form more suitable for processing (eliminating comments and unnecessary white spaces, extracting tokens from text, etc.) which is then lexically analyzed.
+
+    1. Lexical analysis: breaks source code into non-divisible tokens
+    2. Parsing/Syntax analysis: concatenates the extracted tokens into chains of tokens, and verifies that their ordering makes sense by the programming language rules
+    3. Semantic analysis: run to discover whether the syntatically correct statements make any sense (e.g. two `int` can't return `struct`)
+
+
+=== Assembling ===
+Compiler tries to convert standard language constructs into the constructs specific to the actual CPU instruction set.  Typically, in X86 processor architecture, AT&t format and Intel format.
+
+
+=== Optimization ===
+Optimization effort begins here which usage of registers is minimized.  Additionally, analysis may indicate that certain parts of code do not in fact need to be executed and these parts are eliminated.
+
+
+=== Code Emission ===
+The compilation output are `object files`, one for each `translation unit`.  The assembly instructions are converted into binary values of the corresponding machine instructions (opcodes) and written to the specific locaitons in the object file(s).
+
+
+=== Object File Properties ===
+    - Object files is result of translating its original source file
+    - Basic ingredients of object file are `symbols` (references to memory addresses in program or data memory) as well as `sections`
+    - Ultimate goal of building program is that sections obtained by compiling individual source files will be combined (`tiled`) together in a single binary executable file; Figuratively speaking, an object file is a simple `tile` wawiting to find its place in the giant mosaic of the process memory map.
+    - Inner structure of object file does not suggest where the individual sections will ultimately reside in program memory map.  Address ranges of each section in each object file is tentatively set to start from zero value.  Actual address range at which section from an object file will ultimately reside in program map will be determined by `linking` process
+
+`Tiling` the individual sections stored across individual object files together into the body of program memory map is called `linking`.
+
+
+=== Linking ===
+Second stage in building process; the input to this process is collection of object files created by previously completed compiling stage.  Ultimate task of linker is to form the resultant program memory map section out of individual contributions and to resolve all references.  Virtual memory allows linker to populate a zero-based address range of identical size for each and every program, regardless of what address range the process will be given by OS at system runtime.
+
+Stages
+    1. Relocation: simply `tiling`
+    2. Resolving References: root cause of linking problems = pieces of code originated from different `translation units` are trying to reference each other, but can't know where in memory these items will reside up until the object files are tiled into body of program memory map.
+        a. Components of code that cause most problems are ones tightly bound to address in program memory (function entry points) or in data memory (global/static/extern) variables.
+
+
+=== Executable File Properties ===
+Ultimate result of linking procedure is binary executable file, whose layout follows the rules of the executable format suitable for the target platform.
+
+IMPORTANT: executable file is not entirely made of code compiled from the project source file.  Piece of important code responsible for starting program execution is added at the linking stage to the program memory map
+
+
+== Chapter 3: Program Execution Stages ==
+Purpose of this chapter is to describe sequence of events that happens when user starts a program.
+
+=== Importance of the Shell ===
+Mandatory first action of shell is to create clone of itself by forking the identical child process.
+
+=== Kernel Role ===
+Kernel obtains the sandbox (process environment) and associated memory used to launch the new program.  Kernel will completely wipe most of the memory map, then delegate to the `loader` the process of populating the wiped off memory map with data read from the new program's binary executable.
+
+Clone the shell process (via fork()), the environment variables defined in the shell are passed to the child process, which helps that the chain of environment variabl'es inheritance not get broken.
+
+
+=== Loader Role ===
+Difference between `linker` and `loader`.  Aa `linker` is highly sophisticated module capable of precisely distinguishing a wide variety of sections of various natures (code, uninitialized data, initialized data, etc).  In order to resolve references, it must know the details of internal structure.
+
+A `loader` is to copy the sections created by the `linker` into the process memory map.  All it worries about is whether the sections' attributes are read-only, read-write, and whether some patching needs to be applied before executable is ready for launching.
+
+
+=== Static Build Example ===
+All external libraries needed for creating this executable are statically linked, which means the binary is fully portable.  The drawback is the larger size of the executable.
+    - gcc main.cpp -o regularBuild
+    - gcc -static main.cpp -o staticBuild // 100 times larger!
+
+
+=== Loader Role Contd. ===
+Reads the program's binary file segments' headers to determine address and byte lengths of each of the segments.  Still nothing written to the program memory map at this point.  Loader establishes and maintains set of structures that carry mappings between segments of executable file (page-wide parts of each segment) and the program memory map.
+
+
+=== Executing Program Entry Point ===
+From C/C++ perspective, program point of entry is `main()` function.  From point of program execution, a few other functions are executed before `main()` is called (following example is for Linux).
+
+    - Loader finds the entry point: loader looks at `e_entry` value from ELF header which contains memory address from which execution address will start; typically the  `_start` function.
+
+
+=== Stack and Calling Conventions ===
+    - Process memory map reserves certain area for the needs of the stack
+    - Amount of stack memory used at runtime varies; larger sequence of function calls, the more memory used
+    - Stack memory is limited; available stack memory is bound with the amount of memory available for heap allocation
+
+
+=== Functions Calling Conventions ===
+`Calling conventions` refers to how variables are passed to functions: `cdecl`, `stdcall`, `fastcall`, `thiscall`.  Generally, `cdecl` is the preferred calling convention for implementing the interface of dynamic libraries.
+
+Blog post on calling conventions: https://blogs.msdn.microsoft.com/oldnewthing/20040102-00/?p=41213
+
+
+== Chapter 4: Impact of Reusing Concept ==
+
+
