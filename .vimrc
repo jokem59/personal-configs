@@ -1,14 +1,13 @@
-"set statusline+=%F
-
 set noshowmode               " Setting only if running lightline.vim
 set nocompatible             " For vimwiki to work
 set number                   "Show number lines
+set relativenumber           " Show relative line numbers
 set guifont=Lucida_Console:h11:cANSI:qDRAFT
 set autoread                 " If another editor changes file, reload
 set guitablabel=%N/\ %t\ %M  " Show tab numbers and (+) if file in tab has been edited
 
-filetype plugin on           " Setting required for proper syntax highlighting
 syntax on                    " Setting to turn on syntax colors
+filetype plugin on           " Setting required for proper syntax highlighting
 colorscheme Monokai          " Setting to utilize the colorscheme
 
 set ignorecase               " Setting for case insensitive search
@@ -49,3 +48,8 @@ endfun
 
 " Enables pathogen plugin
 execute pathogen#infect()
+
+" Set vimiwki syntax header coloring
+hi VimwikiHeader1 guifg=#FF0000
+hi VimwikiHeader2 guifg=#00FF00
+hi VimwikiHeader3 guifg=#0000FF
