@@ -1,0 +1,15 @@
+[core]
+	autocrlf = true
+    editor = gvim
+	excludesfile = C:\\Users\\joeki\\OneDrive\\Documents\\gitignore_global.txt
+[user]
+	name = JOEKIM\\joeki
+	email = joe.kim509@gmail.com
+[alias]
+    dt = difftool
+[merge]
+    tool = gvimdiff
+[diff]
+	tool = gvimdiff
+[difftool]
+    prompt = false
