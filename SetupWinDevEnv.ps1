@@ -26,6 +26,7 @@ function Get-ChocoPackages {
     choco install ripgrep -y;
     choco install vim -y;
     choco install sysinternals -y;
+    choco install rust-ms -y;
 
 }
 
