@@ -194,4 +194,83 @@ Blog post on calling conventions: https://blogs.msdn.microsoft.com/oldnewthing/2
 
 == Chapter 4: Impact of Reusing Concept ==
 
+Code reuse concept to building executables found its realization in `static libraries` and `dynamic libraries`.
+
+=== Static Libraries ===
+Once the compiler translates a collection of translation units (i.e. source files) into the binary object files, you may want to keep the object files for later use in other projects , where they may be readily combined at link time with the object files indigenous to the other project.
+
+To integrate binary object files into other projects, the binary files must be accompanied by the export header include file which provides the definitions and function declarations of the functions that can be used as entry points.
+
+Static libraries is merely an archive of object files which can be manipulated in any number of ways.
+
+
+=== Dynamic Libraries ===
+For OSes, allows for reuse of system libraries that are used by multiple programs.  It only makes sense to share the `.text` secion of the library, NOT the `.data` section.  This means we share the functionality of the library, but not the data/state that the library maintains.
+
+
+=== Part 1: Building the Dynamic Library ===
+Product of dynamic library building process is the binary file whose nature is identical to the nature of executable, only difference being the dll lacks the startup routines that allow it to be started as independent process.
+
+    - In Windows, building a DLL strictly requires that all references must be resolved.  I.e. if the DLL calls a function in some other DLL, that other library and references symbols it contains must be known at build time.
+    - Linux, default option allows some more flexibility, allowing some symbols to be unresolved with the expectation that symbols will show up after some other DLLs are linked in.  (Can also match Windows strictness).
+
+
+=== Part 2: Playing by Truest while Building CLient Executable (Looking for the Symbols Only) ===
+The linker does not examine the binary of the DLL thoroughly; it neither tries to find the sections or their sizes, nor attempts to integrate them into the resultant binary.  Instead, it solely tries to verify that the DLL contains the symbols needed by the resultant binary.
+
+
+=== Part 3: Runtime Loading and Symbol Resolution ===
+    1. DLL binary file needs to be found
+    2. DLL needs to be successfully loaded into the process
+        - DLL loaded at runtime MUST carry the identical set of symbols promised to be available at build time
+    3. Executable symbols need to be resolved to point to the right address in the part of process memory map where DLL is mapped into (this is the dynamic linking process).
+
+
+=== Special Binary File Types Related to Dynamic Linking in Windows ===
+
+    - Dyanmically Linked Library (.dll)
+        Shared object used at runtime by the process through the mechanism of dynamic linking.
+
+    - Import Library File (.lib)
+        Used on Windows at the "Part2" phase of dynamic linking.  It contains only the list of DLL symbols and none of the linker sections; it's purpose is to solely present the set of dynamic library's exported symbols to the client library.  This is source of confusion because this same file extension is also used to indicate static libraries
+
+    - Export File (.exp)
+        Sawme nature as import library file, however it typically used in scenario when two executables have circular dependencies that make it impossible to complete the building of either one.  In this case, the exp file is provided with the intention to make it possible for at least one of the binaries to successfully compile, which in turn can be used by other dependent binaries to complete their builds.
+
+
+=== Property 1: Dynamic Library Creation Requires the Complete Build Procedure ===
+Requires both compiling and the linking stage.  This makes DLLs far more similar to executables compared to static libraries.
+
+
+=== Property 2: Dynamic Library can Link in Other Libraries ===
+Interface exported by a software module to the clients is typically referred to as an `application programming interface (api)`.  When applied to the domain of binaries, the concept of an interface gets one additional domain-specific flavor called and `application binary interface (abi)`.  Think of `abi` as a set of symbols (primarily a set of function entry points) created in the process of compiling/linking of the source code interface.
+
+ABI concepts helps explain during dynamic linking:
+    - During first (build-time) phase of dynamic linking, client binary in fact links against the library's exported ABI
+    - To complete the second (runtime) phase of dynamic linking, the binary specimen of the dynamic library available at runtime must export the unchanged ABI, identical to that found at build time.
+
+
+=== Static vs Dynamic Libraries Comparison Points ===
+The most interesting difference between the static and dynamic libraries is the difference in selectiveness criteria applied by a client binary that tries to link them.
+
+
+==== Import Selectiveness Criteria for Static Libraries ====
+When client binary links the static library, it does not link in the complete static library contents.  Rather, it links in strictly and solely only the object files contianing the symbols that are really needed.
+
+
+==== Import Selectiveness Criteria for Dynamic Libaries ====
+When client binary links the dynamic library, it features the selectivity only at the level of the symbol table.  Regardless of how small a portion of the dynamic library functionality is concretely needed, the entire dynamic library gets dynamically linked in.
+
+
+=== Choice 1: Linking with a Static Library ===
+Pros: Executable is completely self-contained, as it carries all the code it needs.
+Cons: Executable byte size gets increased by the amount of code ingested from the static library.
+
+
+=== Choice 2: Linking with a Dynamic Library ===
+Pros: Executable byte size does not get changed (excpet maybe by small symbols bookkeeping expense).
+Cons: Always a chance that dynamic library is not physically available on the target machine.
+
+
+== Chapter 6: Working with Static Libraries ==
 
