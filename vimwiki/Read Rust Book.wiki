@@ -1,5 +1,2 @@
-= Learning about Rust =
-
-O'Reily Programming Rust
 
 

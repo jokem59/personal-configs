@@ -50,6 +50,36 @@ endfun
 execute pathogen#infect()
 
 " Set vimiwki syntax header coloring
-hi VimwikiHeader1 guifg=#FF0000
-hi VimwikiHeader2 guifg=#00FF00
-hi VimwikiHeader3 guifg=#0000FF
+hi VimwikiHeader1 guifg=#FFB433
+hi vimwikiHeader2 guifg=#33FFFF
+hi VimwikiHeader3 guifg=#FFFF33
+hi VimwikiHeader4 guifg=#33FF33
+hi vimwikiHeader5 guifg=#FF77EF
+hi vimwikiHeader6 guifg=#D033FF
+
+" " Registering clangd LSP with asyncomplete
+" let g:LanguageClient_serverCommands = {
+"     \ 'cpp': ['clangd'],
+"     \ }
+
+" if executable('clangd')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'clangd',
+"         \ 'cmd': {server_info->['clangd']},
+"         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+"         \ })
+" endif
+
+" " Asyncomplete tab completion
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" let g:asyncomplete_remove_duplicates = 1
+" let g:asyncomplete_smart_completion = 1
+" let g:asyncomplete_auto_popup = 1
+
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+
+" " for asyncomplete.vim log
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log')

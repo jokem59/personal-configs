@@ -273,4 +273,4 @@ Cons: Always a chance that dynamic library is not physically available on the ta
 
 
 == Chapter 6: Working with Static Libraries ==
-
+x = 394 + 520 * n
