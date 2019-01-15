@@ -2,13 +2,13 @@
 	autocrlf = true
     editor = gvim
 	excludesfile = C:\\Users\\joeki\\OneDrive\\Documents\\gitignore_global.txt
-[user]
-	name = JOEKIM\\joeki
-	email = joe.kim509@gmail.com
 [alias]
     dt = difftool
+    mt = mergetool
 [merge]
     tool = gvimdiff
+[mergetool]
+    prompt = false
 [diff]
 	tool = gvimdiff
 [difftool]

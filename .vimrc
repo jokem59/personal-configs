@@ -1,3 +1,5 @@
+colorscheme Monokai          " Setting to utilize the colorscheme
+
 set noshowmode               " Setting only if running lightline.vim
 set nocompatible             " For vimwiki to work
 set number                   "Show number lines
@@ -8,7 +10,6 @@ set guitablabel=%N/\ %t\ %M  " Show tab numbers and (+) if file in tab has been 
 
 syntax on                    " Setting to turn on syntax colors
 filetype plugin on           " Setting required for proper syntax highlighting
-colorscheme Monokai          " Setting to utilize the colorscheme
 
 set ignorecase               " Setting for case insensitive search
 set incsearch                " Setting to search as I type query
