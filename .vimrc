@@ -40,6 +40,8 @@ set history=1000
 " This strips all trailing whitespace when saving
 autocmd BufWritePre * :call StripTrailingWhitespace()
 
+set updatetime=100           "Git gutter update time set for 100ms delay
+
 function! StripTrailingWhitespace()
     let l = line(".")
     let c = col(".")
@@ -58,29 +60,3 @@ hi VimwikiHeader4 guifg=#33FF33
 hi vimwikiHeader5 guifg=#FF77EF
 hi vimwikiHeader6 guifg=#D033FF
 
-" " Registering clangd LSP with asyncomplete
-" let g:LanguageClient_serverCommands = {
-"     \ 'cpp': ['clangd'],
-"     \ }
-
-" if executable('clangd')
-"     au User lsp_setup call lsp#register_server({
-"         \ 'name': 'clangd',
-"         \ 'cmd': {server_info->['clangd']},
-"         \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-"         \ })
-" endif
-
-" " Asyncomplete tab completion
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" let g:asyncomplete_remove_duplicates = 1
-" let g:asyncomplete_smart_completion = 1
-" let g:asyncomplete_auto_popup = 1
-
-" let g:lsp_log_verbose = 1
-" let g:lsp_log_file = expand('~/vim-lsp.log')
-
-" " for asyncomplete.vim log
-" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
