@@ -13,3 +13,6 @@
 	tool = gvimdiff
 [difftool]
     prompt = false
+[user]
+	email = joe.kim509@gmail.com
+	name = Joe Kim
