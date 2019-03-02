@@ -27,6 +27,7 @@ function Get-ChocoPackages {
     choco install vim -y;
     choco install sysinternals -y;
     choco install rust-ms -y;
+    choco install cmake -y;
 
 }
 
