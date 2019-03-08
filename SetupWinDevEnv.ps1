@@ -1,5 +1,7 @@
 # This is a
 
+Set-ExecutionPolicy Unrestricted;
+Install-Module posh-git
 $CONFIG_HOME = "C:\tools\personal-configs";
 
 function Get-PersonalConfigs {
@@ -24,9 +26,10 @@ function Get-ChocoPackages {
     choco install git -y;
     choco install cmder -y;
     choco install ripgrep -y;
-    choco install vim -y;
+    choco install vim -y; # TODO: Note the path and set powershell vim alias to gvim.exe
     choco install sysinternals -y;
     choco install rust-ms -y;
+    choco install cmake -y;
 
 }
 
@@ -38,13 +41,15 @@ function Get-ChocoPackages {
 # Creates symlink to $CONFIG_HOME for easy git management
 function Set-VimrcSymLink {
     # Creates new symbolic link file in $home/.vimrc that is linked to $CONFIG_HOME\.vimrc
-    New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\.vimrc;
+    New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\vim\.vimrc;
 
-    New-Item -ItemType SymbolicLink -Path $home -Name vimfiles -Value $CONFIG_HOME\vimfiles;
+    New-Item -ItemType SymbolicLink -Path $home -Name vimfiles -Value $CONFIG_HOME\vim\vimfiles;
 
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig -Value $CONFIG_HOME\.gitconfig;
 
-    New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vimwiki;
+    New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vim\vimwiki;
+    
+    New-Item -ItemType SymbolicLink -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
 
 }
 
@@ -56,6 +61,8 @@ function Set-PSProfileSymLink {
 }
 
 # TODO: Create function that symlinks all of ~/vimfiles to c:\tools\personal-configs
+
+# TODO: Create function to setup powershell profile
 
 # TODO: Create function to setup cmder
 # Cmder should point to $Profile (this is mainly to support FcShell) (or change conemu settings and remove the default `-NoProfile` setting
