@@ -1,0 +1,18 @@
+= C++ Concepts =
+
+* std::unique_ptr
+
+* std::shared_ptr
+
+* Raw Pointer
+
+* Reference
+
+* std::optional
+https://www.bfilipek.com/2018/04/refactoring-with-c17-stdoptional.html
+
+* Structs
+Good for wrapping related data together that are ok to have all public members and no special class support
+
+* constexpr
+

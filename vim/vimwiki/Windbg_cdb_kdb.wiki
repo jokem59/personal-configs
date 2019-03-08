@@ -1,0 +1,47 @@
+= Windbg_cdb_kdb =
+
+
+Thu 12/13/2018
+== General Debugging ==
+
+
+Sun 12/09/2018
+== Kernel Debugger ==
+Two methods to do Live Kernel debugging on your system
+
+Set system up for local kernel debugging:
+    1. msconfig.exe
+    2. Boot > Advanced Options > Select Debug > Restart Windows
+    3. Launch WinDbg  >  File > Kernel Debug  > Local > Click OK
+
+Use sysinternals tool LiveKD
+    1. LiveKd.exe; can pass any command-line arguements as you would with windbg
+    2. Defaults to launching `kdb`, can pass in `-w` switch to launch in windbg
+        - livekd.exe -k "C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\kd.exe"
+        - livekd.exe -w "C:\Program Files (x86)\Windows Kits\10\Debuggers\x64\windbg.exe"
+
+
+Sun 12/09/2018
+== ! * or Nothing ==
+Reguar commands (e.g. `kb`) apply to the debugging session; show stack dump
+
+Meta commands are prefixed with a `.`.  E.g. `.load` meta commands apply to the debugger itself, like load extensions.
+
+Extension commands are prefixed with `!`.  E.g. `!analyze` and `!dumpheap` are defined in debugger extensions (DLLs that extend functionality)
+
+
+Sun 12/09/2018
+== Commands ==
+`dt` = display type
+    - `dt nt!_*`; displays available data structure prototypes
+    - `dt nt!_eprocess`; displays the data structure prototype of EPROCESS
+    - `dt nt!_eprocess UniqueProcessId`; displays t he the process id field of EPROCESS
+    - `dt nt!_eprocess Pcb.`; the `.` displays this sub structure
+
+`!process` = lists information for the process owning the thread currently running on CPU 0 (livekd)
+    - The outputs gives the address of the PEB
+        - Can use the `!peb` command to see a friendly view of the PEB of an arbitrary processj
+    - To switch to the PEB of a different process, `.process /P` followed by the EPROCESS pointer
+        - `!process /P <address_of_process>; !peb <address_of_peb>`
+
+`!handle` = dumps the process handle table
