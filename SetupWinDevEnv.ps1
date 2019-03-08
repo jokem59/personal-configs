@@ -48,6 +48,8 @@ function Set-VimrcSymLink {
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig -Value $CONFIG_HOME\.gitconfig;
 
     New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vimwiki;
+    
+    New-Item -ItemType SymbolicLink -Path $home -Name .emacs.d -Value $CONFIG_HOME\.emacs.d;
 
 }
 
