@@ -41,15 +41,15 @@ function Get-ChocoPackages {
 # Creates symlink to $CONFIG_HOME for easy git management
 function Set-VimrcSymLink {
     # Creates new symbolic link file in $home/.vimrc that is linked to $CONFIG_HOME\.vimrc
-    New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\.vimrc;
+    New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\vim\.vimrc;
 
-    New-Item -ItemType SymbolicLink -Path $home -Name vimfiles -Value $CONFIG_HOME\vimfiles;
+    New-Item -ItemType SymbolicLink -Path $home -Name vimfiles -Value $CONFIG_HOME\vim\vimfiles;
 
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig -Value $CONFIG_HOME\.gitconfig;
 
-    New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vimwiki;
+    New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vim\vimwiki;
     
-    New-Item -ItemType SymbolicLink -Path $home -Name .emacs.d -Value $CONFIG_HOME\.emacs.d;
+    New-Item -ItemType SymbolicLink -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
 
 }
 
