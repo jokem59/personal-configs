@@ -14,7 +14,7 @@
 					;(require 'init-language-rust)
 (require 'init-language-web)
 
-(requre 'init-keybindings)
+(require 'init-keybindings)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
