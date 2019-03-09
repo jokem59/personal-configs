@@ -1,4 +1,4 @@
-(add-to-list 'load-path (expand-file-name "list" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (when window-system
   (server-start))
