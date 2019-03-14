@@ -44,10 +44,15 @@ function Set-VimrcSymLink {
 
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig -Value $CONFIG_HOME\.gitconfig;
 
-    New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vim\vimwiki;
-    
-    New-Item -ItemType Junction -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
+    New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig_global -value $CONFIG_HOME\.gitconfig_global;
 
+    New-Item -ItemType Junction -Path $home -Name vimwiki -Value $CONFIG_HOME\vim\vimwiki;
+
+    New-Item -ItemType Junction -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
+}
+
+function Set-GitGlobalSettings {
+    iex (git config --global core.excludesfile ~/.gitignore_global);
 }
 
 function Set-PSProfileSymLink {
