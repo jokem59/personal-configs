@@ -30,6 +30,7 @@
                           spaceline
                           anzu
                           deadgrep
+                          avy
 
                           ; modes
                           company

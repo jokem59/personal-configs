@@ -3,7 +3,7 @@
 ;;
 
 (global-set-key [C-backspace] 'backward-delete-word)
-(global-set-key (kbd "C-<f5>") 'linum-mode)
+(global-set-key (kbd "C-<f5>") 'mlinum-mode)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\M-l" 'copy-current-line-position-to-clipboard)
 (global-set-key (kbd "C-x C-e") 'eval-and-replace)
@@ -16,6 +16,8 @@
 (global-set-key (kbd "C-M-]") 'origami-open-node)
 
 ;; movements
+(global-set-key (kbd "C-;") 'avy-goto-line)
+(global-set-key (kbd "C-'") 'avy-goto-word-1)
 (global-set-key (kbd "C-S-n")
                 (lambda ()
                   (interactive)
