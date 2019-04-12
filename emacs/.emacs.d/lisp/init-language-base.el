@@ -1,6 +1,8 @@
 ;(add-hook 'after-init-hook 'global-company-mode)
 (autoload 'powershell-mode "powershell-mode" "A editing mode for Microsoft PowerShell." t)
 
+;; So powershell-mode works from startup
+(require 'powershell)
 
 ;; Enable gg-modes for c-mode
 

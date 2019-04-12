@@ -5,6 +5,7 @@ Set-PSReadlineKeyHandler -Chord Ctrl+w -Function ViExit
 $env:home = $HOME;
 
 Set-Alias -Name vim -Value "C:\Program Files (x86)\Vim\vim81\gvim.exe";
+$env:home = $HOME;
 
 function emacs {
     param($p1, $p2, $p3, $p4)
