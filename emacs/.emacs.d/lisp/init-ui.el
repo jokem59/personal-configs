@@ -69,4 +69,18 @@
 
 (global-anzu-mode +1)
 
+;;
+;; The uniquify library makes it so that when you visit two files with the same name in different directories,
+;; the buffer names have the directory name appended to them instead of the silly hello<2> names you get by default.
+;;
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+;;
+;; The saveplace library saves the location of the point when you kill a buffer
+;; and returns to it next time you visit the associated file.
+;;
+(require 'saveplace)
+(save-place-mode 1)
+
 (provide 'init-ui)
