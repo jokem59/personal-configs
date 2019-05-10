@@ -5,6 +5,7 @@
 (setq org-default-journal-file (concat org-directory "/journal.org"))
 (setq org-default-todo-file (concat org-directory "/todo.org"))
 (setq org-default-personal-file (concat org-directory "/personal.org"))
+(setq org-startup-with-inline-images t)
 
 (setq org-capture-templates
       '(    ;; ... other templates
