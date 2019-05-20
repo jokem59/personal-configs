@@ -16,6 +16,11 @@
 (global-set-key (kbd "C-M-]") 'origami-open-node)
 
 ;; movements
+;; Viper-cmd sets foward/backwards word to be consistent with VIM/VSCode and other editors
+(require `viper-cmd)
+(global-set-key (kbd "M-f") 'viper-forward-word)
+(global-set-key (kbd "M-b") 'viper-backward-word)
+
 (global-set-key (kbd "C-;") 'avy-goto-line)
 (global-set-key (kbd "C-'") 'avy-goto-word-1)
 (global-set-key (kbd "C-S-n")

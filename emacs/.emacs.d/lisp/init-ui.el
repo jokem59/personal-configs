@@ -87,6 +87,6 @@
 ;; Enable Git Gutter
 ;;
 (require 'git-gutter)
-(git-gutter-mode 1)
+(global-git-gutter-mode 1)
 
 (provide 'init-ui)
