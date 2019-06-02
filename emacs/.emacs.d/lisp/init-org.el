@@ -52,7 +52,12 @@
 (setq org-adapt-indentation nil)
 
 (add-to-list 'org-emphasis-alist
-             '("*" (:foreground "Red" :height 145)
-               ))
+             '("*" (:foreground "#FD971F" :height 145 :box t :weight semi-bold)))
+
+(add-to-list 'org-emphasis-alist
+             '("/" (:foreground "#AE81FF" :height 145)))
+
+(add-to-list 'org-emphasis-alist
+             '("_" (:foreground "#A6E22E" :height 145 :underline t)))
 
 (provide 'init-org)
