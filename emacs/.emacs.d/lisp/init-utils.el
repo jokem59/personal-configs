@@ -249,4 +249,11 @@ Symbols matching the text at point are put first in the completion list."
       (yank)
       (insert ?\n))))
 
+;; Custom HideShow Function
+(defun toggle-fold ()
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (hs-toggle-hiding)))
+
 (provide 'init-utils)

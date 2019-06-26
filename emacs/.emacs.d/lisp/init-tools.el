@@ -1,3 +1,6 @@
+;; Enable Hide Show minor mode globally
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
 ;; git-messenger
 (require 'git-messenger)
 (global-set-key (kbd "C-x v p") 'git-messenger:popup-message)
@@ -9,10 +12,6 @@
  (lambda () (local-set-key (kbd "M-q") #'prog-fill)))
 (setq prog-fill-floating-open-paren-p 'nil)
 (setq prog-fill-floating-close-paren-p 'nil)
-
-;; Set-up origami
-(require 'origami)
-(global-origami-mode)
 
 ;; shell-pop
 

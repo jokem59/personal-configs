@@ -67,7 +67,7 @@
  '(org-agenda-files (quote ("~/OneDrive/org/journal.org")))
  '(package-selected-packages
    (quote
-    (avy python-mode deadgrep spaceline-all-the-icons anzu spaceline spacemacs-theme cquery ccls dash lsp-ui lsp-mode rust-playground flycheck-rust rust-mode js2-mode zen-mode counsel-gtags counsel swiper ivy ripgrep prog-fill org-mime shell-pop git-messenger itail git-gutter origami zzz-to-char irony flycheck-clangcheck flycheck tide hl-anything less-css-mode web-mode typescript-mode gratuitous-dark-theme magit yaml-mode subatomic256-theme smex restclient rainbow-delimiters projectile powershell omnisharp multiple-cursors monokai-theme molokai-theme material-theme markdown-mode log4j-mode ido-vertical-mode highlight2clipboard groovy-mode gist ggtags fsharp-mode flx-ido flatland-theme expand-region csharp-mode company badwolf-theme autopair)))
+    (smartparens avy python-mode deadgrep spaceline-all-the-icons anzu spaceline cquery ccls dash lsp-ui lsp-mode rust-playground flycheck-rust rust-mode js2-mode zen-mode counsel-gtags counsel swiper ivy ripgrep prog-fill org-mime shell-pop git-messenger itail git-gutter zzz-to-char irony flycheck-clangcheck flycheck tide hl-anything less-css-mode web-mode typescript-mode magit yaml-mode smex restclient rainbow-delimiters projectile powershell omnisharp monokai-theme molokai-theme  markdown-mode log4j-mode ido-vertical-mode highlight2clipboard groovy-mode fsharp-mode flx-ido expand-region csharp-mode company autopair)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
@@ -101,6 +101,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-4 ((t (:inherit default :foreground "#E6DB74" :weight bold :height 1.1))))
+ '(org-tag ((t nil))))
 
 (provide 'init)

@@ -32,7 +32,7 @@
 ;;
 
 (load-theme 'monokai t)
-(set-face-attribute 'default nil :height 135)
+(set-face-attribute 'default nil :height 130)
 (when window-system
   (set-face-attribute 'default nil :font "Consolas")
   (setq-default line-spacing 3))

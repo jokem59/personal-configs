@@ -42,7 +42,6 @@
                           ido-vertical-mode
                           powershell
                           magit
-                          origami
 
                           ; language modes
                           csharp-mode
