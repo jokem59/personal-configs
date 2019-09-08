@@ -5,6 +5,7 @@
 (setq org-default-journal-file (concat org-directory "/journal.org"))
 (setq org-default-todo-file (concat org-directory "/todo.org"))
 (setq org-default-personal-file (concat org-directory "/personal.org"))
+(setq org-catch-invisible-edits 'show-and-error)
 (setq org-startup-with-inline-images t)
 
 (setq org-capture-templates
@@ -38,11 +39,11 @@
 (defun org-outlook-open (path) (w32-shell-execute "open" "C:/Program Files (x86)/Microsoft Office/root/Office16/OUTLOOK.exe" (concat "outlook:" path)))
 (org-add-link-type "outlook" 'org-outlook-open)
 
-;; (defun org-insert-clipboard-image ()
-;;   "Insert clipboard image into org"
-;;   (interactive)
-;;   (call-process-shell-command "powershell.exe Get-OrgImageLink")
-;;   (yank))
+(defun org-insert-clipboard-image ()
+  "Insert clipboard image into org"
+  (interactive)
+  (call-process-shell-command "powershell.exe Get-OrgImageLink")
+  (yank))
 
 ;; Enable inline highlighting for codeblocks
 (setq org-src-fontify-natively t)
@@ -52,7 +53,12 @@
 (setq org-adapt-indentation nil)
 
 (add-to-list 'org-emphasis-alist
-             '("*" (:foreground "Red" :height 145)
-               ))
+             '("*" (:foreground "#FD971F" :height 135 :box t :weight semi-bold)))
+
+(add-to-list 'org-emphasis-alist
+             '("/" (:foreground "#AE81FF" :height 135)))
+
+(add-to-list 'org-emphasis-alist
+             '("_" (:foreground "#A6E22E" :height 135 :underline t)))
 
 (provide 'init-org)

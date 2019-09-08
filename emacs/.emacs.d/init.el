@@ -26,7 +26,7 @@
  '(compilation-message-face (quote default))
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" "fa11f855b5f606f84e50106a7360c72aac88fee5f6fb8084aa4329009b61c5a2" "c3d385d9214f5b613e85fcaa2f746e52d272dbcceaaeea480ad3244a815882e7" "49de25b465bc3c2498bcd4c1575fa0090bd56fc79cdb49b919b49eaea17ee1dd" "ac88f5baa9b100652e0cc1d5891e66283d43a2b263cef048c3bff102983c29df" "86f4407f65d848ccdbbbf7384de75ba320d26ccecd719d50239f2c36bec18628" "a99e7c91236b2aba4cd374080c73f390c55173c5a1b4ac662eeb3172b60a9814" "0e121ff9bef6937edad8dfcff7d88ac9219b5b4f1570fd1702e546a80dba0832" "60f04e478dedc16397353fb9f33f0d895ea3dab4f581307fbf0aa2f07e658a40" default)))
+    ("11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" "c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" "fa11f855b5f606f84e50106a7360c72aac88fee5f6fb8084aa4329009b61c5a2" "c3d385d9214f5b613e85fcaa2f746e52d272dbcceaaeea480ad3244a815882e7" "49de25b465bc3c2498bcd4c1575fa0090bd56fc79cdb49b919b49eaea17ee1dd" "ac88f5baa9b100652e0cc1d5891e66283d43a2b263cef048c3bff102983c29df" "86f4407f65d848ccdbbbf7384de75ba320d26ccecd719d50239f2c36bec18628" "a99e7c91236b2aba4cd374080c73f390c55173c5a1b4ac662eeb3172b60a9814" "0e121ff9bef6937edad8dfcff7d88ac9219b5b4f1570fd1702e546a80dba0832" "60f04e478dedc16397353fb9f33f0d895ea3dab4f581307fbf0aa2f07e658a40" default)))
  '(fci-rule-color "#3C3D37")
  '(flymake-proc-allowed-file-name-masks
    (quote
@@ -67,7 +67,7 @@
  '(org-agenda-files (quote ("~/OneDrive/org/journal.org")))
  '(package-selected-packages
    (quote
-    (avy python-mode deadgrep spaceline-all-the-icons anzu spaceline spacemacs-theme cquery ccls dash lsp-ui lsp-mode rust-playground flycheck-rust rust-mode js2-mode zen-mode counsel-gtags counsel swiper ivy ripgrep prog-fill org-mime shell-pop git-messenger itail git-gutter origami zzz-to-char irony flycheck-clangcheck flycheck tide hl-anything less-css-mode web-mode typescript-mode gratuitous-dark-theme magit yaml-mode subatomic256-theme smex restclient rainbow-delimiters projectile powershell omnisharp multiple-cursors monokai-theme molokai-theme material-theme markdown-mode log4j-mode ido-vertical-mode highlight2clipboard groovy-mode gist ggtags fsharp-mode flx-ido flatland-theme expand-region csharp-mode company badwolf-theme autopair)))
+    (smartparens avy python-mode deadgrep spaceline-all-the-icons anzu spaceline cquery ccls dash lsp-ui lsp-mode rust-playground flycheck-rust rust-mode js2-mode zen-mode counsel-gtags counsel swiper ivy ripgrep prog-fill org-mime shell-pop git-messenger itail git-gutter zzz-to-char irony flycheck-clangcheck flycheck tide hl-anything less-css-mode web-mode typescript-mode magit yaml-mode smex restclient rainbow-delimiters projectile powershell omnisharp monokai-theme molokai-theme  markdown-mode log4j-mode ido-vertical-mode highlight2clipboard groovy-mode fsharp-mode flx-ido expand-region csharp-mode company autopair)))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(vc-annotate-background nil)
@@ -101,6 +101,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-4 ((t (:inherit default :foreground "#E6DB74" :weight bold :height 1.1))))
+ '(org-tag ((t nil))))
 
 (provide 'init)
