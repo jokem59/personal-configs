@@ -66,6 +66,15 @@ function Set-PSProfileSymLink {
 # TODO: Create function to setup cmder
 # Cmder should point to $Profile (this is mainly to support FcShell) (or change conemu settings and remove the default `-NoProfile` setting
 
+function Set-EmacsDaemonStartup {
+    $startup_file = "$([Environment]::GetFolderPath('Startup'))\StartEmacsServer.bat";
+
+    # Location of runemacs.exe will differ if installed via Chocolatey (C:\users\<username>) or Traditional means (%APPDATA%)
+    New-Item $startup_file -type file;
+    Set-Content -Path $startup_file -Value "set HOME=%APPDATA%";
+    Add-Content -Path $startup_file -Value "del /Q ""%HOME%/.emacs.d/server/*""";
+    Add-Content -Path $startup_file -Value "runemacs.exe --daemon";
+}
 
 # MAIN
 Get-PersonalConfigs;
