@@ -16,53 +16,6 @@
 (global-set-key (kbd "C-.") 'hs-show-all)
 
 ;; Movements
-;; Jump brackets Vi style
-(defun zz/goto-match-paren (arg)
-  "Go to the matching paren/bracket, otherwise (or if ARG is not nil) insert %.
-  vi style of % jumping to matching brace."
-  (interactive "p")
-  (if (not (memq last-command '(set-mark
-                                cua-set-mark
-                                zz/goto-match-paren
-                                down-list
-                                up-list
-                                end-of-defun
-                                beginning-of-defun
-                                backward-sexp
-                                forward-sexp
-                                backward-up-list
-                                forward-paragraph
-                                backward-paragraph
-                                end-of-buffer
-                                beginning-of-buffer
-                                backward-word
-                                forward-word
-                                mwheel-scroll
-                                backward-word
-                                forward-word
-                                mouse-start-secondary
-                                mouse-yank-secondary
-                                mouse-secondary-save-then-kill
-                                move-end-of-line
-                                move-beginning-of-line
-                                backward-char
-                                forward-char
-                                scroll-up
-                                scroll-down
-                                scroll-left
-                                scroll-right
-                                mouse-set-point
-                                next-buffer
-                                previous-buffer
-                                previous-line
-                                next-line
-                                back-to-indentation
-                                )))
-      (self-insert-command (or arg 1))
-    (cond ((looking-at "\\s\(") (sp-forward-sexp) (backward-char 1))
-          ((looking-at "\\s\)") (forward-char 1) (sp-backward-sexp))
-          (t (self-insert-command (or arg 1))))))
-(global-set-key (kbd "M-%") 'zz/goto-match-paren)
 
 ;; Viper-cmd sets foward/backwards word to be consistent with VIM/VSCode and other editors
 (require `viper-cmd)
