@@ -1,3 +1,14 @@
+;; Temp files now to go temporary directory instead of same directory as file
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+(setq delete-by-moving-to-trash t)
+
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
 (defun backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word, with argument ARG, do that arg number of times."
   (interactive "p")
