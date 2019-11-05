@@ -37,11 +37,11 @@
 ;; Theme
 ;;
 
-(load-theme 'gruvbox-dark-medium t)
+(load-theme 'gruvbox-dark-hard t)
 (set-face-attribute 'default nil :height 120)
 (when window-system
   (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular)
-  (setq-default line-spacing 3))
+  (setq-default line-spacing 1))
 
 ;;
 ;; Ivy Mode
