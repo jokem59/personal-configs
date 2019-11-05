@@ -24,7 +24,7 @@ function Get-ChocoPackages {
     choco install git -y;
     choco install cmder -y;
     choco install ripgrep -y;
-    choco install vim -y;
+    choco install emacs -y;
     choco install sysinternals -y;
     choco install rust-ms -y;
     choco install vswhere -y;
@@ -74,6 +74,32 @@ function Set-EmacsDaemonStartup {
     Set-Content -Path $startup_file -Value "set HOME=%APPDATA%";
     Add-Content -Path $startup_file -Value "del /Q ""%HOME%/.emacs.d/server/*""";
     Add-Content -Path $startup_file -Value "runemacs.exe --daemon";
+}
+
+function Get-Fonts {
+    $roboto_mono_uris = @("Regular", "Medium", "MediumItalic", "Thin", "ThinItalic", "Bold", "BoldItalic", "Italic", "Light", "LightItalic");
+
+    Foreach ($font_type in $roboto_mono_uris) {
+	try {
+	    $roboto_url = "https://github.com/google/fonts/blob/master/apache/robotomono/RobotoMono-$font_type.ttf";
+	    Invoke-WebRequest -Uri $roboto_url -OutFile C:\Windows\fonts\RobotoMono-Regular.ttf;
+	}
+	catch {
+	    Write-Host "Invalid Invoke-WebRequest to $roboto_url";
+	}
+    }
+
+    $roboto_mono_fonts = @("Regular", "Medium", "Medium Italic", "Thin", "Thin Italic", "Bold", "Bold Italic", "Italic", "Light", "Light Italic");
+    $ttf_suffx = "(TrueType)";
+
+    Foreach ($type in $roboto_mono_fonts) {
+	if ($type -eq "Regular") {
+	    reg add "hklm\software\microsoft\windows nt\currentversion\fonts" /v "Roboto Mono (True Type)" /t REG_SZ /d "RobotoMono-Regular.ttf";
+	}
+	else {
+	    reg add "hklm\software\microsoft\windows nt\currentversion\fonts" /v "Roboto Mono $type (True Type)" /t REG_SZ /d "RobotoMono-Regular.$($type -replace '\s','')ttf";
+	}
+    }
 }
 
 # MAIN

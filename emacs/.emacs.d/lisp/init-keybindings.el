@@ -17,11 +17,6 @@
 
 ;; Movements
 
-;; Viper-cmd sets foward/backwards word to be consistent with VIM/VSCode and other editors
-(require `viper-cmd)
-(global-set-key (kbd "M-f") 'viper-forward-word)
-(global-set-key (kbd "M-b") 'viper-backward-word)
-
 (global-set-key (kbd "C-;") 'avy-goto-line)
 (global-set-key (kbd "C-'") 'avy-goto-char-timer)
 ;; Sets the timeout for avy-goto-char-timer
@@ -51,13 +46,6 @@
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C--") 'er/contract-region)
-
-;; Multiple-cursors
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; Highlight-symbols
 (global-set-key [(control f1)] 'hl-highlight-mode)

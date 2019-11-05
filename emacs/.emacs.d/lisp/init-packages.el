@@ -1,63 +1,38 @@
 (require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(setq package-archives '(("org"   . "http://orgmode.org/elpa/")
+                         ("gnu"   . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
 
 (package-initialize)
+(require 'package)
+(setq package-enable-at-startup nil)
 
 (defvar jokem/packages '(; misc / tools
-                          use-package
-                          auto-complete
-                          autopair
-                          gist
-                          htmlize
-                          restclient
-                          multiple-cursors
-                          expand-region
-                          highlight-symbol
-                          smex
-                          highlight2clipboard
-                          hl-anything
-                          git-messenger
-                          git-gutter
-                          ivy
-                          swiper
-                          counsel
-                          counsel-gtags
-                          prog-fill
-                          shell-pop
-                          golden-ratio
-                          flycheck
-                          spaceline
-                          anzu
-                          deadgrep
-                          avy
+                         avy
+                         git-gutter
+                         ivy
+                         counsel
+                         golden-ratio
+                         expand-region
 
-                          ; modes
-                          company
-                          log4j-mode
-                          ggtags
-                          projectile
-                          rainbow-delimiters
-                          flx-ido
-                          ido-vertical-mode
-                          powershell
-                          magit
+                         ; modes
+                         log4j-mode
+                         powershell
+                         magit
 
-                          ; language modes
-                          csharp-mode
-                          fsharp-mode
-                          markdown-mode
-                          yaml-mode
-                          js3-mode
-                          web-mode
-                          tide
-                          rust-mode
-                          flycheck-rust
+                         ; language modes
+                         csharp-mode
+                         markdown-mode
+                         yaml-mode
+                         js3-mode
+                         web-mode
+                         tide
+                         rust-mode
 
-                          ; themes
-                          molokai-theme
-                          monokai-theme
-                          )
+                        ; themes
+			             gruvbox-theme
+                         )
   "Default packages")
 
 (require 'cl-lib)

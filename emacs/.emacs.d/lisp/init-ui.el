@@ -1,4 +1,11 @@
 (require 'golden-ratio)
+(golden-ratio-mode 1)
+
+;; Start emacs in fullscreen
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+; Don't show the Welcome screen
+(setq inhibit-startup-screen t)
 
 (setq-default indent-tabs-mode nil)
 
@@ -12,7 +19,6 @@
 (scroll-bar-mode 0)
 (golden-ratio-mode 1)
 (setq-default show-trailing-whitespace 1)
-(setq inhibit-startup-message t)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -31,26 +37,15 @@
 ;; Theme
 ;;
 
-(load-theme 'monokai t)
-(set-face-attribute 'default nil :height 130)
+(load-theme 'gruvbox-dark-medium t)
+(set-face-attribute 'default nil :height 120)
 (when window-system
-  (set-face-attribute 'default nil :font "Consolas")
+  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular)
   (setq-default line-spacing 3))
 
 ;;
-;; Ivy instead of Ido
+;; Ivy Mode
 ;;
-;; Ido-mode with flx and configuration
-;; (require 'ido-vertical-mode)
-;; (require 'flx-ido)
-;; (ido-mode 1)
-;; (ido-everywhere 1)
-;; (ido-vertical-mode 1)
-;; (flx-ido-mode 1)
-;; ;; disable ido faces to see flx highlights.
-;; (setq ido-enable-flex-matching t)
-;; (setq ido-use-faces nil)
-;; (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
@@ -59,15 +54,9 @@
       '((swiper . ivy--regex-plus)
         (t      . ivy--regex-fuzzy)))
 
-(use-package spaceline
-  :demand t
-  :init
-  (setq powerline-default-separator 'arrow-fade)
-  :config
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme))
-
-(global-anzu-mode +1)
+;; better performance on everything (especially windows), ivy-0.10.0 required
+;; @see https://github.com/abo-abo/swiper/issues/1218
+(setq ivy-dynamic-exhibit-delay-ms 250)
 
 ;;
 ;; The uniquify library makes it so that when you visit two files with the same name in different directories,
@@ -80,6 +69,7 @@
 ;; The saveplace library saves the location of the point when you kill a buffer
 ;; and returns to it next time you visit the associated file.
 ;;
+
 (require 'saveplace)
 (save-place-mode 1)
 
