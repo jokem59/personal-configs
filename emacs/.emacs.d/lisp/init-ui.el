@@ -34,6 +34,16 @@
 (autoload 'linum-mode "linum" "toggle line numbers on/off" t)
 
 ;;
+;; Smart Mode Line
+;;
+(custom-set-faces
+ '(mode-line ((t (:background "gray20" :foreground nil))))
+ '(mode-line-inactive ((t (:background "dim gray")))))
+(setq sml/no-confirm-load-theme t)
+(setq sml/theme 'atom-one-dark)
+(sml/setup)
+
+;;
 ;; Theme
 ;;
 

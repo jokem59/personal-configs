@@ -15,6 +15,9 @@
                          counsel
                          golden-ratio
                          expand-region
+                         deadgrep
+                         smart-mode-line
+                         smart-mode-line-atom-one-dark-theme
 
                          ; modes
                          log4j-mode
@@ -48,5 +51,9 @@
   (dolist (pkg jokem/packages)
     (when (not (package-installed-p pkg))
       (package-install pkg))))
+
+;; Update packages if available and not already marked for update
+(when (not package-archive-contents)
+    (package-refresh-contents))
 
 (provide 'init-packages)
