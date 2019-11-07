@@ -94,10 +94,10 @@ function Get-Fonts {
 
     Foreach ($type in $roboto_mono_fonts) {
         if ($type -eq "Regular") {
-            reg add "hklm\software\microsoft\windows nt\currentversion\fonts" /v "Roboto Mono (TrueType)" /t REG_SZ /d "RobotoMono-Regular.ttf";
+            reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Roboto Mono (TrueType)" /t REG_SZ /d "RobotoMono-Regular.ttf";
         }
         else {
-            reg add "hklm\software\microsoft\windows nt\currentversion\fonts" /v "Roboto Mono $type (TrueType)" /t REG_SZ /d "RobotoMono-Regular.$($type -replace '\s','').ttf";
+            reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Roboto Mono $type (TrueType)" /t REG_SZ /d "RobotoMono-$($type -replace '\s','').ttf";
         }
     }
 }
