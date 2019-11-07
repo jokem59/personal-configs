@@ -1,8 +1,6 @@
 ;; Temp files now to go temporary directory instead of same directory as file
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
 
 (setq delete-by-moving-to-trash t)
 
