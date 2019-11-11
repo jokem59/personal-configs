@@ -1,5 +1,8 @@
 (require 'org)
 
+;; Run on journal.org file for org agenda to use
+;; M-x org-agenda-file-to-front
+
 ;; Windows specific for slow org-mode
 (setq gc-cons-threshold (* 511 1024 1024))
 (setq gc-cons-percentage 0.5)
