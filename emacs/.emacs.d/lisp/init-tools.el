@@ -13,4 +13,9 @@
 (add-hook 'shell-mode-hook (lambda ()
                              (setq show-trailing-whitespace nil)))
 
+;; EDiff config
+(custom-set-variables
+ '(ediff-split-window-function (quote split-window-horizontally))  ;; Split side by side
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))) ;; Prevent popu
+
 (provide 'init-tools)
