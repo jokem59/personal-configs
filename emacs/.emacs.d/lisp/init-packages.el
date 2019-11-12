@@ -22,6 +22,7 @@
                          log4j-mode
                          powershell
                          magit
+                         company-mode
 
                          ; language modes
                          csharp-mode

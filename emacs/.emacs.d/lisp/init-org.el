@@ -61,8 +61,11 @@
 ;; prevent demoting heading also shifting text inside sections
 (setq org-adapt-indentation nil)
 
+;; Hide formatting characters like *, /, _
+(setq org-hide-emphasis-markers t)
+
 (add-to-list 'org-emphasis-alist
-             '("*" (:foreground "#FD971F" :height nil :box t :weight semi-bold)))
+             '("*" (:foreground "#FD971F" :height nil :box nil :weight semi-bold)))
 
 (add-to-list 'org-emphasis-alist
              '("/" (:foreground "#AE81FF" :height nil)))
