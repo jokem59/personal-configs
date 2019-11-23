@@ -4,7 +4,6 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
-(require 'package)
 (setq package-enable-at-startup nil)
 
 (defvar jokem/packages '(; misc / tools
@@ -22,7 +21,6 @@
                          log4j-mode
                          powershell
                          magit
-                         company-mode
 
                          ; language modes
                          csharp-mode
