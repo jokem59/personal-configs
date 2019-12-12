@@ -10,6 +10,7 @@
                          avy
                          git-gutter
                          ivy
+                         smex
                          counsel
                          golden-ratio
                          expand-region
