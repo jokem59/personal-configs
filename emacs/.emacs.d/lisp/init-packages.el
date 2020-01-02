@@ -10,6 +10,7 @@
                          avy
                          git-gutter
                          ivy
+                         ivy-rich
                          counsel
                          golden-ratio
                          expand-region

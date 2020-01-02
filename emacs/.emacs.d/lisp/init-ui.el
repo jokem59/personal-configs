@@ -4,7 +4,7 @@
 ;; Start emacs in fullscreen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-; Don't show the Welcome screen
+;; Don't show the Welcome screen
 (setq inhibit-startup-screen t)
 
 (setq-default indent-tabs-mode nil)
@@ -19,6 +19,9 @@
 (scroll-bar-mode 0)
 (golden-ratio-mode 1)
 (setq-default show-trailing-whitespace 1)
+;; Disable to make ivy-rich mode look cleaner
+(add-hook 'minibuffer-setup-hook
+          (lambda () (setq-local show-trailing-whitespace nil)))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -88,5 +91,12 @@
 ;;
 (require 'git-gutter)
 (global-git-gutter-mode 1)
+
+;;
+;; Ivy-rich settings
+;;
+(require 'ivy-rich)
+(ivy-rich-mode 1)
+(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
 (provide 'init-ui)
