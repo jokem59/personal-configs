@@ -11,6 +11,7 @@
                          git-gutter
                          ivy
                          ivy-rich
+                         smex
                          counsel
                          golden-ratio
                          expand-region
