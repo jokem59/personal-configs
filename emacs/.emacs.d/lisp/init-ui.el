@@ -200,6 +200,15 @@
            :predicate
            (lambda (cand) (get-buffer cand)))
 
+          ivy-switch-buffer-other-window
+          (:columns
+           ((ivy-rich-switch-buffer-icon (:width 2))
+            (ivy-rich-candidate (:width 40))
+            (ivy-rich-switch-buffer-project (:width 15 :face success))
+            (ivy-rich-switch-buffer-major-mode (:width 13 :face warning)))
+           :predicate
+           (lambda (cand) (get-buffer cand)))
+
           counsel-M-x
           (:columns
            ((counsel-M-x-transformer (:width 40))  ; thr original transformer
