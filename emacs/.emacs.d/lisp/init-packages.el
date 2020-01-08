@@ -10,6 +10,7 @@
                          avy
                          git-gutter
                          ivy
+                         ivy-rich
                          smex
                          counsel
                          golden-ratio
