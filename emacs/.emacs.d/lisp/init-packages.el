@@ -32,8 +32,16 @@
                          tide
                          rust-mode
 
+                         ; UI
+                         doom-modeline
+                         solaire-mode
+
+                         ivy-posframe
+                         ivy-rich
+
                         ; themes
 			             gruvbox-theme
+                         doom-themes
                          )
   "Default packages")
 
