@@ -13,6 +13,9 @@
 (add-hook 'shell-mode-hook (lambda ()
                              (setq show-trailing-whitespace nil)))
 
+;; Undo-tree
+(global-undo-tree-mode)
+
 ;; EDiff config
 (custom-set-variables
  '(ediff-split-window-function (quote split-window-horizontally))  ;; Split side by side

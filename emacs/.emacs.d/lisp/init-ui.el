@@ -175,7 +175,7 @@
           (complete-symbol . ivy-posframe-display-at-point)
           (t . ivy-posframe-display-at-frame-top-center)))
   (setq ivy-posframe-height-alist '((swiper . 12)
-                                    (t      . 20)))
+                                   (t      . 20)))
   (setq ivy-posframe-parameters '((internal-border-width . 10) (font . "Roboto Mono")))
   (setq ivy-posframe-width 700)
   (ivy-posframe-mode +1))
