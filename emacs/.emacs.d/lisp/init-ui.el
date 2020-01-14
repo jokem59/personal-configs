@@ -49,7 +49,7 @@
 ;;
 ;; Theme
 ;;
-(set-face-attribute 'default nil :height 120)
+(set-face-attribute 'default nil :height 110)
 (when window-system
   (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular)
   (setq-default line-spacing 1))
@@ -132,7 +132,7 @@
 
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
 ;; may have their own settings.
-(load-theme 'doom-vibrant t)
+(load-theme 'gruvbox-dark-hard t)
 
 (require 'solaire-mode)
 
@@ -170,13 +170,15 @@
   :after ivy
   :diminish
   :config
+  (set-face-attribute 'ivy-posframe nil :background "gray11")
+  (set-face-attribute 'ivy-posframe-border nil :background "gray15")
   (setq ivy-posframe-display-functions-alist
         '((swiper          . nil)
           (complete-symbol . ivy-posframe-display-at-point)
           (t . ivy-posframe-display-at-frame-top-center)))
   (setq ivy-posframe-height-alist '((swiper . 12)
                                    (t      . 20)))
-  (setq ivy-posframe-parameters '((internal-border-width . 10) (font . "Roboto Mono")))
+  (setq ivy-posframe-parameters '((internal-border-width . 7) (font . "Roboto Mono")))
   (setq ivy-posframe-width 700)
   (ivy-posframe-mode +1))
 
