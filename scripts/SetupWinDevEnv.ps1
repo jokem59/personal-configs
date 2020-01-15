@@ -37,7 +37,7 @@ function Get-ChocoPackages {
 
 # NOTE: This must be run BEFORE the files/directories references are created
 # Creates symlink to $CONFIG_HOME for easy git management
-function Set-VimrcSymLink {
+function Set-SymLinks {
     # Creates new symbolic link file in $home/.vimrc that is linked to $CONFIG_HOME\.vimrc
     New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\vim\.vimrc;
 
@@ -60,8 +60,6 @@ function Set-PSProfileSymLink {
     # else
     #   Create symlink to the powershell profile ps1 in personal-configs
 }
-
-# TODO: Create function that symlinks all of ~/vimfiles to c:\tools\personal-configs
 
 # TODO: Create function to setup cmder
 # Cmder should point to $Profile (this is mainly to support FcShell) (or change conemu settings and remove the default `-NoProfile` setting
