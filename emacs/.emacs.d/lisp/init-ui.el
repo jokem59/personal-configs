@@ -1,5 +1,11 @@
+;; Golden ratio settings
 (require 'golden-ratio)
 (golden-ratio-mode 1)
+
+;; Properly resizes magit-status window
+(define-advice select-window (:after (window &optional no-record) golden-ratio-resize-window)
+    (golden-ratio)
+    nil)
 
 ;; Start emacs in fullscreen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
