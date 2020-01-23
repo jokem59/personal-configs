@@ -132,7 +132,7 @@
 
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
 ;; may have their own settings.
-(load-theme 'gruvbox-dark-hard t)
+(load-theme 'doom-dark+ t)
 
 (require 'solaire-mode)
 
