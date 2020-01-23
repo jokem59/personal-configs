@@ -11,4 +11,9 @@
   (interactive)
   (magit-mode-setup #'magit-staging-mode))
 
+;; Properly resizes magit-status window
+(define-advice select-window (:after (window &optional no-record) golden-ratio-resize-window)
+    (golden-ratio)
+    nil)
+
 (provide 'init-magit)
