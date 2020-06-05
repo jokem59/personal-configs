@@ -20,7 +20,7 @@
 (global-set-key (kbd "C-;") 'avy-goto-line)
 (global-set-key (kbd "C-'") 'avy-goto-char-timer)
 ;; Sets the timeout for avy-goto-char-timer
-(setq avy-timeout-seconds 0.5)
+(setq avy-timeout-seconds 0.1)
 
 (global-set-key (kbd "C-S-n")
                 (lambda ()
