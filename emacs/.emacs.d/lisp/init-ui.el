@@ -160,8 +160,8 @@
 (setq ivy-count-format "(%d/%d) ")
 (setq ivy-re-builders-alist
       '((swiper . ivy--regex-plus)
-        (counsel-git . ivy--regex)
-        (t      . ivy--regex-fuzzy)))
+        (counsel-git . ivy--regex-plus)
+        (t      . ivy--regex-plus)))
 
 ;; better performance on everything (especially windows), ivy-0.10.0 required
 ;; @see https://github.com/abo-abo/swiper/issues/1218
