@@ -160,7 +160,7 @@
 (setq ivy-count-format "(%d/%d) ")
 (setq ivy-re-builders-alist
       '((swiper . ivy--regex-plus)
-        (counsel-git . ivy--regex-plus)
+        (counsel-git . ivy--regex)
         (t      . ivy--regex-fuzzy)))
 
 ;; better performance on everything (especially windows), ivy-0.10.0 required
