@@ -1,8 +1,8 @@
-# This is a
-
 $CONFIG_HOME = "C:\tools\personal-configs";
+$POWERSHELL_PROFILE = "Microsoft.PowerShell_profile.ps1";
 
 function Get-PersonalConfigs {
+    Write-Host "Getting personal configs...";
     $GIT_TEMP = "C:\gittemp"
     # Create directory C:\tools
     # git clone into C:\tools
@@ -14,6 +14,7 @@ function Get-PersonalConfigs {
 }
 
 function Get-Choco {
+    Write-Host "Getting Choco...";
     Set-ExecutionPolicy Bypass -Scope Process -Force;
     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));
 }
@@ -40,6 +41,7 @@ function Get-ChocoPackages {
 # NOTE: This must be run BEFORE the files/directories references are created
 # Creates symlink to $CONFIG_HOME for easy git management
 function Set-SymLinks {
+    Write-Host "Setting symlinks/junctions...";
     # Creates new symbolic link file in $home/.vimrc that is linked to $CONFIG_HOME\.vimrc
     New-Item -ItemType SymbolicLink -Path $home -Name .vimrc -Value $CONFIG_HOME\vim\.vimrc;
 
@@ -50,23 +52,22 @@ function Set-SymLinks {
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig_global -value $CONFIG_HOME\.gitconfig_global;
 
     New-Item -ItemType Junction -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
+    
+    $splitIndex = $profile.IndexOf($POWERSHELL_PROFILE);
+    $profilePath = $profile.Substring(0, $splitIndex);
+    New-Item -ItemType Junction -Path $profilePath -Name $POWERSHELL_PROFILE -Value $CONFIG_HOME\powershell\$POWERSHELL_PROFILE;
 }
 
 function Set-GitGlobalSettings {
+    Write-Host "Setting git global settings...";
     iex (git config --global core.excludesfile ~/.gitignore_global);
-}
-
-function Set-PSProfileSymLink {
-    # Check if file already exists
-    #   True, delete it
-    # else
-    #   Create symlink to the powershell profile ps1 in personal-configs
 }
 
 # TODO: Create function to setup cmder
 # Cmder should point to $Profile (this is mainly to support FcShell) (or change conemu settings and remove the default `-NoProfile` setting
 
 function Set-EmacsDaemonStartup {
+    Write-Host "Setting Emacs daemon on startup...";
     $startup_file = "$([Environment]::GetFolderPath('Startup'))\StartEmacsServer.bat";
 
     # Location of runemacs.exe will differ if installed via Chocolatey (C:\users\<username>) or Traditional means (%APPDATA%)
@@ -109,3 +110,5 @@ Get-ChocoPackages;
 Get-PersonalConfigs;
 Set-SymLinks;
 Get-Fonts;
+Set-GitGlobalSettings;
+Set-EmacsDaemonStartup;
