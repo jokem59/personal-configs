@@ -1,3 +1,5 @@
+# Run from Admin powershell
+
 $CONFIG_HOME = "C:\tools\personal-configs";
 $POWERSHELL_PROFILE = "Microsoft.PowerShell_profile.ps1";
 
@@ -105,6 +107,7 @@ function Get-Fonts {
 }
 
 # MAIN
+Set-ExecutionPolicy Bypass;
 Get-Choco;
 Get-ChocoPackages;
 Get-PersonalConfigs;
