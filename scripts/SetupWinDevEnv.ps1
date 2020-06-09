@@ -87,7 +87,7 @@ function Get-Fonts {
 
     Foreach ($font_type in $roboto_mono_uris) {
         try {
-            $roboto_url = "https://github.com/google/fonts/blob/master/apache/robotomono/static/RobotoMono-$font_type.ttf";
+            $roboto_url = "https://github.com/google/fonts/raw/master/apache/robotomono/static/RobotoMono-$font_type.ttf";
             Invoke-WebRequest -Uri $roboto_url -OutFile "C:\Windows\fonts\RobotoMono-$font_type.ttf";
         }
         catch {
