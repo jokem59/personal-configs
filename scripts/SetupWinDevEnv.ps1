@@ -20,7 +20,8 @@ function Get-Choco {
 
 # TODO: Move tools to c:\tools
 function Get-ChocoPackages {
-
+    Write-Host "Getting Choco Packages...";
+    choco install googlechrome -y;
     choco install git -y;
     choco install cmder -y;
     choco install ripgrep -y;
@@ -28,7 +29,8 @@ function Get-ChocoPackages {
     choco install sysinternals -y;
     choco install rust-ms -y;
     choco install vswhere -y;
-
+    choco install msbuild-structured-log-viewer -y;
+    choco install spotify -y;
 }
 
 # TODO: Download dependency walker tool
@@ -75,6 +77,7 @@ function Set-EmacsDaemonStartup {
 }
 
 function Get-Fonts {
+    Write-Host "Getting fonts...";
     $roboto_mono_uris = @("Regular", "Medium", "MediumItalic", "Thin", "ThinItalic", "Bold", "BoldItalic", "Italic", "Light", "LightItalic");
 
     Foreach ($font_type in $roboto_mono_uris) {
@@ -101,5 +104,8 @@ function Get-Fonts {
 }
 
 # MAIN
-Get-PersonalConfigs;
+Get-Choco;
 Get-ChocoPackages;
+Get-PersonalConfigs;
+Set-SymLinks;
+Get-Fonts;
