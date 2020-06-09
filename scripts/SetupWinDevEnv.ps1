@@ -53,13 +53,13 @@ function Set-SymLinks {
 
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig -Value $CONFIG_HOME\.gitconfig;
 
-    New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig_global -value $CONFIG_HOME\.gitconfig_global;
+    New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig_global -value $CONFIG_HOME\.gitignore_global;
 
     New-Item -ItemType Junction -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
     
     $splitIndex = $profile.IndexOf($POWERSHELL_PROFILE);
     $profilePath = $profile.Substring(0, $splitIndex);
-    New-Item -ItemType Junction -Path $profilePath -Name $POWERSHELL_PROFILE -Value $CONFIG_HOME\powershell\$POWERSHELL_PROFILE;
+    New-Item -ItemType SymbolicLink -Path $profilePath -Name $POWERSHELL_PROFILE -Value $CONFIG_HOME\powershell\$POWERSHELL_PROFILE;
 }
 
 function Set-GitGlobalSettings {
