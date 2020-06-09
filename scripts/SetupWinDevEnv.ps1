@@ -106,6 +106,9 @@ function Get-Fonts {
             reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Roboto Mono $type (TrueType)" /t REG_SZ /d "RobotoMono-$($type -replace '\s','').ttf";
         }
     }
+    
+    $roboFont = Get-ChildItem "$($env:systemdrive)\Windows\Fonts\RobotoMono*";
+    $roboFont | % { Invoke-Expression $_ };
 }
 
 # MAIN
