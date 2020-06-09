@@ -33,7 +33,9 @@ function Get-ChocoPackages {
     choco install rust-ms -y;
     choco install vswhere -y;
     choco install msbuild-structured-log-viewer -y;
-    choco install spotify -y;
+    choco install cmake -y;
+    choco install vscode -y;
+    
 }
 
 # TODO: Download dependency walker tool
@@ -85,7 +87,7 @@ function Get-Fonts {
 
     Foreach ($font_type in $roboto_mono_uris) {
         try {
-            $roboto_url = "https://github.com/google/fonts/blob/master/apache/robotomono/RobotoMono-$font_type.ttf";
+            $roboto_url = "https://github.com/google/fonts/blob/master/apache/robotomono/static/RobotoMono-$font_type.ttf";
             Invoke-WebRequest -Uri $roboto_url -OutFile "C:\Windows\fonts\RobotoMono-$font_type.ttf";
         }
         catch {
