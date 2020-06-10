@@ -35,7 +35,7 @@ function Get-ChocoPackages {
     choco install msbuild-structured-log-viewer -y;
     choco install cmake -y;
     choco install vscode -y;
-    
+    choco install poshgit -y;
 }
 
 # TODO: Download dependency walker tool
