@@ -33,7 +33,9 @@ function Get-ChocoPackages {
     choco install rust-ms -y;
     choco install vswhere -y;
     choco install msbuild-structured-log-viewer -y;
-    choco install spotify -y;
+    choco install cmake -y;
+    choco install vscode -y;
+    choco install poshgit -y;
 }
 
 # TODO: Download dependency walker tool
@@ -51,13 +53,13 @@ function Set-SymLinks {
 
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig -Value $CONFIG_HOME\.gitconfig;
 
-    New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig_global -value $CONFIG_HOME\.gitconfig_global;
+    New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig_global -value $CONFIG_HOME\.gitignore_global;
 
     New-Item -ItemType Junction -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
     
     $splitIndex = $profile.IndexOf($POWERSHELL_PROFILE);
     $profilePath = $profile.Substring(0, $splitIndex);
-    New-Item -ItemType Junction -Path $profilePath -Name $POWERSHELL_PROFILE -Value $CONFIG_HOME\powershell\$POWERSHELL_PROFILE;
+    New-Item -ItemType SymbolicLink -Path $profilePath -Name $POWERSHELL_PROFILE -Value $CONFIG_HOME\powershell\$POWERSHELL_PROFILE;
 }
 
 function Set-GitGlobalSettings {
@@ -85,7 +87,7 @@ function Get-Fonts {
 
     Foreach ($font_type in $roboto_mono_uris) {
         try {
-            $roboto_url = "https://github.com/google/fonts/blob/master/apache/robotomono/RobotoMono-$font_type.ttf";
+            $roboto_url = "https://github.com/google/fonts/raw/master/apache/robotomono/static/RobotoMono-$font_type.ttf";
             Invoke-WebRequest -Uri $roboto_url -OutFile "C:\Windows\fonts\RobotoMono-$font_type.ttf";
         }
         catch {
@@ -104,6 +106,9 @@ function Get-Fonts {
             reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Roboto Mono $type (TrueType)" /t REG_SZ /d "RobotoMono-$($type -replace '\s','').ttf";
         }
     }
+    
+    $roboFont = Get-ChildItem "$($env:systemdrive)\Windows\Fonts\RobotoMono*";
+    $roboFont | % { Invoke-Expression $_ };
 }
 
 # MAIN
