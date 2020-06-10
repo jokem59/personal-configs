@@ -36,6 +36,7 @@ function Get-ChocoPackages {
     choco install cmake -y;
     choco install vscode -y;
     choco install poshgit -y;
+    choco install 7zip -y;
 }
 
 # TODO: Download dependency walker tool
