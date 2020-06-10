@@ -174,10 +174,10 @@
   (set-face-attribute 'ivy-posframe nil :background "gray11")
   (set-face-attribute 'ivy-posframe-border nil :background "gray14")
   (setq ivy-posframe-display-functions-alist
-        '((swiper          . nil)
+        '((swiper          . ivy-display-function-fallback)
           (complete-symbol . ivy-posframe-display-at-point)
           (t . ivy-posframe-display-at-frame-top-center)))
-  (setq ivy-posframe-height-alist '((swiper . 12)
+  (setq ivy-posframe-height-alist '((swiper . 15)
                                    (t      . 20)))
   (setq ivy-posframe-parameters '((internal-border-width . 4) (font . "Roboto Mono")))
   (setq ivy-posframe-width 700)

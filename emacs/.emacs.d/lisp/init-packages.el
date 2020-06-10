@@ -7,6 +7,7 @@
 (setq package-enable-at-startup nil)
 
 (defvar jokem/packages '(; misc / tools
+                         use-package
                          avy
                          git-gutter
                          ivy
@@ -18,6 +19,8 @@
                          deadgrep
                          smart-mode-line
                          smart-mode-line-atom-one-dark-theme
+                         undo-tree
+                         all-the-icons
 
                          ; modes
                          log4j-mode
@@ -41,7 +44,7 @@
                          ivy-rich
 
                         ; themes
-			             gruvbox-theme
+                         gruvbox-theme
                          doom-themes
                          )
   "Default packages")
