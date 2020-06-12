@@ -2,6 +2,7 @@
 
 $CONFIG_HOME = "C:\tools\personal-configs";
 $POWERSHELL_PROFILE = "Microsoft.PowerShell_profile.ps1";
+$USER_PSMODULE_PATH = $env:PSModulePath.Split(';')[0];
 
 function Get-PersonalConfigs {
     Write-Host "Getting personal configs...";
@@ -38,6 +39,16 @@ function Get-ChocoPackages {
     choco install poshgit -y;
 }
 
+function Install-PostGitModule {
+    mkdir $USER_PSMODULE_PATH;
+    mkdir "$USER_PSMODULE_PATH\poshgit";
+
+    $poshModule = Get-ChildItem c:/tools/poshgit *src* -Recurse -Directory;
+    cp "$poshModule.FullName/*" "$USER_PSMODULE_PATH\poshgit";
+
+    Install-Module posh-git;
+}
+
 # TODO: Download dependency walker tool
 
 # TOOD: Create generic set symlink function
@@ -56,10 +67,12 @@ function Set-SymLinks {
     New-Item -ItemType SymbolicLink -Path $home -Name .gitconfig_global -value $CONFIG_HOME\.gitignore_global;
 
     New-Item -ItemType Junction -Path $home -Name .emacs.d -Value $CONFIG_HOME\emacs\.emacs.d;
-    
+
     $splitIndex = $profile.IndexOf($POWERSHELL_PROFILE);
     $profilePath = $profile.Substring(0, $splitIndex);
     New-Item -ItemType SymbolicLink -Path $profilePath -Name $POWERSHELL_PROFILE -Value $CONFIG_HOME\powershell\$POWERSHELL_PROFILE;
+
+    New-Item -ItemType SymbolicLink -Path "C:\tools\Cmder\vendor\conemu-maximus5" -Name ConEmu.xml -Value $CONFIG_HOME\cmder\ConEmu.xml;
 }
 
 function Set-GitGlobalSettings {
@@ -106,9 +119,14 @@ function Get-Fonts {
             reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Roboto Mono $type (TrueType)" /t REG_SZ /d "RobotoMono-$($type -replace '\s','').ttf";
         }
     }
-    
+
     $roboFont = Get-ChildItem "$($env:systemdrive)\Windows\Fonts\RobotoMono*";
     $roboFont | % { Invoke-Expression $_ };
+}
+
+function Set-EnvVariables {
+    $env:home = $HOME;
+    [System.Environment]::SetEnvironmentVariable('HOME', $env:USERPROFILE, [System.EnvironmentVariableTarget]::Machine);
 }
 
 # MAIN
@@ -119,4 +137,5 @@ Get-PersonalConfigs;
 Set-SymLinks;
 Get-Fonts;
 Set-GitGlobalSettings;
-Set-EmacsDaemonStartup;
+# Set-EmacsDaemonStartup;
+Install-PostGitModule;
