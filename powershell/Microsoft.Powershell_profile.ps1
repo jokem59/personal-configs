@@ -26,7 +26,6 @@ function em {
     $emacs = Get-Process | Where-Object {$_.Name -like "emacs"};
     if ($emacs)
     {
-        Write-Host "Get process"
 Add-Type @"
     using System;
     using System.Runtime.InteropServices;
