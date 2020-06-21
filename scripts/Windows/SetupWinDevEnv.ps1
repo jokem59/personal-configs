@@ -31,6 +31,7 @@ function Get-ChocoPackages {
     choco install ripgrep -y;
     choco install emacs -y;
     choco install sysinternals -y;
+    choco install syncthing -y;
     choco install rust-ms -y;
     choco install vswhere -y;
     choco install msbuild-structured-log-viewer -y;
