@@ -123,6 +123,7 @@ function Get-Fonts {
             }
             $fonts.CopyHere($fontFile.FullName);
         }
+    }
 }
 
 function Set-EnvVariables {
