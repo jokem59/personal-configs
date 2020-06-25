@@ -3,13 +3,28 @@
 ;; Run on journal.org file for org agenda to use
 ;; M-x org-agenda-file-to-front
 
-;; Windows specific for slow org-mode
-(setq gc-cons-threshold (* 511 1024 1024))
-(setq gc-cons-percentage 0.5)
-(run-with-idle-timer 5 t #'garbage-collect)
-(setq garbage-collection-messages t)
+(cond ((eq system-type 'windows-nt)
+       ;; Windows specific for slow org-mode
+       (setq gc-cons-threshold (* 511 1024 1024))
+       (setq gc-cons-percentage 0.5)
+       (run-with-idle-timer 5 t #'garbage-collect)
+       (setq garbage-collection-messages t)
 
-(setq org-directory "~/OneDrive/org")
+       (defun org-outlook-open (path) (w32-shell-execute "open" "C:/Program Files (x86)/Microsoft Office/root/Office16/OUTLOOK.exe" (concat "outlook:" path)))
+       (org-add-link-type "outlook" 'org-outlook-open)
+
+       (defun org-insert-clipboard-image ()
+	 "Insert clipboard image into org"
+	 (interactive)
+	 (call-process-shell-command "powershell.exe Get-OrgImageLink")
+	 (yank))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here. 
+       ))
+
+
+(setq org-directory "~/Sync/org")
 (setq org-default-notes-file (concat org-directory "/journal.org"))
 (setq org-default-journal-file (concat org-directory "/journal.org"))
 (setq org-default-todo-file (concat org-directory "/todo.org"))
@@ -45,14 +60,6 @@
   (interactive)
   (find-file org-default-journal-file))
 
-(defun org-outlook-open (path) (w32-shell-execute "open" "C:/Program Files (x86)/Microsoft Office/root/Office16/OUTLOOK.exe" (concat "outlook:" path)))
-(org-add-link-type "outlook" 'org-outlook-open)
-
-(defun org-insert-clipboard-image ()
-  "Insert clipboard image into org"
-  (interactive)
-  (call-process-shell-command "powershell.exe Get-OrgImageLink")
-  (yank))
 
 ;; Enable inline highlighting for codeblocks
 (setq org-src-fontify-natively t)

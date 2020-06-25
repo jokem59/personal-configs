@@ -1,10 +1,11 @@
 ;; Temp files now to go temporary directory instead of same directory as file
 (defvar --backup-directory "~/.saves/")
 (if (not (file-exists-p --backup-directory))
-        (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
+    (make-directory --backup-directory t))
+(setq backup-directory-alist
+      `((".*" . ,--backup-directory)))
 (setq auto-save-file-name-transforms
-  `((".*" "~/.saves/" t)))
+      `((".*", --backup-directory t)))
 (setq make-backup-files t               ; backup of a file the first time it is saved.
       backup-by-copying t               ; don't clobber symlinks
       version-control t                 ; version numbers for backup files

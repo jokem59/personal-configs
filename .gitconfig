@@ -1,7 +1,7 @@
 [core]
 	autocrlf = true
     editor = gvim
-	excludesfile = C:\\Users\\joeki\\OneDrive\\Documents\\gitignore_global.txt
+	excludesfile = ~/.gitignore_global
 [alias]
     dt = difftool
     mt = mergetool

@@ -1,25 +1,53 @@
+# Write-Host "*********************";
+# Write-Host "*  Loading Profile  *";
+# Write-Host "*********************";
+
+if ($env:USERDNSDOMAIN -ne $NULL)
+{
+    Import-Module "~\OneDrive\Documents\WindowsPowerShell\Work_Profile.psm1";
+}
+
 Set-PSReadlineOption -BellStyle None
 Set-PSReadlineKeyHandler -Key Tab -Function Complete
 Set-PSReadlineKeyHandler -Chord Ctrl+w -Function ViExit
+Set-PSReadlineOption -EditMode Emacs;
 
 $env:home = $HOME;
 
-Set-Alias -Name vim -Value "C:\Program Files (x86)\Vim\vim81\gvim.exe";
-$env:home = $HOME;
+# Chocolatey profile
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+    Import-Module "$ChocolateyProfile";
+}
 
-function emacs {
+function em {
     param($p1, $p2, $p3, $p4)
     if ($p1)
     {
-        emacsclientw.exe -n --no-wait --alternate-editor="runemacs.exe" $p1 $p2 $p3 $p4;
+         emacsclientw.exe -n --no-wait --alternate-editor="runemacs.exe" $p1 $p2 $p3 $p4;
         return;
     }
 
     $emacs = Get-Process | Where-Object {$_.Name -like "emacs"};
     if ($emacs)
     {
-        [void] [System.Reflection.Assembly]::LoadWithPartialName("'Microsoft.VisualBasic");
-        [Microsoft.VisualBasic.Interaction]::AppActivate($emacs.Id);
+Add-Type @"
+    using System;
+    using System.Runtime.InteropServices;
+    public class WinAp {
+      [DllImport("user32.dll")]
+      [return: MarshalAs(UnmanagedType.Bool)]
+      public static extern bool SetForegroundWindow(IntPtr hWnd);
+      [DllImport("user32.dll")]
+      [return: MarshalAs(UnmanagedType.Bool)]
+      public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+    }
+"@
+        $h = $emacs.MainWindowHandle;
+        [void] [WinAp]::SetForegroundWindow($h);
+
+#        [void] [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic");
+#        [Microsoft.VisualBasic.Interaction]::AppActivate($emacs.Id);
     }
     else
     {
