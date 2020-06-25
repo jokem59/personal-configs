@@ -2,6 +2,11 @@
 # Write-Host "*  Loading Profile  *";
 # Write-Host "*********************";
 
+if ($env:USERDNSDOMAIN -ne $NULL)
+{
+    Import-Module "~\OneDrive\Documents\WindowsPowerShell\Work_Profile.psm1";
+}
+
 Set-PSReadlineOption -BellStyle None
 Set-PSReadlineKeyHandler -Key Tab -Function Complete
 Set-PSReadlineKeyHandler -Chord Ctrl+w -Function ViExit
