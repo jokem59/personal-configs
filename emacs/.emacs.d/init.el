@@ -38,7 +38,6 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
  '(nhexl-line-width 8)
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(org-agenda-files (quote ("~/Sync/org/journal.org")))
->>>>>>> fabaa7bd30ee07ea5aa6c3286b60e59238d40e25
  '(package-selected-packages
    (quote
     (nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes)))

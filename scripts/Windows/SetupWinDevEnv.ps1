@@ -3,6 +3,7 @@
 $CONFIG_HOME = "C:\tools\personal-configs";
 $POWERSHELL_PROFILE = "Microsoft.PowerShell_profile.ps1";
 $USER_PSMODULE_PATH = $env:PSModulePath.Split(';')[0];
+$STARTUP_FOLDER = "~/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup";
 
 function Get-PersonalConfigs {
     Write-Host "Getting personal configs...";
@@ -75,6 +76,8 @@ function Set-SymLinks {
     New-Item -ItemType SymbolicLink -Path $profilePath -Name $POWERSHELL_PROFILE -Value $CONFIG_HOME\powershell\$POWERSHELL_PROFILE;
 
     New-Item -ItemType SymbolicLink -Path "C:\tools\Cmder\vendor\conemu-maximus5" -Name ConEmu.xml -Value $CONFIG_HOME\cmder\ConEmu.xml;
+
+    New-Item -ItemType SymbolicLink -Path $STARTUP_FOLDER -Name "Syncthing.lnk" -Value "C:\ProgramData\chocolatey\bin\Syncthing.exe";
 }
 
 function Set-GitGlobalSettings {
