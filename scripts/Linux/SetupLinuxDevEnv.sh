@@ -14,3 +14,9 @@ echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sourc
 # Update and install syncthing:
 sudo apt-get update
 sudo apt-get install syncthing
+
+# Install Emacs
+
+# Remove ~/.emacs.d and replace with symlink to ~/dev/personal-configs
+# DELETE ~/.emacs.d
+ln -s ~/dev/personal-configs/emacs/.emacs.d/ ~/.emacs.d
