@@ -31,6 +31,7 @@ function Get-ChocoPackages {
     choco install ripgrep -y;
     choco install emacs -y;
     choco install sysinternals -y;
+    choco install syncthing -y;
     choco install rust-ms -y;
     choco install vswhere -y;
     choco install msbuild-structured-log-viewer -y;
@@ -109,20 +110,20 @@ function Get-Fonts {
         }
     }
 
-    $roboto_mono_fonts = @("Regular", "Medium", "Medium Italic", "Thin", "Thin Italic", "Bold", "Bold Italic", "Italic", "Light", "Light Italic");
-    $ttf_suffx = "(TrueType)";
-
-    Foreach ($type in $roboto_mono_fonts) {
-        if ($type -eq "Regular") {
-            reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Roboto Mono (TrueType)" /t REG_SZ /d "RobotoMono-Regular.ttf";
-        }
-        else {
-            reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Roboto Mono $type (TrueType)" /t REG_SZ /d "RobotoMono-$($type -replace '\s','').ttf";
+    $fontFiles = New-Object 'System.Collections.Generic.List[System.IO.FileInfo]';
+    $roboFont = Get-ChildItem "$($env:systemdrive)\Windows\Fonts\RobotoMono*";
+    $roboFont | Foreach-Object {$fontFiles.Add($_)};
+    
+    $fonts = $null;
+    foreach ($fontFile in $fontFiles) {
+        if ($PSCmdlet.ShouldProcess($fontFile.Name, "Install Font")) {
+            if (!$fonts) {
+                $shellApp = New-Object -ComObject shell.application;
+                $fonts = $shellApp.NameSpace(0x14);
+            }
+            $fonts.CopyHere($fontFile.FullName);
         }
     }
-
-    $roboFont = Get-ChildItem "$($env:systemdrive)\Windows\Fonts\RobotoMono*";
-    $roboFont | % { Invoke-Expression $_ };
 }
 
 function Set-EnvVariables {
