@@ -24,6 +24,7 @@
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(nhexl-line-width 8)
  '(org-agenda-files (quote ("~/OneDrive/org/journal.org")))
+ '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
     (nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes))))
