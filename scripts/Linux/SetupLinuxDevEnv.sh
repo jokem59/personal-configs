@@ -20,3 +20,11 @@ sudo apt-get install syncthing
 # Remove ~/.emacs.d and replace with symlink to ~/dev/personal-configs
 # DELETE ~/.emacs.d
 ln -s ~/dev/personal-configs/emacs/.emacs.d/ ~/.emacs.d
+
+
+# Add case insensitive auto-completion
+if grep -qi completion-ignore-case /etc/inputrc; then
+    echo -e "\ncompletion-ignore-case already set to On"
+else
+    echo -e "\nset completion-ignore-case On" | sudo tee -a /etc/inputrc
+fi
