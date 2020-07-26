@@ -36,6 +36,7 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
 
 ")
  '(nhexl-line-width 8)
+ '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(org-agenda-files (quote ("~/Sync/org/journal.org")))
  '(package-selected-packages
    (quote
