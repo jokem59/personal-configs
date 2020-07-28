@@ -21,6 +21,8 @@ sudo apt-get install syncthing
 # DELETE ~/.emacs.d
 ln -s ~/dev/personal-configs/emacs/.emacs.d/ ~/.emacs.d
 
+# Add bash-git-prompt
+git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt --depth=1
 
 # Add case insensitive auto-completion
 if grep -qi completion-ignore-case /etc/inputrc; then
