@@ -1,0 +1,11 @@
+[Unit]
+Description=Swap the Left Super and Alt keys on a MBP keyboard layout
+
+[Service]
+User=root
+ExecStart=/bin/bash /usr/local/sbin/SwapMBPAltSuper.sh
+SuccessExitStatus=3 4
+RestartForceExitStatus=3 4
+
+[Install]
+WantedBy=multi-user.target

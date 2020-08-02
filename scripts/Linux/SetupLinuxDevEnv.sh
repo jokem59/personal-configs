@@ -15,6 +15,10 @@ echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sourc
 sudo apt-get update
 sudo apt-get install syncthing
 
+# Add syncthing to systemd
+sudo cp /lib/systemd/system/syncthing@.service ./syncthing.service
+sudo systemctl enable syncthing
+
 # Install Emacs
 
 # Remove ~/.emacs.d and replace with symlink to ~/dev/personal-configs
