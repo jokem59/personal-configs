@@ -4,6 +4,9 @@ sudo apt-get install chromium
 # Curl
 sudo apt-get install curl
 
+# Xclip
+sudo apt-get install xclip
+
 # Syncthing
 # Add the release PGP keys:
 curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
