@@ -30,7 +30,7 @@ ln -s ~/dev/personal-configs/emacs/.emacs.d/ ~/.emacs.d
 
 # Link .zshrc
 rm ~/.zshrc
-ln -s ~/dev/personal-configs/zsh/.zshrc
+ln -s ~/dev/personal-configs/zsh/.zshrc ~/.zshrc
 
 # Add bash-git-prompt
 git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt --depth=1
