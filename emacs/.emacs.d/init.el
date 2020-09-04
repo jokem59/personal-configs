@@ -1,3 +1,10 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (when window-system
@@ -29,6 +36,7 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
 
 ")
  '(nhexl-line-width 8)
+ '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(org-agenda-files (quote ("~/Sync/org/journal.org")))
  '(package-selected-packages
    (quote
