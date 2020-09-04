@@ -7,10 +7,11 @@ if ($env:USERDNSDOMAIN -ne $NULL)
     Import-Module "~\OneDrive\Documents\WindowsPowerShell\Work_Profile.psm1";
 }
 
-Set-PSReadlineOption -BellStyle None
-Set-PSReadlineKeyHandler -Key Tab -Function Complete
-Set-PSReadlineKeyHandler -Chord Ctrl+w -Function ViExit
+Set-PSReadlineOption -BellStyle None;
+Set-PSReadlineKeyHandler -Key Tab -Function Complete;
+Set-PSReadlineKeyHandler -Chord Ctrl+w -Function ViExit;
 Set-PSReadlineOption -EditMode Emacs;
+Set-PSReadlineKeyHandler -Chord Ctrl+v -Function Paste;
 
 $env:home = $HOME;
 
@@ -53,6 +54,19 @@ Add-Type @"
     {
         emacsclientw.exe -n --no-wait --alternate-editor="runemacs.exe" -e '';
     }
+}
+
+function ConvertTo-MsvcVersion {
+param
+(
+    [string]
+    $ImageName,
+
+    [ValidateSet('VcToolsetVer','Year', 'CMakeGeneratorNum')]
+    [string]
+    $Format = 'VcToolsetVer'
+)
+    ./ConvertTo-MsvcVersion.ps1 -ImageName $ImageName -Format $Format;
 }
 
 # Dev Command Prompt Functionality in Powershell
