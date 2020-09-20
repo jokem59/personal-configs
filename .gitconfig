@@ -1,6 +1,6 @@
 [core]
 	autocrlf = true
-    editor = gvim
+    editor = code
 	excludesfile = ~/.gitignore_global
 [alias]
     dt = difftool
