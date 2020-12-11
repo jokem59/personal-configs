@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Setup
 # https://github.com/patjak/bcwc_pcie/wiki/Get-Started#devvideo-not-created
 

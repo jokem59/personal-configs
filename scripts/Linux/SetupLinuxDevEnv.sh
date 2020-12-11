@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Chromium
 sudo apt-get install chromium
 
