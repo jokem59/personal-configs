@@ -1,7 +1,7 @@
 (require 'package)
 
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
 
 (package-initialize)
 (setq package-enable-at-startup nil)
@@ -21,6 +21,7 @@
                          smart-mode-line-atom-one-dark-theme
                          undo-tree
                          all-the-icons
+                         lsp-mode
 
                          ; modes
                          log4j-mode

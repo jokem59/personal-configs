@@ -18,6 +18,9 @@
       auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
       )
 
+(custom-set-variables
+ `(markdown-command "C:/Users/joskim/AppData/Local/Pandoc/pandoc.exe"))
+
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 

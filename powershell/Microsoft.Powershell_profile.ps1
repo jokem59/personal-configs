@@ -1,6 +1,6 @@
-# Write-Host "*********************";
-# Write-Host "*  Loading Profile  *";
-# Write-Host "*********************";
+Write-Host "*********************";
+Write-Host "*  Loading Profile  *";
+Write-Host "*********************";
 
 if ($env:USERDNSDOMAIN -ne $NULL)
 {
@@ -8,10 +8,17 @@ if ($env:USERDNSDOMAIN -ne $NULL)
 }
 
 Set-PSReadlineOption -BellStyle None;
-Set-PSReadlineKeyHandler -Key Tab -Function Complete;
-Set-PSReadlineKeyHandler -Chord Ctrl+w -Function ViExit;
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete;
+
 Set-PSReadlineOption -EditMode Emacs;
-Set-PSReadlineKeyHandler -Chord Ctrl+v -Function Paste;
+Set-PSReadlineKeyHandler -Chord Ctrl+x,k -Function ViExit;
+Set-PSReadlineKeyHandler -Chord Ctrl+w -Function Cut;
+Set-PSReadlineKeyHandler -Chord Alt+w -Function Copy;
+Set-PSReadlineKeyHandler -Chord Ctrl+y -Function Paste;
+Set-PSReadlineKeyHandler -Chord Ctrl+k -Function KillLine;
+Set-PSReadlineKeyHandler -Chord Ctrl+x,h -Function SelectAll;
+Set-PSReadlineKeyHandler -Chord "Ctrl+/" -Function UndoAll;
+Set-PSReadlineKeyHandler -Chord "Ctrl+Shift+?" -Function Redo;
 
 $env:home = $HOME;
 
@@ -100,4 +107,14 @@ function New-CppProject {
     mkdir test;
     mkdir docs;
     mkdir build;
+}
+
+function Get-StringHash256 {
+    param(
+        [Parameter(Mandatory=$true)]
+        $String
+    )
+
+    $stream = [IO.MemoryStream]::new([byte[]][char[]]$String);
+    return Get-FileHash -InputStream $stream -Algorithm SHA256;
 }
