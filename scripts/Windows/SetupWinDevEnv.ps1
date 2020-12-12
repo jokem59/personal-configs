@@ -40,6 +40,7 @@ function Get-ChocoPackages {
     choco install vscode -y;
     choco install poshgit -y;
     choco install 7zip -y;
+    choco install findutils -y;
 }
 
 function Install-PostGitModule {

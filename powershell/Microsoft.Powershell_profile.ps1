@@ -11,12 +11,11 @@ Set-PSReadlineOption -BellStyle None;
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete;
 
 Set-PSReadlineOption -EditMode Emacs;
-Set-PSReadlineKeyHandler -Chord Ctrl+x,k -Function ViExit;
 Set-PSReadlineKeyHandler -Chord Ctrl+w -Function Cut;
 Set-PSReadlineKeyHandler -Chord Alt+w -Function Copy;
 Set-PSReadlineKeyHandler -Chord Ctrl+y -Function Paste;
 Set-PSReadlineKeyHandler -Chord Ctrl+k -Function KillLine;
-Set-PSReadlineKeyHandler -Chord "Ctrl+x,h" -Function SelectAll;
+Set-PSReadlineKeyHandler -Chord "Ctrl+=" -Function SelectAll;
 Set-PSReadlineKeyHandler -Chord "Ctrl+/" -Function UndoAll;
 Set-PSReadlineKeyHandler -Chord "Ctrl+Shift+?" -Function Redo;
 
