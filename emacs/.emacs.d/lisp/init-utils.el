@@ -24,6 +24,11 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+;; For windows, have dired-find-name use GnuWin32 x64bit port find.exe
+;; Expectation is to rename find.exe to gfind.exe to deconflict with %SystemRoot%\System32\find.exe
+(cond ((eq system-type 'windows-nt)
+       (setq find-program "gfind")))
+
 (defun backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word, with argument ARG, do that arg number of times."
   (interactive "p")
