@@ -1,11 +1,11 @@
+       ;; (setq shell-file-name "powershell")))
+
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
        (setq explicit-shell-file-name "c:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
        (setq explicit-shell-file-name "C:/windows/system32/WindowsPowerShell/v1.0/powershell.exe")
-       (setq shell-file-name "powershell")
-       (setq explicit-powershell.exe-args '("-Command" "-" ))
-       )
-      ((eq system-type 'gnu/linux)
+       (setq explicit-powershell.exe-args '("-Command" "-" )))
+       ((eq system-type 'gnu/linux)
        ;; Linux-specific code goes here.
        (setq explicit-shell-file-name "/bin/bash")
        ))
