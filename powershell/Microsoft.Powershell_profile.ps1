@@ -1,6 +1,6 @@
-Write-Host "*********************";
-Write-Host "*  Loading Profile  *";
-Write-Host "*********************";
+# Write-Host "*********************";
+# Write-Host "*  Loading Profile  *";
+# Write-Host "*********************";
 
 if ($env:USERDNSDOMAIN -ne $NULL)
 {
