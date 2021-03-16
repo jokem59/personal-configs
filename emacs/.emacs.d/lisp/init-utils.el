@@ -24,6 +24,10 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+;; Do not check if remote files are readable
+;; Constant checks freeze on Windows when buffers to large network files exists
+(setq recentf-keep '(file-remote-p file-readable-p))
+
 ;; For windows, have dired-find-name use GnuWin32 x64bit port find.exe
 ;; Expectation is to rename find.exe to gfind.exe to deconflict with %SystemRoot%\System32\find.exe
 (cond ((eq system-type 'windows-nt)
