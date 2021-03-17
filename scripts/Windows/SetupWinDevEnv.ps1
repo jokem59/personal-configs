@@ -116,7 +116,7 @@ function Get-Fonts {
     $fontFiles = New-Object 'System.Collections.Generic.List[System.IO.FileInfo]';
     $roboFont = Get-ChildItem "$($env:systemdrive)\Windows\Fonts\RobotoMono*";
     $roboFont | Foreach-Object {$fontFiles.Add($_)};
-    
+
     $fonts = $null;
     foreach ($fontFile in $fontFiles) {
         if ($PSCmdlet.ShouldProcess($fontFile.Name, "Install Font")) {
@@ -134,6 +134,11 @@ function Set-EnvVariables {
     [System.Environment]::SetEnvironmentVariable('HOME', $env:USERPROFILE, [System.EnvironmentVariableTarget]::Machine);
 }
 
+function Copy-FindToGFind {
+    $systemDrive = [System.Environment]::SystemDirectory;
+    Move-Item -Path "tools\findutils-4.2.30-5-w64-bin\bin\find.exe" -Destination "$systemDrive\gfind.exe";
+}
+
 # MAIN
 Set-ExecutionPolicy Bypass;
 Get-Choco;
@@ -144,3 +149,4 @@ Get-Fonts;
 Set-GitGlobalSettings;
 # Set-EmacsDaemonStartup;
 Install-PostGitModule;
+Copy-FindToGFind;

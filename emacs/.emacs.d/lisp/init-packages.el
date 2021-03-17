@@ -21,6 +21,7 @@
                          smart-mode-line-atom-one-dark-theme
                          undo-tree
                          all-the-icons
+                         lsp-mode
 
                          ; modes
                          log4j-mode
