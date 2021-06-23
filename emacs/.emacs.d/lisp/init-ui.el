@@ -14,10 +14,13 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 
-(display-time)
+(if (display-graphic-p)
+    (progn
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)))
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(scroll-bar-mode 0)
+(display-time)
 (golden-ratio-mode 1)
 (setq-default show-trailing-whitespace 1)
 ;; Disable to make ivy-rich mode look cleaner
@@ -29,6 +32,7 @@
 
 (setq electric-pair-mode nil) ; disable auto matching of braces
 (setq visible-bell t)
+(setq ring-bell-function 'ignore)
 
 ;;
 ;; Line Numbers (linum)
@@ -50,7 +54,10 @@
 ;;
 ;; Theme
 ;;
-(set-face-attribute 'default nil :height 110)
+(if (string-equal system-type "darwin")
+    (set-face-attribute 'default nil :height 123)
+    (set-face-attribute 'default nil :height 110))
+
 (when window-system
   (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular)
   (setq-default line-spacing 1))
@@ -146,10 +153,15 @@
 ;; itself off every time Emacs reverts the file
 (add-hook 'after-revert-hook #'turn-on-solaire-mode)
 
-;; highlight the minibuffer when it is activated:
-(add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer)
-
-(solaire-mode-swap-bg)
+(cond
+ ((string-equal system-type "windows-nt")
+  (progn
+    (solaire-mode-swap-bg)
+    (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer)))
+ ((string-equal system-type "gnu/linux")
+  (progn
+    (solaire-mode-swap-bg)
+    (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))))
 
 ;;
 ;; Ivy Mode
