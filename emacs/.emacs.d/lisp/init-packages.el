@@ -22,7 +22,6 @@
                          undo-tree
                          all-the-icons
                          lsp-mode
-                         tramp
 
                          ; modes
                          log4j-mode

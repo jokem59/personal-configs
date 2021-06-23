@@ -41,10 +41,10 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
 ")
  '(markdown-command "C:/Users/joskim/AppData/Local/Pandoc/pandoc.exe")
  '(nhexl-line-width 8)
- '(org-agenda-files '("~/Sync/org/journal.org"))
+ '(org-agenda-files '("~/sync/org/amazon.org" "~/Sync/org/journal.org"))
  '(org-export-backends '(ascii html icalendar latex md odt))
  '(package-selected-packages
-   '(tramp dumb-jump lsp-mode flymd impatient-mode nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes))
+   '(dumb-jump lsp-mode flymd impatient-mode nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes))
  '(quote (org-agenda-files '("~/Sync/org/journal.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
