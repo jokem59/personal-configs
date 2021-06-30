@@ -35,6 +35,51 @@
 (setq ring-bell-function 'ignore)
 
 ;;
+;; Prefer vertical window splits to horizontal
+;;
+(defun split-window-sensibly-prefer-horizontal (&optional window)
+"Based on split-window-sensibly, but designed to prefer a horizontal split,
+i.e. windows tiled side-by-side."
+  (let ((window (or window (selected-window))))
+    (or (and (window-splittable-p window t)
+         ;; Split window horizontally
+         (with-selected-window window
+           (split-window-right)))
+    (and (window-splittable-p window)
+         ;; Split window vertically
+         (with-selected-window window
+           (split-window-below)))
+    (and
+         ;; If WINDOW is the only usable window on its frame (it is
+         ;; the only one or, not being the only one, all the other
+         ;; ones are dedicated) and is not the minibuffer window, try
+         ;; to split it horizontally disregarding the value of
+         ;; `split-height-threshold'.
+         (let ((frame (window-frame window)))
+           (or
+            (eq window (frame-root-window frame))
+            (catch 'done
+              (walk-window-tree (lambda (w)
+                                  (unless (or (eq w window)
+                                              (window-dedicated-p w))
+                                    (throw 'done nil)))
+                                frame)
+              t)))
+     (not (window-minibuffer-p window))
+     (let ((split-width-threshold 0))
+       (when (window-splittable-p window t)
+         (with-selected-window window
+           (split-window-right))))))))
+
+;;
+;; Have sane minimums to determine a vertical vs horizontal split
+;;
+(setq
+   split-height-threshold 4
+   split-width-threshold 40
+   split-window-preferred-function 'split-window-sensibly-prefer-horizontal)
+
+;;
 ;; Line Numbers (linum)
 ;;
 
@@ -55,7 +100,7 @@
 ;; Theme
 ;;
 (if (string-equal system-type "darwin")
-    (set-face-attribute 'default nil :height 123)
+    (set-face-attribute 'default nil :height 125)
     (set-face-attribute 'default nil :height 110))
 
 (when window-system
