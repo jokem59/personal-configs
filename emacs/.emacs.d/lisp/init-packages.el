@@ -8,6 +8,7 @@
 
 (defvar jokem/packages '(; misc / tools
                          use-package
+                         org-roam
                          avy
                          git-gutter
                          ivy

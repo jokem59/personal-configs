@@ -18,6 +18,7 @@
 (require 'init-utils)
 (require 'init-tools)
 (require 'init-org)
+(require 'init-org-roam)
 (require 'init-magit)
 (require 'init-language-base)
 (require 'init-keybindings)
@@ -39,13 +40,17 @@
 _To create a file, visit it with \\[find-file] and enter text in its buffer_
 
 ")
+ '(ivy-rich-parse-remote-buffer nil)
  '(markdown-command "C:/Users/joskim/AppData/Local/Pandoc/pandoc.exe")
  '(nhexl-line-width 8)
  '(org-agenda-files '("~/sync/org/amazon.org" "~/Sync/org/journal.org"))
  '(org-export-backends '(ascii html icalendar latex md odt))
+ '(org-src-preserve-indentation t)
  '(package-selected-packages
-   '(dumb-jump lsp-mode flymd impatient-mode nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes))
- '(quote (org-agenda-files '("~/Sync/org/journal.org"))))
+   '(org-roam dumb-jump lsp-mode flymd impatient-mode nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes))
+ '(quote (org-agenda-files '("~/Sync/org/journal.org")))
+ '(tramp-remote-path
+   '(tramp-default-remote-path "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -23,6 +23,19 @@
 (display-time)
 (golden-ratio-mode 1)
 (setq-default show-trailing-whitespace 1)
+
+;; Don't show trailing whitespace in minibuffer
+(dolist (hook '(special-mode-hook
+                term-mode-hook
+                comint-mode-hook
+                compilation-mode-hook 
+                minibuffer-setup-hook))
+  (add-hook hook
+            (lambda () (setq show-trailing-whitespace nil))))
+
+;; Disable ivy-rich details while using Tramp to improve performance
+(setq ivy-rich-parse-remote-buffer nil)
+
 ;; Disable to make ivy-rich mode look cleaner
 (add-hook 'minibuffer-setup-hook
           (lambda () (setq-local show-trailing-whitespace nil)))
