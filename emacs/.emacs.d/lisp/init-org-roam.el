@@ -13,7 +13,7 @@
   (setq org-roam-capture-templates '(("d" "default" plain
                                       "%?" :if-new
                                       (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                                                 "#+title: ${title}?\n#+date-created: %<%Y>-%<%m>-%<%d> %<%H>:%<%M>.%<%S>" )
+                                                 "#+title: ${title}\n#+date-created: %<%Y>-%<%m>-%<%d> %<%H>:%<%M>.%<%S>" )
                                       :unnarrowed t)))
   (org-roam-setup))
 
