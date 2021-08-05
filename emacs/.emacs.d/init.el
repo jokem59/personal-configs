@@ -39,7 +39,9 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
 ")
  '(markdown-command "C:/Users/joskim/AppData/Local/Pandoc/pandoc.exe")
  '(nhexl-line-width 8)
- '(org-agenda-files (quote ("~/Sync/org/journal.org")))
+ '(org-agenda-files
+   (quote
+    ("~/Sync/org/personal.org" "~/Sync/org/journal.org")))
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
