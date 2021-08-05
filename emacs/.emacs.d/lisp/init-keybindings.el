@@ -15,6 +15,9 @@
 (global-set-key [C-tab] 'toggle-fold)
 (global-set-key (kbd "C-.") 'hs-show-all)
 
+;; MacOS Specific
+(setq mac-command-modifier 'meta)
+
 ;; Movements
 
 (global-set-key (kbd "C-;") 'avy-goto-line)

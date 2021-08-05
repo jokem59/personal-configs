@@ -27,6 +27,7 @@
 (setq org-directory "~/Sync/org")
 (setq org-default-notes-file (concat org-directory "/journal.org"))
 (setq org-default-journal-file (concat org-directory "/journal.org"))
+(setq org-default-amazon-file (concat org-directory "/amazon.org"))
 (setq org-default-todo-file (concat org-directory "/todo.org"))
 (setq org-default-personal-file (concat org-directory "/personal.org"))
 (setq org-catch-invisible-edits 'show-and-error)
@@ -41,6 +42,12 @@
         ("j" "Journal Entry"
          entry
          (file+datetree org-default-journal-file)
+         "* %?"
+         :empty-lines 1)
+
+        ("a" "Amazon Journal Entry"
+         entry
+         (file+datetree org-default-amazon-file)
          "* %?"
          :empty-lines 1)
 
