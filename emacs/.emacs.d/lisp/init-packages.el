@@ -23,6 +23,7 @@
                          undo-tree
                          all-the-icons
                          lsp-mode
+                         dumb-jump
 
                          ; modes
                          log4j-mode

@@ -43,7 +43,8 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
  '(ivy-rich-parse-remote-buffer nil)
  '(markdown-command "C:/Users/joskim/AppData/Local/Pandoc/pandoc.exe")
  '(nhexl-line-width 8)
- '(org-agenda-files '("~/sync/org/amazon.org" "~/Sync/org/journal.org"))
+ '(org-agenda-files
+   '("~/Sync/org/amazon.org" "~/sync/org/amazon.org" "~/Sync/org/journal.org"))
  '(org-export-backends '(ascii html icalendar latex md odt))
  '(org-src-preserve-indentation t)
  '(package-selected-packages
