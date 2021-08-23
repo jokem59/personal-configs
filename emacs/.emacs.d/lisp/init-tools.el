@@ -31,6 +31,7 @@
  '(ediff-split-window-function (quote split-window-horizontally))  ;; Split side by side
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))) ;; Prevent popu
 
+;; Simple shell config to prevent Tramp/SSH from hanging
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match
 that used by the user's shell.
@@ -46,5 +47,8 @@ apps are not started from a shell."
     (setq exec-path (split-string path-from-shell path-separator))))
 
 (set-exec-path-from-shell-PATH)
+
+;; dumb-jump setup
+(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 
 (provide 'init-tools)

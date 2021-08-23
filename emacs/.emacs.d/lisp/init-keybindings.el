@@ -78,4 +78,7 @@
 
 (global-set-key (kbd "C-c f") #'deadgrep)
 
+;; Window movements
+(global-set-key (kbd "C-x p") 'windmove-left)
+
 (provide 'init-keybindings)

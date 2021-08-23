@@ -113,8 +113,7 @@ i.e. windows tiled side-by-side."
 ;; Theme
 ;;
 (if (string-equal system-type "darwin")
-    (set-face-attribute 'default nil :height 125)
-    (set-face-attribute 'default nil :height 110))
+    (set-face-attribute 'default nil :height 140)
 
 (when window-system
   (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular)
@@ -237,21 +236,21 @@ i.e. windows tiled side-by-side."
 ;; @see https://github.com/abo-abo/swiper/issues/1218
 (setq ivy-dynamic-exhibit-delay-ms 250)
 
-(use-package ivy-posframe
-  :after ivy
-  :diminish
-  :config
-  (set-face-attribute 'ivy-posframe nil :background "gray11")
-  (set-face-attribute 'ivy-posframe-border nil :background "gray14")
-  (setq ivy-posframe-display-functions-alist
-        '((swiper          . ivy-display-function-fallback)
-          (complete-symbol . ivy-posframe-display-at-point)
-          (t . ivy-posframe-display-at-frame-top-center)))
-  (setq ivy-posframe-height-alist '((swiper . 15)
-                                   (t      . 20)))
-  (setq ivy-posframe-parameters '((internal-border-width . 4) (font . "Roboto Mono")))
-  (setq ivy-posframe-width 700)
-  (ivy-posframe-mode +1))
+;; (use-package ivy-posframe
+;;   :after ivy
+;;   :diminish
+;;   :config
+;;   (set-face-attribute 'ivy-posframe nil :background "gray11")
+;;   (set-face-attribute 'ivy-posframe-border nil :background "gray14")
+;;   (setq ivy-posframe-display-functions-alist
+;;         '((swiper          . ivy-display-function-fallback)
+;;           (complete-symbol . ivy-posframe-display-at-point)
+;;           (t . ivy-posframe-display-at-frame-top-center)))
+;;   (setq ivy-posframe-height-alist '((swiper . 15)
+;;                                    (t      . 20)))
+;;   (setq ivy-posframe-parameters '((internal-border-width . 4) (font . "Roboto Mono")))
+;;   (setq ivy-posframe-width 700)
+;;   (ivy-posframe-mode +1))
 
 (use-package ivy-rich
   :preface
