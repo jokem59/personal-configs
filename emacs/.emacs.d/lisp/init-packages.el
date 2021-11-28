@@ -24,6 +24,10 @@
                          all-the-icons
                          lsp-mode
                          dumb-jump
+                         company
+                         yasnippet
+                         flycheck
+                         dired-narrow
 
                          ; modes
                          log4j-mode
@@ -37,7 +41,8 @@
                          js3-mode
                          web-mode
                          tide
-                         rust-mode
+                         rustic
+
 
                          ; UI
                          doom-modeline

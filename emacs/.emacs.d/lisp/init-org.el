@@ -3,6 +3,10 @@
 ;; Run on journal.org file for org agenda to use
 ;; M-x org-agenda-file-to-front
 
+;; Visual line mode on by defauilt
+(with-eval-after-load 'org
+  (add-hook 'org-mode-hook #'visual-line-mode))
+
 (cond ((eq system-type 'windows-nt)
        ;; Windows specific for slow org-mode
        (setq gc-cons-threshold (* 511 1024 1024))
@@ -20,7 +24,7 @@
 	 (yank))
        )
       ((eq system-type 'gnu/linux)
-       ;; Linux-specific code goes here. 
+       ;; Linux-specific code goes here.
        ))
 
 

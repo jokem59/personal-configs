@@ -28,7 +28,7 @@
 (dolist (hook '(special-mode-hook
                 term-mode-hook
                 comint-mode-hook
-                compilation-mode-hook 
+                compilation-mode-hook
                 minibuffer-setup-hook))
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
@@ -113,7 +113,7 @@ i.e. windows tiled side-by-side."
 ;; Theme
 ;;
 (if (string-equal system-type "darwin")
-    (set-face-attribute 'default nil :height 140)
+    (set-face-attribute 'default nil :height 145))
 
 (when window-system
   (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular)
@@ -199,6 +199,8 @@ i.e. windows tiled side-by-side."
 ;; may have their own settings.
 (load-theme 'doom-dark+ t)
 
+
+;; Solaire-mode is an aesthetic plugin designed to visually distinguish "real" buffers vs "unreal" buffers
 (require 'solaire-mode)
 
 ;; Enable solaire-mode anywhere it can be enabled
@@ -214,11 +216,11 @@ i.e. windows tiled side-by-side."
  ((string-equal system-type "windows-nt")
   (progn
     (solaire-mode-swap-bg)
-    (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer)))
- ((string-equal system-type "gnu/linux")
-  (progn
-    (solaire-mode-swap-bg)
     (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))))
+ ;; ((string-equal system-type "gnu/linux")
+ ;;  (progn
+ ;;    (solaire-mode-swap-bg)
+ ;;    (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))))
 
 ;;
 ;; Ivy Mode

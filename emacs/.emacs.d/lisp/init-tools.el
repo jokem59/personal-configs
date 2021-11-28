@@ -1,4 +1,4 @@
-       ;; (setq shell-file-name "powershell")))
+ ;; (setq shell-file-name "powershell")))
 
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
@@ -50,5 +50,11 @@ apps are not started from a shell."
 
 ;; dumb-jump setup
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+
+;; dired-narrow dynamically filters dired buffers based on input
+(use-package dired-narrow
+  :ensure t
+  :bind (:map dired-mode-map
+              ("/" . dired-narrow)))
 
 (provide 'init-tools)
