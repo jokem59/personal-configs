@@ -79,6 +79,9 @@
 (global-set-key (kbd "C-c f") #'deadgrep)
 
 ;; Window movements
-(global-set-key (kbd "C-x p") 'windmove-left)
+(defun myprevious-window ()
+  (interactive)
+  (other-window -1))
+(global-set-key (kbd "C-x p") 'myprevious-window)
 
 (provide 'init-keybindings)
