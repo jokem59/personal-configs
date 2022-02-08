@@ -43,3 +43,6 @@ if grep -qi completion-ignore-case /etc/inputrc; then
 else
     echo -e "\nset completion-ignore-case On" | sudo tee -a /etc/inputrc
 fi
+
+# Install latex related packages
+sudo apt install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra
