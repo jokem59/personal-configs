@@ -28,6 +28,7 @@
                          yasnippet
                          flycheck
                          dired-narrow
+                         org-tree-slide
 
                          ; modes
                          log4j-mode

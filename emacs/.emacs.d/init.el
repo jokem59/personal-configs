@@ -82,7 +82,7 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
  '(org-src-preserve-indentation t)
  '(package-selected-packages
    (quote
-    (dired-narrow rainbow-delimiters go-mode org-roam dumb-jump lsp-mode flymd impatient-mode nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes)))
+    (gnuplot gnuplot-mode org-tree-slide dired-narrow rainbow-delimiters go-mode org-roam dumb-jump lsp-mode flymd impatient-mode nhexl-mode undo-tree all-the-icons smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode git-gutter gruvbox-theme doom-themes)))
  '(pdf-view-midnight-colors (cons "#f8f8f2" "#282a36"))
  '(quote (org-agenda-files (quote ("~/Sync/org/journal.org"))))
  '(rustic-ansi-faces
@@ -119,3 +119,4 @@ _To create a file, visit it with \\[find-file] and enter text in its buffer_
  ;; If there is more than one, they won't work right.
  '(mode-line ((t (:background "gray20" :foreground nil))))
  '(mode-line-inactive ((t (:background "dim gray")))))
+(put 'narrow-to-region 'disabled nil)

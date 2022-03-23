@@ -46,3 +46,9 @@ fi
 
 # Install latex related packages
 sudo apt install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra
+
+# Install packages necessary for native emacs compilation
+sudo apt-get install build-essential texinfo libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev libncurses-dev automake autoconf libgccjit0 libgccjit-10-dev
+
+# For CPU Topology tool lstopo
+sudo apt install hwloc

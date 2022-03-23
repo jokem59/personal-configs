@@ -91,4 +91,8 @@
 (add-to-list 'org-emphasis-alist
              '("_" (:foreground "#A6E22E" :height nil :underline nil)))
 
+(use-package org-tree-slide
+  :custom
+  (org-image-actual-width nil))
+
 (provide 'init-org)
