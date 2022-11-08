@@ -16,6 +16,9 @@
 ;; To save sessions
 (desktop-save-mode 1)
 
+;; Prompt me before quitting
+(setq confirm-kill-emacs 'y-or-n-p)
+
 (require 'init-packages)
 (require 'init-ui)
 (require 'init-utils)
