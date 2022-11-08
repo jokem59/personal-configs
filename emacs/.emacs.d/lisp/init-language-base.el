@@ -94,26 +94,31 @@
    :server-id 'rust-analyzer-remote)))
 
 ;; LSP Mode
-(use-package lsp-mode
-  :ensure
-  :commands lsp
-  :custom
-  ;; what to use when checking on-save. "check" is default, I prefer clippy
-  ;; (lsp-rust-analyzer-cargo-watch-command "clippy")
-  (lsp-rust-server 'rust-analyzer)
-  (lsp-eldoc-render-all t)
-  (lsp-idle-delay 0.6)
-  (lsp-rust-analyzer-server-display-inlay-hints t)
-  :config
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+;; (use-package lsp-mode
+;;   :ensure
+;;   :commands lsp
+;;   :custom
+;;   ;; what to use when checking on-save. "check" is default, I prefer clippy
+;;   ;; (lsp-rust-analyzer-cargo-watch-command "clippy")
+;;   (lsp-rust-server 'rust-analyzer)
+;;   (lsp-eldoc-render-all t)
+;;   (lsp-idle-delay 0.6)
+;;   (lsp-rust-analyzer-server-display-inlay-hints t)
+;;   :config
+;;   (add-hook 'lsp-mode-hook 'lsp)
+;;   (add-hook 'lsp-ui-mode 'lsp)
+;;   (add-hook 'c++-mode-hook 'lsp)
+;;   (add-hook 'python-mode-hook 'lsp)
+;;   (add-hook 'rust-mode-hook 'lsp)
+;;   (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error")))
 
-(use-package lsp-ui
-  :ensure
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-peek-always-show t)
-  (lsp-ui-sideline-show-hover t)
-  (lsp-ui-doc-enable nil))
+;; (use-package lsp-ui
+;;   :ensure
+;;   :commands lsp-ui-mode
+;;   :custom
+;;   (lsp-ui-peek-always-show t)
+;;   (lsp-ui-sideline-show-hover t)
+;;   (lsp-ui-doc-enable nil))
 
 ;; Code completion via Company
 (use-package company
