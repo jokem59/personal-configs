@@ -1,4 +1,7 @@
+;;
 ;; Keybindings
+;;
+
 (global-set-key [C-backspace] 'backward-delete-word)
 (global-set-key (kbd "C-<f5>") 'mlinum-mode)
 (global-set-key "\M-g" 'goto-line)
@@ -16,6 +19,7 @@
 (setq mac-command-modifier 'meta)
 
 ;; Movements
+
 (global-set-key (kbd "C-;") 'avy-goto-line)
 (global-set-key (kbd "C-:") 'avy-goto-char-timer)
 ;; Sets the timeout for avy-goto-char-timer

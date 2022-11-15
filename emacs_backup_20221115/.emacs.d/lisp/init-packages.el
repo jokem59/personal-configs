@@ -18,10 +18,17 @@
                          golden-ratio
                          expand-region
                          deadgrep
+                         smart-mode-line
+                         smart-mode-line-atom-one-dark-theme
                          undo-tree
+                         all-the-icons
+                         lsp-mode
                          dumb-jump
                          company
+                         yasnippet
                          flycheck
+                         dired-narrow
+                         org-tree-slide
 
                          ; modes
                          log4j-mode
@@ -35,6 +42,15 @@
                          js3-mode
                          web-mode
                          tide
+                         rustic
+
+
+                         ; UI
+                         doom-modeline
+                         solaire-mode
+
+                         ivy-posframe
+                         ivy-rich
 
                         ; themes
                          gruvbox-theme

@@ -1,0 +1,98 @@
+(require 'org)
+
+;; Run on journal.org file for org agenda to use
+;; M-x org-agenda-file-to-front
+
+;; Visual line mode on by defauilt
+(with-eval-after-load 'org
+  (add-hook 'org-mode-hook #'visual-line-mode))
+
+(cond ((eq system-type 'windows-nt)
+       ;; Windows specific for slow org-mode
+       (setq gc-cons-threshold (* 511 1024 1024))
+       (setq gc-cons-percentage 0.5)
+       (run-with-idle-timer 5 t #'garbage-collect)
+       (setq garbage-collection-messages t)
+
+       (defun org-outlook-open (path) (w32-shell-execute "open" "C:/Program Files (x86)/Microsoft Office/root/Office16/OUTLOOK.exe" (concat "outlook:" path)))
+       (org-add-link-type "outlook" 'org-outlook-open)
+
+       (defun org-insert-clipboard-image ()
+	 "Insert clipboard image into org"
+	 (interactive)
+	 (call-process-shell-command "powershell.exe Get-OrgImageLink")
+	 (yank))
+       )
+      ((eq system-type 'gnu/linux)
+       ;; Linux-specific code goes here.
+       ))
+
+
+(setq org-directory "~/Sync/org")
+(setq org-default-notes-file (concat org-directory "/journal.org"))
+(setq org-default-journal-file (concat org-directory "/journal.org"))
+(setq org-default-amazon-file (concat org-directory "/amazon.org"))
+(setq org-default-todo-file (concat org-directory "/todo.org"))
+(setq org-default-personal-file (concat org-directory "/personal.org"))
+(setq org-catch-invisible-edits 'show-and-error)
+(setq org-startup-with-inline-images t)
+
+(setq org-capture-templates
+      '(    ;; ... other templates
+        ("t" "Todo"
+         entry
+         (file+headline org-default-todo-file "Tasks") "* TODO %?\n %i\n %a")
+
+        ("j" "Journal Entry"
+         entry
+         (file+datetree org-default-journal-file)
+         "* %?"
+         :empty-lines 1)
+
+        ("a" "Amazon Journal Entry"
+         entry
+         (file+datetree org-default-amazon-file)
+         "* %?"
+         :empty-lines 1)
+
+        ("p" "Personal Notes"
+         entry
+         (file+datetree org-default-personal-file)
+         "* %?"
+         :empty-lines 1)
+        ))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cj" 'org-open-journal)
+
+(defun org-open-journal()
+  (interactive)
+  (find-file org-default-journal-file))
+
+
+;; Enable inline highlighting for codeblocks
+(setq org-src-fontify-natively t)
+;; set maximum indentation for description lists
+(setq org-list-description-max-indent 5)
+;; prevent demoting heading also shifting text inside sections
+(setq org-adapt-indentation nil)
+
+;; Hide formatting characters like *, /, _
+(setq org-hide-emphasis-markers t)
+
+(add-to-list 'org-emphasis-alist
+             '("*" (:foreground "#FD971F" :height nil :box nil :weight semi-bold)))
+
+(add-to-list 'org-emphasis-alist
+             '("/" (:foreground "#AE81FF" :height nil)))
+
+(add-to-list 'org-emphasis-alist
+             '("_" (:foreground "#A6E22E" :height nil :underline nil)))
+
+(use-package org-tree-slide
+  :custom
+  (org-image-actual-width nil))
+
+(provide 'init-org)
