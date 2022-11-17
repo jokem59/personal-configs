@@ -26,6 +26,13 @@
 (golden-ratio-mode 1)
 (setq-default show-trailing-whitespace 1)
 
+;; Line numbers
+(setq display-line-numbers-type 'relative)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;; Show file name in title bar
+(setq frame-title-format "%b")
+
 ;; Theme
 (add-hook 'after-init-hook (lambda () (load-theme 'doom-dark+)))
 
@@ -71,6 +78,9 @@
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+
+;; Disable ivy-rich details while using Tramp to improve performance
+(setq ivy-rich-parse-remote-buffer nil)
 
 ;;
 ;; Prefer vertical window splits to horizontal
