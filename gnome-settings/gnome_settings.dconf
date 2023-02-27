@@ -1,0 +1,217 @@
+[apps/update-manager]
+first-run=false
+launch-count=3
+launch-time=int64 1677397389
+
+[com/ubuntu/update-notifier]
+release-check-time=uint32 1677352751
+
+[org/blueman/general]
+window-properties=[620, 350, 2672, 102]
+
+[org/blueman/plugins/powermanager]
+auto-power-on=@mb true
+
+[org/blueman/plugins/recentconns]
+recent-connections=[{'adapter': '88:D8:2E:50:79:BC', 'address': 'C8:7B:23:4B:3B:0E', 'alias': 'Bose QC45', 'icon': 'audio-headphones', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1677480036.1540358'}]
+
+[org/gnome/control-center]
+last-panel='background'
+
+[org/gnome/deja-dup]
+backend='google'
+prompt-check='2023-02-25T19:25:38+00'
+
+[org/gnome/deja-dup/file]
+migrated=true
+
+[org/gnome/desktop/app-folders]
+folder-children=['Utilities', 'YaST']
+
+[org/gnome/desktop/app-folders/folders/Utilities]
+apps=['gnome-abrt.desktop', 'gnome-system-log.desktop', 'gnome-system-monitor.desktop', 'gucharmap.desktop', 'nm-connection-editor.desktop', 'org.gnome.baobab.desktop', 'org.gnome.Calculator.desktop', 'org.gnome.DejaDup.desktop', 'org.gnome.Dictionary.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.eog.desktop', 'org.gnome.Evince.desktop', 'org.gnome.FileRoller.desktop', 'org.gnome.fonts.desktop', 'org.gnome.Screenshot.desktop', 'org.gnome.seahorse.Application.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Usage.desktop', 'simple-scan.desktop', 'vinagre.desktop', 'yelp.desktop']
+categories=['X-GNOME-Utilities']
+name='X-GNOME-Utilities.directory'
+translate=true
+
+[org/gnome/desktop/app-folders/folders/YaST]
+categories=['X-SuSE-YaST']
+name='suse-yast.directory'
+translate=true
+
+[org/gnome/desktop/background]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///home/jokem/.local/share/backgrounds/2023-02-26-10-28-14-aperture_labs.jpg'
+picture-uri-dark='file:///home/jokem/.local/share/backgrounds/2023-02-26-10-28-14-aperture_labs.jpg'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+[org/gnome/desktop/input-sources]
+sources=[('xkb', 'us')]
+xkb-options=['ctrl:nocaps']
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+font-hinting='slight'
+gtk-key-theme='Emacs'
+gtk-theme='Yaru-dark'
+icon-theme='Yaru'
+monospace-font-name='Roboto Mono 13'
+
+[org/gnome/desktop/notifications]
+application-children=['update-manager', 'io-snapcraft-sessionagent', 'thunderbird', 'org-gnome-nautilus', 'firefox', 'firefox-firefox', 'gnome-control-center', 'gnome-power-panel', 'apport-gtk']
+
+[org/gnome/desktop/notifications/application/apport-gtk]
+application-id='apport-gtk.desktop'
+
+[org/gnome/desktop/notifications/application/firefox-firefox]
+application-id='firefox_firefox.desktop'
+
+[org/gnome/desktop/notifications/application/firefox]
+application-id='firefox.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-control-center]
+application-id='gnome-control-center.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-power-panel]
+application-id='gnome-power-panel.desktop'
+
+[org/gnome/desktop/notifications/application/io-snapcraft-sessionagent]
+application-id='io.snapcraft.SessionAgent.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-nautilus]
+application-id='org.gnome.Nautilus.desktop'
+
+[org/gnome/desktop/notifications/application/thunderbird]
+application-id='thunderbird.desktop'
+
+[org/gnome/desktop/notifications/application/update-manager]
+application-id='update-manager.desktop'
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+
+[org/gnome/desktop/peripherals/mouse]
+speed=-0.375
+
+[org/gnome/desktop/peripherals/touchpad]
+two-finger-scrolling-enabled=true
+
+[org/gnome/desktop/privacy]
+disable-microphone=false
+report-technical-problems=true
+
+[org/gnome/desktop/screensaver]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///home/jokem/.local/share/backgrounds/2023-02-26-10-28-14-aperture_labs.jpg'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+[org/gnome/desktop/session]
+idle-delay=uint32 600
+
+[org/gnome/desktop/sound]
+allow-volume-above-100-percent=false
+
+[org/gnome/evolution-data-server]
+migrated=true
+network-monitor-gio-name=''
+
+[org/gnome/gedit/plugins]
+active-plugins=['modelines', 'time', 'docinfo', 'filebrowser', 'spell']
+
+[org/gnome/gedit/plugins/filebrowser]
+root='file:///'
+tree-view=true
+virtual-root='file:///home/jokem/Downloads'
+
+[org/gnome/gedit/preferences/editor]
+scheme='Yaru-dark'
+
+[org/gnome/gedit/preferences/ui]
+show-tabs-mode='auto'
+
+[org/gnome/gedit/state/window]
+bottom-panel-size=140
+side-panel-active-page='GeditWindowDocumentsPanel'
+side-panel-size=200
+size=(900, 700)
+state=87168
+
+[org/gnome/nautilus/preferences]
+default-folder-viewer='icon-view'
+search-filter-time-type='last_modified'
+
+[org/gnome/settings-daemon/plugins/color]
+night-light-last-coordinates=(37.694532019942407, -122.032082)
+
+[org/gnome/settings-daemon/plugins/power]
+sleep-inactive-ac-timeout=3600
+sleep-inactive-ac-type='suspend'
+
+[org/gnome/shell]
+favorite-apps=['org.gnome.Terminal.desktop', 'firefox_firefox.desktop', 'emacs.desktop']
+had-bluetooth-devices-setup=true
+welcome-dialog-last-shown-version='42.5'
+
+[org/gnome/software]
+check-timestamp=int64 1677511194
+online-updates-timestamp=int64 1677421179
+
+[org/gnome/system/location]
+enabled=true
+
+[org/gnome/terminal/legacy]
+menu-accelerator-enabled=false
+
+[org/gnome/terminal/legacy/keybindings]
+copy='<Alt>w'
+paste='<Primary>y'
+preferences='<Primary>comma'
+select-all='<Primary>slash'
+
+[org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+audible-bell=false
+background-color='#262626262626'
+background-transparency-percent=6
+bold-color='#F8F8F8F8F2F2'
+bold-color-same-as-fg=false
+font='Roboto Mono 12'
+foreground-color='#F8F8F8F8F2F2'
+palette=['#757571715E5E', '#F9F926267272', '#A6A6E2E22E2E', '#F4F4BFBF7575', '#6666D9D9EFEF', '#AEAE8181FFFF', '#2A2AA1A19898', '#F9F9F9F9F5F5', '#272728282222', '#F9F926267272', '#A6A6E2E22E2E', '#F4F4BFBF7575', '#6666D9D9EFEF', '#AEAE8181FFFF', '#2A2AA1A19898', '#F9F9F8F9F5F5']
+use-system-font=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=true
+
+[org/gtk/gtk4/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=173
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'
+window-size=(856, 374)
+
+[org/gtk/settings/color-chooser]
+selected-color=(true, 0.14901960784313725, 0.63529411764705879, 0.41176470588235292, 1.0)
+
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=161
+sort-column='name'
+sort-directories-first=true
+sort-order='ascending'
+type-format='category'
+window-position=(3262, 256)
+window-size=(1231, 902)

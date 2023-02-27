@@ -87,6 +87,11 @@ function setup_gnome_terminal() {
     dconf load ${PERSONAL_CONFIGS}/gnome-terminal/ < ${PERSONAL_CONFIGS}/gnome-terminal/gterminal.preferences
 }
 
+# Settings for gnome + gnome tweaks
+function setup_gnome_settings() {
+    dconf load ${PERSONAL_CONFIGS}/ghome-settings/ < ${PERSONAL_CONFIGS}/gnome-settings/gnome_settings.dconf
+}
+
 function setup_tmux() {
     apt install tmux -y
 
@@ -150,6 +155,8 @@ setup_emacs
 setup_vim
 setup_gnome_terminal
 setup_tmux
+setup_syncthing
+setup_gnome_settings
 
 # Add case insensitive auto-completion
 if grep -qi completion-ignore-case /etc/inputrc; then
