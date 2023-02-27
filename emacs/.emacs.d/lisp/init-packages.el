@@ -22,11 +22,13 @@
                          dumb-jump
                          company
                          flycheck
+                         org-tree-slide
 
                          ; modes
                          log4j-mode
                          powershell
                          magit
+                         solaire-mode
 
                          ; language modes
                          csharp-mode

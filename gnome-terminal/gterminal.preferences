@@ -1,0 +1,22 @@
+[legacy]
+menu-accelerator-enabled=false
+
+[legacy/keybindings]
+copy='<Alt>w'
+paste='<Primary>y'
+preferences='<Primary>comma'
+select-all='<Primary>slash'
+
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+audible-bell=false
+background-color='#262626262626'
+background-transparency-percent=6
+bold-color='#F8F8F8F8F2F2'
+bold-color-same-as-fg=false
+font='Roboto Mono 12'
+foreground-color='#F8F8F8F8F2F2'
+palette=['#757571715E5E', '#F9F926267272', '#A6A6E2E22E2E', '#F4F4BFBF7575', '#6666D9D9EFEF', '#AEAE8181FFFF', '#2A2AA1A19898', '#F9F9F9F9F5F5', '#272728282222', '#F9F926267272', '#A6A6E2E22E2E', '#F4F4BFBF7575', '#6666D9D9EFEF', '#AEAE8181FFFF', '#2A2AA1A19898', '#F9F9F8F9F5F5']
+use-system-font=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=true
