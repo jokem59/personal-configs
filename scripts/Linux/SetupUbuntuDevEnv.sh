@@ -64,11 +64,11 @@ function setup_syncthing() {
 
     # Update and install syncthing:
     apt update
-    apt install syncthing
+    apt install syncthing -y
 
-    # Add syncthing to systemd
-    cp /lib/systemd/system/syncthing@.service ./syncthing.service
-    systemctl enable syncthing
+    # Add syncthing to systemd and start it
+    systemctl enable syncthing@${real_user}.service
+    systemctl start syncthing@${real_user}.service
 }
 
 function setup_gnome_terminal() {
@@ -149,7 +149,7 @@ then
 fi
 
 # hwloc = lstopo
-apt install curl wget xclip tmux gnome-tweaks ripgrep shellcheck htop hwloc dconf-cli blueman
+apt install curl wget xclip tmux gnome-tweaks ripgrep shellcheck htop hwloc dconf-cli blueman gnome-clocks -y
 
 setup_emacs
 setup_vim

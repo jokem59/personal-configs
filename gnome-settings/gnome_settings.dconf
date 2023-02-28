@@ -7,7 +7,7 @@ launch-time=int64 1677397389
 release-check-time=uint32 1677352751
 
 [org/blueman/general]
-window-properties=[620, 350, 2672, 102]
+window-properties=[622, 350, 2672, 176]
 
 [org/blueman/plugins/powermanager]
 auto-power-on=@mb true
@@ -15,8 +15,16 @@ auto-power-on=@mb true
 [org/blueman/plugins/recentconns]
 recent-connections=[{'adapter': '88:D8:2E:50:79:BC', 'address': 'C8:7B:23:4B:3B:0E', 'alias': 'Bose QC45', 'icon': 'audio-headphones', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1677480036.1540358'}]
 
+[org/gnome/clocks]
+world-clocks=[{'location': <(uint32 2, <('London', 'EGWU', true, [(0.89971722940307675, -0.007272211034407213)], [(0.89884456477707964, -0.0020362232784242244)])>)>}]
+
+[org/gnome/clocks/state/window]
+panel-id='world'
+size=(870, 690)
+state=87168
+
 [org/gnome/control-center]
-last-panel='background'
+last-panel='datetime'
 
 [org/gnome/deja-dup]
 backend='google'
@@ -47,11 +55,17 @@ picture-uri-dark='file:///home/jokem/.local/share/backgrounds/2023-02-26-10-28-1
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
+[org/gnome/desktop/calendar]
+show-weekdate=false
+
 [org/gnome/desktop/input-sources]
+per-window=false
 sources=[('xkb', 'us')]
 xkb-options=['ctrl:nocaps']
 
 [org/gnome/desktop/interface]
+clock-show-seconds=false
+clock-show-weekday=true
 color-scheme='prefer-dark'
 font-hinting='slight'
 gtk-key-theme='Emacs'
@@ -93,7 +107,7 @@ application-id='update-manager.desktop'
 numlock-state=true
 
 [org/gnome/desktop/peripherals/mouse]
-speed=-0.375
+speed=-0.48529411764705888
 
 [org/gnome/desktop/peripherals/touchpad]
 two-finger-scrolling-enabled=true
@@ -110,7 +124,7 @@ primary-color='#000000000000'
 secondary-color='#000000000000'
 
 [org/gnome/desktop/session]
-idle-delay=uint32 600
+idle-delay=uint32 900
 
 [org/gnome/desktop/sound]
 allow-volume-above-100-percent=false
@@ -144,6 +158,10 @@ state=87168
 default-folder-viewer='icon-view'
 search-filter-time-type='last_modified'
 
+[org/gnome/power-manager]
+info-history-type='charge'
+info-stats-type='discharge-accuracy'
+
 [org/gnome/settings-daemon/plugins/color]
 night-light-last-coordinates=(37.694532019942407, -122.032082)
 
@@ -155,6 +173,23 @@ sleep-inactive-ac-type='suspend'
 favorite-apps=['org.gnome.Terminal.desktop', 'firefox_firefox.desktop', 'emacs.desktop']
 had-bluetooth-devices-setup=true
 welcome-dialog-last-shown-version='42.5'
+
+[org/gnome/shell/extensions/dash-to-dock]
+dash-max-icon-size=48
+dock-position='LEFT'
+extend-height=true
+multi-monitor=false
+show-mounts=true
+show-mounts-only-mounted=true
+show-trash=false
+
+[org/gnome/shell/extensions/ding]
+icon-size='standard'
+show-home=true
+start-corner='top-left'
+
+[org/gnome/shell/world-clocks]
+locations=[<(uint32 2, <('London', 'EGWU', true, [(0.89971722940307675, -0.007272211034407213)], [(0.89884456477707964, -0.0020362232784242244)])>)>]
 
 [org/gnome/software]
 check-timestamp=int64 1677511194
