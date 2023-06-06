@@ -34,9 +34,9 @@ function emacs_native_compilation_packages() {
     apt-get install build-essential texinfo libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev libncurses-dev automake autoconf libgccjit0 libgccjit-10-dev
 }
 
-function latex_packages() {
+function get_latex_packages() {
     # Install latex related packages
-    apt install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra
+    apt install texlive-full -y
 }
 
 function setup_vim() {
@@ -149,7 +149,7 @@ then
 fi
 
 # hwloc = lstopo
-apt install curl wget xclip tmux gnome-tweaks ripgrep shellcheck htop hwloc dconf-cli blueman gnome-clocks -y
+apt install curl wget xclip tmux gnome-tweaks ripgrep shellcheck htop hwloc dconf-cli blueman gnome-clocks convert -y
 
 setup_emacs
 setup_vim
@@ -157,6 +157,7 @@ setup_gnome_terminal
 setup_tmux
 setup_syncthing
 setup_gnome_settings
+get_latex_packages
 
 # Add case insensitive auto-completion
 if grep -qi completion-ignore-case /etc/inputrc; then
