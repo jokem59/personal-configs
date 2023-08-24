@@ -149,7 +149,7 @@ then
 fi
 
 # hwloc = lstopo
-apt install curl wget xclip tmux gnome-tweaks ripgrep shellcheck htop hwloc dconf-cli blueman gnome-clocks convert -y
+apt install curl wget xclip tmux gnome-tweaks ripgrep shellcheck htop hwloc dconf-cli blueman gnome-clocks convert plocate -y
 
 setup_emacs
 setup_vim

@@ -1,4 +1,4 @@
-colorscheme Monokai          " Setting to utilize the colorscheme
+colorscheme monokai          " Setting to utilize the colorscheme
 
 set noshowmode               " Setting only if running lightline.vim
 set nocompatible             " For vimwiki to work
