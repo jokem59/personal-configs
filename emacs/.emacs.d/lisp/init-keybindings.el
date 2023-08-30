@@ -57,20 +57,17 @@
 (global-set-key [(meta f8)]
                 'copy-region-as-richtext-to-clipboard)
 
-;; append-line-to-scratch
+;; Append-line-to-scratch
 (global-set-key (kbd "M-]") 'append-line-to-scratch)
 
-;; Ivy-based replacement for standard commands
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-r") 'swiper-backward)
-(define-key ivy-minibuffer-map (kbd "C-r") 'ivy-previous-line-or-history)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;; Ivy-based interface to shell and system tools
-(global-set-key (kbd "C-c g") 'counsel-git)
+;; General navigation commands
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "M-x") 'execute-extended-command)
+(global-set-key (kbd "C-x C-f") 'find-file)
+(global-set-key (kbd "C-c g") 'consult-ls-git)
 ;; Other commands
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "C-x C-i") 'counsel-imenu)
+(global-set-key (kbd "C-x C-i") 'consult-imenu)
 
 (global-set-key (kbd "C-c f") #'deadgrep)
 

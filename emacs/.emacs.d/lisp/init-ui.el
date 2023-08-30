@@ -33,6 +33,9 @@
 ;; Show file name in title bar
 (setq frame-title-format "%b")
 
+;; Have isearch show number of matches (requires Emacs 27.1+)
+(setq isearch-lazy-count t)
+
 ;; Theme
 (add-hook 'after-init-hook (lambda () (load-theme 'doom-dark+)))
 
@@ -71,16 +74,6 @@
 (setq electric-pair-mode nil) ; disable auto matching of braces
 (setq visible-bell t)
 (setq ring-bell-function 'ignore)
-
-;;
-;; Ivy rich
-;;
-(require 'ivy-rich)
-(ivy-rich-mode 1)
-(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-
-;; Disable ivy-rich details while using Tramp to improve performance
-(setq ivy-rich-parse-remote-buffer nil)
 
 ;;
 ;; Prefer vertical window splits to horizontal
@@ -145,27 +138,14 @@ i.e. windows tiled side-by-side."
   (setq-default line-spacing 1))
 
 ;;
-;; Ivy Mode
-;;
-
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-count-format "(%d/%d) ")
-(setq ivy-re-builders-alist
-      '((swiper . ivy--regex-plus)
-        (counsel-git . ivy--regex-plus)
-        (t      . ivy--regex-plus)))
-
-;; better performance on everything (especially windows), ivy-0.10.0 required
-;; @see https://github.com/abo-abo/swiper/issues/1218
-(setq ivy-dynamic-exhibit-delay-ms 250)
-
-;;
 ;; The uniquify library makes it so that when you visit two files with the same name in different directories,
 ;; the buffer names have the directory name appended to them instead of the silly hello<2> names you get by default.
 ;;
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
+;; When navigating back to home (~), make the previous part of CWD invsible
+(setq file-name-shadow-properties '(invisible t intangible t))
 
 ;;
 ;; The saveplace library saves the location of the point when you kill a buffer
