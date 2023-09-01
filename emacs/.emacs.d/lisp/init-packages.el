@@ -32,7 +32,7 @@
 
                          ; language modes
                          csharp-mode
-                         markdown-mode
+                         ;;markdown-mode
                          yaml-mode
                          js3-mode
                          web-mode
