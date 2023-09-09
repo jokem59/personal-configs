@@ -9,12 +9,8 @@
 (defvar jokem/packages '(; misc / tools
                          use-package
                          org-roam
-                         avy
                          git-gutter
-                         ivy
-                         ivy-rich
                          smex
-                         counsel
                          golden-ratio
                          expand-region
                          deadgrep
@@ -23,6 +19,14 @@
                          company
                          flycheck
                          org-tree-slide
+                         vertico
+                         consult
+                         marginalia
+                         orderless
+                         auto-complete
+
+                         ; mail
+                         mu4e-column-faces
 
                          ; modes
                          log4j-mode
