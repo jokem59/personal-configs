@@ -33,6 +33,18 @@
 ;; Show file name in title bar
 (setq frame-title-format "%b")
 
+;;
+;; all-the-icons
+;;
+(use-package all-the-icons
+  :if (display-graphic-p))
+
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))
+
 ;; Have isearch show number of matches (requires Emacs 27.1+)
 (setq isearch-lazy-count t)
 
@@ -134,7 +146,7 @@ i.e. windows tiled side-by-side."
     (set-face-attribute 'default nil :height 145))
 
 (when window-system
-  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular)
+  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular :height 130)
   (setq-default line-spacing 1))
 
 ;;
