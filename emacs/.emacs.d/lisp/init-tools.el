@@ -15,6 +15,9 @@
 
 ;; Undo-tree
 (global-undo-tree-mode)
+;; Prevent undo tree files from polluting your git repo
+(setq undo-tree-history-directory-alist '(("." . "~/.undo-tree")))
+
 
 ;; EDiff config
 (custom-set-variables
