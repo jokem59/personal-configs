@@ -202,6 +202,21 @@ i.e. windows tiled side-by-side."
 ;; Necessary variably property to use locally
 (put 'my-modeline-major-mode 'risky-local-variable t)
 
+;; Pulsar, pulse curor on actions
+(require 'pulsar)
+
+;; Check the default value of `pulsar-pulse-functions'.  That is where
+;; you add more commands that should cause a pulse after they are
+;; invoked
+
+(setq pulsar-pulse t)
+(setq pulsar-delay 0.055)
+(setq pulsar-iterations 10)
+(setq pulsar-face 'pulsar-magenta)
+(setq pulsar-highlight-face 'pulsar-yellow)
+
+(pulsar-global-mode 1)
+
 ;;
 ;; The saveplace library saves the location of the point when you kill a buffer
 ;; and returns to it next time you visit the associated file.
