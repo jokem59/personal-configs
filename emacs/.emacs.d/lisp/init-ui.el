@@ -160,17 +160,54 @@ i.e. windows tiled side-by-side."
 (setq file-name-shadow-properties '(invisible t intangible t))
 
 ;;
+;; Modeline
+;;
+(setq-default mode-line-format
+              '("%e"
+                mode-line-front-space
+                mode-line-mule-info
+                mode-line-client
+                mode-line-modified
+                mode-line-remote
+                mode-line-frame-identification
+                mode-line-buffer-identification
+                "   "
+                mode-line-position
+                (vc-mode vc-mode)
+                "  "
+                my-modeline-major-mode
+                "        "
+                mode-line-misc-info))
+                ;;mode-line-end-spaces))
+
+
+(defvar-local my-modeline-buffer-name
+  '(:eval
+    (format " %s "
+            (propertize (buffer-name) 'face 'my-modeline-red-background)))
+  "Mode line constuct to display the buffer name.")
+
+
+(defun my-modeline--major-mode-name ()
+  "Return capitalized 'major-mode' as a string."
+  (capitalize (symbol-name major-mode)))
+
+(defvar-local my-modeline-major-mode
+  '(:eval
+    (list
+     (propertize "⚡" 'face 'bold)
+     (propertize (my-modeline--major-mode-name) 'face 'bold)))
+  "Mode line construct to display the major mode.")
+
+;; Necessary variably property to use locally
+(put 'my-modeline-major-mode 'risky-local-variable t)
+
+;;
 ;; The saveplace library saves the location of the point when you kill a buffer
 ;; and returns to it next time you visit the associated file.
 ;;
 
 (require 'saveplace)
 (save-place-mode 1)
-
-;;
-;; Enable Git Gutter
-;;
-(require 'git-gutter)
-(global-git-gutter-mode 1)
 
 (provide 'init-ui)

@@ -9,7 +9,6 @@
 (defvar jokem/packages '(; misc / tools
                          use-package
                          org-roam
-                         git-gutter
                          smex
                          golden-ratio
                          expand-region

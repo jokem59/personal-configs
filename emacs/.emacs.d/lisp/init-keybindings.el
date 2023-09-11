@@ -61,11 +61,18 @@
 (global-set-key (kbd "M-]") 'append-line-to-scratch)
 
 ;; General navigation commands
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-s") 'consult-line)
+(global-set-key (kbd "C-M-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-M-r") 'isearch-backward-regexp)
 (global-set-key (kbd "M-x") 'execute-extended-command)
 (global-set-key (kbd "C-x C-f") 'find-file)
-(global-set-key (kbd "C-c g") 'consult-ls-git)
+
+(use-package consult-ls-git
+  :ensure t
+  :bind
+  (("C-c g" . #'consult-ls-git)
+   ("C-c g f" . #'consult-ls-git-other-window)))
+
 ;; Other commands
 (global-set-key (kbd "C-x C-i") 'consult-imenu)
 
