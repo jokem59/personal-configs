@@ -79,9 +79,13 @@
 (global-set-key (kbd "C-c f") #'deadgrep)
 
 ;; Window movements
-(defun myprevious-window ()
+(defvar my-previous-window-hook nil
+  "Hook for moving to previous window")
+
+(defun my-previous-window ()
   (interactive)
-  (other-window -1))
-(global-set-key (kbd "C-x p") 'myprevious-window)
+  (other-window -1)
+  (run-hooks 'my-previous-window-hook))
+(global-set-key (kbd "C-x p") 'my-previous-window)
 
 (provide 'init-keybindings)

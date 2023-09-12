@@ -146,7 +146,7 @@ i.e. windows tiled side-by-side."
     (set-face-attribute 'default nil :height 145))
 
 (when window-system
-  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'regular :height 130)
+  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'medium :height 130)
   (setq-default line-spacing 1))
 
 ;;
