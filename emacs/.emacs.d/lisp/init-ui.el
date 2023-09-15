@@ -215,6 +215,9 @@ i.e. windows tiled side-by-side."
 (setq pulsar-face 'pulsar-magenta)
 (setq pulsar-highlight-face 'pulsar-yellow)
 
+;; Custom hooks to add pulese
+(add-hook 'my-previous-window-hook #'pulsar-pulse-line)
+
 (pulsar-global-mode 1)
 
 ;;

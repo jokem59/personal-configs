@@ -70,8 +70,7 @@
 (use-package consult-ls-git
   :ensure t
   :bind
-  (("C-c g" . #'consult-ls-git)
-   ("C-c g f" . #'consult-ls-git-other-window)))
+  (("C-c g" . #'consult-ls-git)))
 
 ;; Other commands
 (global-set-key (kbd "C-x C-i") 'consult-imenu)
