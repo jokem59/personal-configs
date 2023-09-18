@@ -8,6 +8,8 @@
 
 (defvar jokem/packages '(; misc / tools
                          use-package
+                         all-the-icons
+                         all-the-icons-completion
                          org-roam
                          smex
                          golden-ratio
@@ -20,9 +22,11 @@
                          org-tree-slide
                          vertico
                          consult
+                         consult-ls-git
                          marginalia
                          orderless
                          auto-complete
+                         pulsar
 
                          ; mail
                          mu4e-column-faces
