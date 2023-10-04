@@ -12,6 +12,10 @@
 (global-set-key [C-tab] 'toggle-fold)
 (global-set-key (kbd "C-.") 'hs-show-all)
 
+;; When using emacs in terminal, override default copy with clipetty
+(unless (display-graphic-p)
+  (global-set-key "\M-w" 'clipetty-kill-ring-save))
+
 ;; MacOS Specific
 (setq mac-command-modifier 'meta)
 

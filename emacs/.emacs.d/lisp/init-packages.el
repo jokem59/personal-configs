@@ -1,7 +1,13 @@
 (require 'package)
 
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;; 	     '("melpa" . "https://melpa.org/packages/") t)
+
+;; Use these mirrors if there are issues getting to the official melpa source
+(setq package-archives
+      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 
 (package-initialize)
 (setq package-enable-at-startup nil)
@@ -27,6 +33,8 @@
                          orderless
                          auto-complete
                          pulsar
+                         git-gutter
+                         clipetty
 
                          ; mail
                          mu4e-column-faces

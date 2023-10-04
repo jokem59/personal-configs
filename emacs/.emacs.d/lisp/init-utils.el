@@ -187,4 +187,12 @@
     (end-of-line)
     (hs-toggle-hiding)))
 
+;; Git-gutter
+(global-git-gutter-mode +1)
+
+;; Clippety
+(use-package clipetty
+  :ensure t
+  :hook (after-init . global-clipetty-mode))
+
 (provide 'init-utils)
