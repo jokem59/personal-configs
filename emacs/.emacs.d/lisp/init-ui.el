@@ -26,6 +26,18 @@
 (golden-ratio-mode 1)
 (setq-default show-trailing-whitespace 1)
 
+;; These settings hide the truncation glyhphs on terminal and gui repsectively
+;; When resizing windows, they can refresh many times which is visually distracting
+;; Replace truncation glyphs on terminal "$" with space
+(set-display-table-slot standard-display-table 'truncation ?\)
+;; Remove truncation glyphs for GUI
+(push '(truncation nil nil) ;; no truncation indicators
+      ;; '(truncation nil right-arrow) ;; right indicator only
+      ;; '(truncation left-arrow nil) ;; left indicator only
+      ;; '(truncation left-arrow right-arrow) ;; default
+      fringe-indicator-alist)
+
+
 ;; Line numbers
 (setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
