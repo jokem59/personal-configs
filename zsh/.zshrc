@@ -109,7 +109,7 @@ source /usr/share/powerlevel10k/powerlevel10k.zsh-theme
 POWERLEVEL10K_PROMPT_ON_NEWLINE=true
 
 # Open emacs terminal and attach to existing deamon, passing along any args
-alias e='emacsclient -n -a "" "$@"'
+alias e='emacsclient -r -n -a "" "$@"'
 alias ll="ls -alt"
 
 # Emacs related settings
