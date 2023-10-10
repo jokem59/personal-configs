@@ -1,0 +1,31 @@
+diff --git a/config.def.h b/config.def.h
+index 91ab8ca..2fd1f7c 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -5,7 +5,7 @@
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char *font = "Roboto Mono:pixelsize=16:antialias=true:autohint=true";
+ static int borderpx = 2;
+ 
+ /*
+@@ -16,7 +16,7 @@ static int borderpx = 2;
+  * 4: value of shell in /etc/passwd
+  * 5: value of shell in config.h
+  */
+-static char *shell = "/bin/sh";
++static char *shell = "/bin/zsh";
+ char *utmp = NULL;
+ /* scroll program: to enable use a string like "scroll" */
+ char *scroll = NULL;
+@@ -45,7 +45,7 @@ int allowaltscreen = 1;
+ 
+ /* allow certain non-interactive (insecure) window operations such as:
+    setting the clipboard text */
+-int allowwindowops = 0;
++int allowwindowops = 1;
+ 
+ /*
+  * draw latency range in ms - from new content/keypress/etc until drawing.
