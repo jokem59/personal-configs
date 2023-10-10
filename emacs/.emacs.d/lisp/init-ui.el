@@ -29,7 +29,7 @@
 ;; These settings hide the truncation glyhphs on terminal and gui repsectively
 ;; When resizing windows, they can refresh many times which is visually distracting
 ;; Replace truncation glyphs on terminal "$" with space
-(set-display-table-slot standard-display-table 'truncation ?\)
+(set-display-table-slot standard-display-table 'truncation ?\ )
 ;; Remove truncation glyphs for GUI
 (push '(truncation nil nil) ;; no truncation indicators
       ;; '(truncation nil right-arrow) ;; right indicator only
