@@ -37,7 +37,6 @@
       ;; '(truncation left-arrow right-arrow) ;; default
       fringe-indicator-alist)
 
-
 ;; Line numbers
 (setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
