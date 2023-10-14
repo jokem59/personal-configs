@@ -18,12 +18,12 @@
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
 ;; Major mode remap to tree sitter major modes
-(setq major-mode-remap-alist
- '((yaml-mode . yaml-ts-mode)
-   (c++-mode . c++-ts-mode)
-   (c-mode . c-ts-mode)
-   (sh-mode . bash-ts-mode)
-   (js-json-mode . json-ts-mode)
-   (python-mode . python-ts-mode)))
+;; (setq major-mode-remap-alist
+;;  '((yaml-mode . yaml-ts-mode)
+;;    (c++-mode . c++-ts-mode)
+;;    (c-mode . c-ts-mode)
+;;    (sh-mode . bash-ts-mode)
+;;    (js-json-mode . json-ts-mode)
+;;    (python-mode . python-ts-mode)))
 
 (provide 'init-tree-sitter)

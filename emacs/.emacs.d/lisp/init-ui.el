@@ -44,6 +44,9 @@
 ;; Show file name in title bar
 (setq frame-title-format "%b")
 
+;; Use short yes/no prompt, y/n
+(setopt use-short-answers t)
+
 ;;
 ;; all-the-icons
 ;;

@@ -110,6 +110,7 @@ POWERLEVEL10K_PROMPT_ON_NEWLINE=true
 
 # Open emacs terminal and attach to existing deamon, passing along any args
 alias e='emacsclient -r -n -a "" "$@"'
+alias et='emacsclient -r -nw -a "" "$@"'
 alias ll="ls -alt"
 
 # Emacs related settings

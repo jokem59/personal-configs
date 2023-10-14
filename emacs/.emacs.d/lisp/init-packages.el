@@ -47,6 +47,7 @@
 
                          ; language modes
                          csharp-mode
+                         rust-mode
                          ;;markdown-mode
                          yaml-mode
                          js3-mode
