@@ -2,6 +2,8 @@
 (global-set-key [C-backspace] 'backward-delete-word)
 ;; Prevent M-backspace from sending to kill ring; useful in terminal emacs where C-backspace is unavailable
 (global-set-key [M-backspace] 'backward-delete-word)
+(global-unset-key (kbd "M-DEL"))
+(global-set-key (kbd "M-DEL") 'backward-delete-word)
 (global-set-key (kbd "C-<f5>") 'mlinum-mode)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\M-l" 'copy-current-line-position-to-clipboard)
