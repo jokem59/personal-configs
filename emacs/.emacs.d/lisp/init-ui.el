@@ -45,7 +45,9 @@
 (setq frame-title-format "%b")
 
 ;; Use short yes/no prompt, y/n
-(setopt use-short-answers t)
+(if (version< emacs-version "29.1")
+    (message "Current version doesn't support setopt")
+  (setopt use-short-answers t))
 
 ;;
 ;; all-the-icons
