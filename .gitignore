@@ -6,6 +6,7 @@ vimfiles/sessions/*
 # Emacs ignores
 *~
 \#*\#
+.\#*
 emacs/.emacs.d/auto-save-list/*
 emacs/.emacs.d/eln-cache/*
 emacs/.emacs.d/elpa/*
