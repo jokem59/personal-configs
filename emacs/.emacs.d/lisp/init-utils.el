@@ -18,27 +18,12 @@
       auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
       )
 
-(custom-set-variables
- `(markdown-command "C:/Users/joskim/AppData/Local/Pandoc/pandoc.exe"))
+;; TODO: revisit based on OS
+;;(custom-set-variables
+;;  `(markdown-command "C:/Users/joskim/AppData/Local/Pandoc/pandoc.exe"))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
-
-(defun set-exec-path-from-shell-PATH ()
-  "Set up Emacs' `exec-path' and PATH environment variable to match
-that used by the user's shell.
-
-This is particularly useful under Mac OS X and macOS, where GUI
-apps are not started from a shell."
-  (interactive)
-  (let ((path-from-shell (replace-regexp-in-string
-			  "[ \t\n]*$" "" (shell-command-to-string
-					  "$SHELL --login -c 'echo $PATH'"
-						    ))))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
-
-(set-exec-path-from-shell-PATH)
 
 ;; Do not check if remote files are readable
 ;; Constant checks freeze on Windows when buffers to large network files exists
@@ -60,18 +45,6 @@ apps are not started from a shell."
   (goto-char (point-min))
   (while (search-forward "\r" nil t)
     (replace-match "")))
-
-;; Keep region when undoing in region
-(defadvice undo-tree-undo (around keep-region activate)
-  (if (use-region-p)
-      (let ((m (set-marker (make-marker) (mark)))
-            (p (set-marker (make-marker) (point))))
-        ad-do-it
-        (goto-char p)
-        (set-mark m)
-        (set-marker p nil)
-        (set-marker m nil))
-    ad-do-it))
 
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -210,5 +183,23 @@ apps are not started from a shell."
 (use-package clipetty
   :ensure t
   :hook (after-init . global-clipetty-mode))
+
+;; Dwim quit minibuffer
+(defun my/force-quit-minibuffer ()
+  "Forcefully quit the minibuffer, even if it's not the active window."
+  (interactive)
+  (let ((mini-window (minibuffer-window)))
+    (when (window-live-p mini-window)
+      (with-selected-window mini-window
+        (abort-recursive-edit)))))
+
+;; Dwim quit minibuffer advice function
+(defun my/keyboard-quit-advice ()
+  "Call `force-quit-minibuffer` if the minibuffer is active; otherwise, do nothing."
+  (when (active-minibuffer-window)
+    (my/force-quit-minibuffer)))
+
+;; Add the advice to keyboard-quit
+(advice-add 'keyboard-quit :before #'my/keyboard-quit-advice)
 
 (provide 'init-utils)

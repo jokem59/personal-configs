@@ -2,6 +2,9 @@
 (require 'golden-ratio)
 (golden-ratio-mode 1)
 
+;; Disable auto complete
+(setq auto-complete-mode nil)
+
 ;; Start emacs in fullscreen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -149,13 +152,6 @@ i.e. windows tiled side-by-side."
    split-window-preferred-function 'split-window-sensibly-prefer-horizontal)
 
 ;;
-;; Line Numbers (linum)
-;;
-
-(set-fill-column 119)
-(autoload 'linum-mode "linum" "toggle line numbers on/off" t)
-
-;;
 ;; Theme
 ;;
 (if (string-equal system-type "darwin")
@@ -164,13 +160,6 @@ i.e. windows tiled side-by-side."
 (when window-system
   (set-face-attribute 'default nil :family "Roboto Mono" :weight 'medium :height 130)
   (setq-default line-spacing 1))
-
-;;
-;; The uniquify library makes it so that when you visit two files with the same name in different directories,
-;; the buffer names have the directory name appended to them instead of the silly hello<2> names you get by default.
-;;
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 
 ;; When navigating back to home (~), make the previous part of CWD invsible
 (setq file-name-shadow-properties '(invisible t intangible t))
@@ -204,7 +193,7 @@ i.e. windows tiled side-by-side."
   "Mode line constuct to display the buffer name.")
 
 
-(defun my-modeline--major-mode-name ()
+(defun my/modeline--major-mode-name ()
   "Return capitalized 'major-mode' as a string."
   (capitalize (symbol-name major-mode)))
 
@@ -212,11 +201,11 @@ i.e. windows tiled side-by-side."
   '(:eval
     (list
      (propertize "⚡" 'face 'bold)
-     (propertize (my-modeline--major-mode-name) 'face 'bold)))
+     (propertize (my/modeline--major-mode-name) 'face 'bold)))
   "Mode line construct to display the major mode.")
 
 ;; Necessary variably property to use locally
-(put 'my-modeline-major-mode 'risky-local-variable t)
+(put 'my/modeline-major-mode 'risky-local-variable t)
 
 ;; Pulsar, pulse curor on actions
 (require 'pulsar)
@@ -236,12 +225,7 @@ i.e. windows tiled side-by-side."
 
 (pulsar-global-mode 1)
 
-;;
-;; The saveplace library saves the location of the point when you kill a buffer
-;; and returns to it next time you visit the associated file.
-;;
-
-(require 'saveplace)
+;; Return back to the position in the file you last visited
 (save-place-mode 1)
 
 (provide 'init-ui)

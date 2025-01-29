@@ -27,8 +27,8 @@
 (require 'init-org-roam)
 (require 'init-magit)
 (require 'init-language-base)
+;; This goes last as it often relies on functions defined in the above
 (require 'init-keybindings)
-(require 'init-tree-sitter)
 ;; (require 'init-eglot-cpp)
 
 (custom-set-variables
@@ -50,6 +50,7 @@
  '(file-name-shadow-properties '(invisible t intangible t))
  '(file-name-shadow-tty-properties '(before-string "{" after-string "} " field shadow))
  '(find-name-arg "-iname")
+ '(global-undo-tree-mode nil)
  '(highlight-tail-colors
    ((("#2c3e3c" "#2a3b2e" "green")
      . 0)
@@ -87,9 +88,10 @@
      ("+"
       (:strike-through t))))
  '(org-export-backends '(ascii html icalendar latex md odt))
+ '(org-roam-database-connector 'sqlite-builtin)
  '(org-src-preserve-indentation t)
  '(package-selected-packages
-   '(pulsar all-the-icons-completion auto-complete orderless marginalia consult-ls-git consult vertico mu4e-column-faces use-package eglot 0blayout mini-frame cmake-mode gnuplot gnuplot-mode org-tree-slide dired-narrow rainbow-delimiters go-mode org-roam dumb-jump flymd impatient-mode nhexl-mode undo-tree smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode gruvbox-theme doom-themes))
+   '(pulsar all-the-icons-completion orderless marginalia consult-ls-git consult vertico mu4e-column-faces use-package eglot 0blayout mini-frame cmake-mode gnuplot gnuplot-mode org-tree-slide dired-narrow rainbow-delimiters go-mode org-roam flymd impatient-mode nhexl-mode undo-tree smex company smart-mode-line-atom-one-dark-theme smart-mode-line avy expand-region rust-mode tide web-mode js3-mode yaml-mode markdown-mode csharp-mode log4j-mode gruvbox-theme doom-themes))
  '(pdf-view-midnight-colors (cons "#f8f8f2" "#282a36"))
  '(pulsar-pulse-functions
    '(recenter-top-bottom move-to-window-line-top-bottom reposition-window bookmark-jump other-window delete-window delete-other-windows forward-page backward-page scroll-up-command scroll-down-command next-buffer previous-buffer windmove-right windmove-left windmove-up windmove-down windmove-swap-states-right windmove-swap-states-left windmove-swap-states-up windmove-swap-states-down tab-new tab-close tab-next org-next-visible-heading org-previous-visible-heading org-forward-heading-same-level org-backward-heading-same-level outline-backward-same-level outline-forward-same-level outline-next-visible-heading outline-previous-visible-heading outline-up-heading))

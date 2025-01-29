@@ -18,11 +18,6 @@
   ;; (setq vertico-cycle t)
   )
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :init
-  (savehist-mode))
-
 ;; A few more useful configurations...
 (use-package emacs
   :init
@@ -89,22 +84,13 @@
 ;; Enable Hide Show minor mode globally
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
-;; Auto-complete
-(ac-config-default)
-
-;; Undo-tree
-(global-undo-tree-mode)
-;; Prevent undo tree files from polluting your git repo
-(setq undo-tree-history-directory-alist '(("." . "~/.undo-tree")))
-
-
 ;; EDiff config
 (custom-set-variables
  '(ediff-split-window-function (quote split-window-horizontally))  ;; Split side by side
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))) ;; Prevent popu
 
 ;; Simple shell config to prevent Tramp/SSH from hanging
-(defun set-exec-path-from-shell-PATH ()
+(defun my/set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match
 that used by the user's shell.
 
@@ -118,10 +104,7 @@ apps are not started from a shell."
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
-(set-exec-path-from-shell-PATH)
-
-;; dumb-jump setup
-(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+(my/set-exec-path-from-shell-PATH)
 
 ;; Impatient mode to render markdown
 (defun markdown-html (buffer)

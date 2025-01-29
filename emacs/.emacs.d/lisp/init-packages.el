@@ -17,12 +17,9 @@
                          all-the-icons
                          all-the-icons-completion
                          org-roam
-                         smex
                          golden-ratio
                          expand-region
                          deadgrep
-                         undo-tree
-                         dumb-jump
                          company
                          flycheck
                          org-tree-slide
@@ -31,7 +28,6 @@
                          consult-ls-git
                          marginalia
                          orderless
-                         auto-complete
                          pulsar
                          git-gutter
                          clipetty

@@ -31,9 +31,6 @@
 (setq org-directory "~/Sync/org")
 (setq org-default-notes-file (concat org-directory "/journal.org"))
 (setq org-default-journal-file (concat org-directory "/journal.org"))
-(setq org-default-amazon-file (concat org-directory "/amazon.org"))
-(setq org-default-todo-file (concat org-directory "/todo.org"))
-(setq org-default-personal-file (concat org-directory "/personal.org"))
 (setq org-catch-invisible-edits 'show-and-error)
 (setq org-startup-with-inline-images t)
 
@@ -49,12 +46,6 @@
          "* %?"
          :empty-lines 1)
 
-        ("a" "Amazon Journal Entry"
-         entry
-         (file+datetree org-default-amazon-file)
-         "* %?"
-         :empty-lines 1)
-
         ("p" "Personal Notes"
          entry
          (file+datetree org-default-personal-file)
@@ -65,9 +56,9 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key "\C-cj" 'org-open-journal)
+(global-set-key "\C-cj" 'my/org-open-journal)
 
-(defun org-open-journal()
+(defun my/org-open-journal()
   (interactive)
   (find-file org-default-journal-file))
 
