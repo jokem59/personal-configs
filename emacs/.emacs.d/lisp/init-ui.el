@@ -19,9 +19,19 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode 0)
+;; Disable tool bar and scroll bar immediately if running in GUI mode
+(when (display-graphic-p)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+
+;; Ensure they are disabled when creating a new graphical frame (e.g., via emacsclient -c)
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (when (display-graphic-p frame)
+              (with-selected-frame frame
+                (tool-bar-mode -1)
+                (scroll-bar-mode -1)))))
+
 (menu-bar-mode 0)
 (display-time)
 (golden-ratio-mode 1)
