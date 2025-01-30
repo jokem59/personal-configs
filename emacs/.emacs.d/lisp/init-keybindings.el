@@ -1,11 +1,13 @@
 ;; Keybindings
 ;; Ensure default undo behavior
 (global-set-key (kbd "C-/") 'undo)
-(global-set-key [C-backspace] 'backward-delete-word)
+(global-set-key [C-backspace] 'backward-kill-word)
 ;; Prevent M-backspace from sending to kill ring; useful in terminal emacs where C-backspace is unavailable
-(global-set-key [M-backspace] 'backward-delete-word)
+(global-set-key [M-backspace] 'backward-kill-word)
 (global-unset-key (kbd "M-DEL"))
-(global-set-key (kbd "M-DEL") 'backward-delete-word)
+(global-set-key (kbd "M-DEL") 'backward-kill-word)
+(global-set-key (kbd "C-;") 'consult-yank-from-kill-ring)
+
 (global-set-key (kbd "C-<f5>") 'mlinum-mode)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\M-l" 'copy-current-line-position-to-clipboard)
