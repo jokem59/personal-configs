@@ -19,10 +19,8 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-(if (display-graphic-p)
-    (progn
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1)))
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (display-time)
@@ -157,9 +155,8 @@ i.e. windows tiled side-by-side."
 (if (string-equal system-type "darwin")
     (set-face-attribute 'default nil :height 145))
 
-(when window-system
-  (set-face-attribute 'default nil :family "Roboto Mono" :weight 'medium :height 130)
-  (setq-default line-spacing 1))
+(set-face-attribute 'default nil :family "Roboto Mono" :weight 'medium :height 130)
+(setq-default line-spacing 1)
 
 ;; When navigating back to home (~), make the previous part of CWD invsible
 (setq file-name-shadow-properties '(invisible t intangible t))
@@ -180,13 +177,13 @@ i.e. windows tiled side-by-side."
                 mode-line-position
                 (vc-mode vc-mode)
                 "  "
-                my-modeline-major-mode
+                my/modeline-major-mode
                 "        "
                 mode-line-misc-info))
                 ;;mode-line-end-spaces))
 
 
-(defvar-local my-modeline-buffer-name
+(defvar-local my/modeline-buffer-name
   '(:eval
     (format " %s "
             (propertize (buffer-name) 'face 'my-modeline-red-background)))
@@ -197,7 +194,7 @@ i.e. windows tiled side-by-side."
   "Return capitalized 'major-mode' as a string."
   (capitalize (symbol-name major-mode)))
 
-(defvar-local my-modeline-major-mode
+(defvar-local my/modeline-major-mode
   '(:eval
     (list
      (propertize "⚡" 'face 'bold)
