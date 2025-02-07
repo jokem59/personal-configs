@@ -162,11 +162,11 @@ i.e. windows tiled side-by-side."
 ;;
 ;; Theme
 ;;
-(if (string-equal system-type "darwin")
-    (set-face-attribute 'default nil :height 145))
-
 (set-face-attribute 'default nil :family "Roboto Mono" :weight 'medium :height 130)
 (setq-default line-spacing 1)
+
+(if (string-equal system-type "darwin")
+    (set-face-attribute 'default nil :height 150))
 
 ;; When navigating back to home (~), make the previous part of CWD invsible
 (setq file-name-shadow-properties '(invisible t intangible t))
