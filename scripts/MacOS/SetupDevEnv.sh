@@ -31,5 +31,7 @@ brew install iterm2
 # Install helix editor
 brew install helix
 
+# Symlink helix configs
+
 # Install gitu
 brew install gitu
