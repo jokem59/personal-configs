@@ -158,7 +158,7 @@ i.e. windows tiled side-by-side."
    split-height-threshold 4
    split-width-threshold 40
    split-window-preferred-function 'split-window-sensibly-prefer-horizontal)
-
+ine
 ;;
 ;; Theme
 ;;
@@ -166,7 +166,7 @@ i.e. windows tiled side-by-side."
 (setq-default line-spacing 1)
 
 (if (string-equal system-type "darwin")
-    (set-face-attribute 'default nil :height 150))
+    (set-face-attribute 'default nil :height 155))
 
 ;; When navigating back to home (~), make the previous part of CWD invsible
 (setq file-name-shadow-properties '(invisible t intangible t))
