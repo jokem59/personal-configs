@@ -1,24 +1,35 @@
-
 # Install HomeBrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# Install MacForOSX
+# Install emacs
+brew tap d12frosted/emacs-plus
+brew install emacs-plus
 
-# Download and install RobotoMono fonts
+# Register emacs daemon service
+sudo ln -s ./emacs_server.plist /Library/LaunchAgents/emacs_server.plist
+launchctl load -w /Library/LaunchAgents/emacs_server.plist
+
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Install zsh-syntax-highlighting
+brew install zsh-syntax-highlighting
 
 # Download iTerm2
 brew install iterm2
 
-# Download Oh-My-Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Disable mouse pointer acceleration
 
-# Enable iTerm2 syntax highlighting
-cd ~/.oh-my-zsh
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
-echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+# Download and install RobotoMono fonts
 
-# Power Level 9K
-brew tap sambadevi/powerlevel9k
-brew install powerlevel9k
+# Set RobotoMono font in iterm2
 
+# Install Karabiner, add PC style shortcuts
+# Latest downloads: https://karabiner-elements.pqrs.org/
+# Need to symlink karabiner folder in here to ~/.config/karabiner
 
+# Install helix editor
+brew install helix
 
+# Install gitu
+brew install gitu

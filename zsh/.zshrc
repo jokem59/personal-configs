@@ -110,8 +110,8 @@ alias ll="ls -alt"
 
 # Emacs related settings
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -c"                  # $EDITOR opens in terminal
-export VISUAL='emacsclient -c --alternate-editor=""'         # $VISUAL opens in GUI mode
+export EDITOR="hx"                  # $EDITOR opens in terminal
+export VISUAL='hx'         # $VISUAL opens in GUI mode
 
 function em()
 {
