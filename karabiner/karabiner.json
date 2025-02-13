@@ -1392,6 +1392,7 @@
                     },
                     {
                         "description": "PC-Style Reload(F5, Ctrl+R)",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
