@@ -158,7 +158,7 @@ i.e. windows tiled side-by-side."
    split-height-threshold 4
    split-width-threshold 40
    split-window-preferred-function 'split-window-sensibly-prefer-horizontal)
-ine
+
 ;;
 ;; Theme
 ;;
