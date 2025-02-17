@@ -106,12 +106,16 @@ source $ZSH/oh-my-zsh.sh
 # Open emacs terminal and attach to existing deamon, passing along any args
 alias e='emacsclient -r -n -a "" "$@"'
 alias et='emacsclient -r -nw -a "" "$@"'
+alias h='hx'
 alias ll="ls -alt"
 
-# Emacs related settings
+# Default editor related settings
 export ALTERNATE_EDITOR=""
 export EDITOR="hx"                  # $EDITOR opens in terminal
 export VISUAL='hx'         # $VISUAL opens in GUI mode
+
+# st requires this export for programs like helix to detect true color support
+export COLORTERM=truecolor
 
 function em()
 {
