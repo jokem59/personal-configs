@@ -1,9 +1,20 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/iterm.toml"
+]
+
 [font]
 normal = { family = "Roboto Mono", style = "Regular" }
 bold = { family = "Roboto Mono", style = "Bold" }
 italic = { family = "Roboto Mono", style = "Italic" }
 bold_italic = { family = "Roboto Mono", style = "Bold Italic" }
-size = 13.5
+size = 16
 
 [cursor.style]
 blinking = "Always"
+
+[keyboard]
+bindings = [
+  { key = "Y", mods = "Control", action = "Paste" },
+  { key = "W", mods = "Alt", action = "Copy" },
+]
