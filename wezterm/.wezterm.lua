@@ -253,6 +253,15 @@ config.keys = {
         mods = 'CTRL',
         action = act.PasteFrom('Clipboard'),
     },
+    -- MacOS specific binding to delete next word (Cmd-d to M-d)
+    {
+      key = 'd',
+      mods = 'CMD',
+      action = act.SendKey {
+        key = 'd',
+        mods = 'ALT',
+      },
+    },
     -- Quick select of panes, like tmux Leader + q
     -- activate pane selection mode with the default alphabet (labels are "a", "s", "d", "f" and so on)
     -- { key = 'q', mods = 'LEADER', action = act.PaneSelect },
