@@ -19,6 +19,18 @@ local mux             = wezterm.mux
 -- You will need to install https://github.com/aca/wezterm.nvim
 -- and ensure you export NVIM_LISTEN_ADDRESS per the README in that repo
 
+local is_linux = function()
+    return wezterm.target_triple:find("linux") ~= nil
+end
+
+local is_windows = function()
+    return wezterm.target_triple:find("x86_64-pc-windows-msvc") ~= nil
+end
+
+local is_darwin = function()
+    return wezterm.target_triple:find("darwin") ~= nil
+end
+
 local move_around = function(window, pane, direction_wez, direction_nvim)
     local result = os.execute("env NVIM_LISTEN_ADDRESS=/tmp/nvim" .. pane:pane_id() .. " " .. wezterm.home_dir .. "/.local/bin/wezterm.nvim.navigator" .. " " .. direction_nvim)
     if result then
@@ -96,6 +108,9 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
+if is_windows() then
+    config.default_prog = { 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe' }
+end
 config.adjust_window_size_when_changing_font_size = false
 config.automatically_reload_config = true
 config.color_scheme = 'Dracula (Official)'
@@ -230,7 +245,7 @@ config.keys = {
             size = { Percent = 50 },
         },
     },
-    -- Rebind OPT-Left, OPT-Right as ALT-b, ALT-f respectively to match Terminal.app behavior
+    -- macos: Rebind OPT-Left, OPT-Right as ALT-b, ALT-f respectively to match Terminal.app behavior
     {
         key = 'LeftArrow',
         mods = 'OPT',
