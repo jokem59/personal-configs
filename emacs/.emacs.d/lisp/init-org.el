@@ -82,6 +82,35 @@
 (add-to-list 'org-emphasis-alist
              '("_" (:foreground "#A6E22E" :height nil :underline nil)))
 
+;; START TODO Workflow
+;; TODO keywords.
+(setq org-todo-keywords
+  '((sequence "TODO(t)" "NEXT(n)" "PROG(p)" "INTR(i)" "DONE(d)")))
+
+;; Show the daily agenda by default.
+(setq org-agenda-span 'day)
+
+;; Hide tasks that are scheduled in the future.
+(setq org-agenda-todo-ignore-scheduled 'future)
+
+;; Use "second" instead of "day" for time comparison.
+;; It hides tasks with a scheduled time like "<2020-11-15 Sun 11:30>"
+(setq org-agenda-todo-ignore-time-comparison-use-seconds t)
+
+;; Hide the deadline prewarning prior to scheduled date.
+(setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
+
+;; Customized view for the daily workflow. (Command: "C-c a n")
+(setq org-agenda-custom-commands
+  '(("n" "Agenda / INTR / PROG / NEXT / DONE"
+     ((agenda "" nil)
+      (todo "INTR" nil)
+      (todo "PROG" nil)
+      (todo "NEXT" nil)
+      (todo "DONE" nil))
+     nil)))
+;; END TODO Workflow
+
 (use-package org-tree-slide
   :custom
   (org-image-actual-width nil))
