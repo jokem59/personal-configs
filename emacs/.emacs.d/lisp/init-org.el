@@ -102,13 +102,21 @@
 
 ;; Customized view for the daily workflow. (Command: "C-c a n")
 (setq org-agenda-custom-commands
-  '(("n" "Agenda / INTR / PROG / NEXT / DONE"
+  '(("n" "Work Agenda / INTR / PROG / NEXT / DONE"
      ((agenda "" nil)
       (todo "INTR" nil)
       (todo "PROG" nil)
       (todo "NEXT" nil)
       (todo "DONE" nil))
-     nil)))
+     ((org-agenda-files '("~/Sync/RoamNotes/20210816094150-todo.org"))))
+
+    ("j" "Personal Agenda / INTR / PROG / NEXT / DONE"
+     ((agenda "" nil)
+      (todo "INTR" nil)
+      (todo "PROG" nil)
+      (todo "NEXT" nil)
+      (todo "DONE" nil))
+     ((org-agenda-files '("~/Sync/RoamNotes/20250522101720-personal_todo.org"))))))
 ;; END TODO Workflow
 
 (use-package org-tree-slide
