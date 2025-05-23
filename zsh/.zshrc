@@ -1,3 +1,6 @@
+#source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -113,6 +116,14 @@ alias ll="ls -alt"
 export ALTERNATE_EDITOR=""
 export EDITOR="hx"                  # $EDITOR opens in terminal
 export VISUAL='hx'         # $VISUAL opens in GUI mode
+
+export PATH=$PATH:${BREW_BIN}
+
+# Source work specific functions
+source ~/git/roblox/scripts/.rbx_zshrc
+
+# Source helper scripts
+source ~/git/roblox/scripts/fflag.sh
 
 # st requires this export for programs like helix to detect true color support
 export COLORTERM=truecolor
