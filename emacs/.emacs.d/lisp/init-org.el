@@ -103,7 +103,7 @@
 ;; Customized view for the daily workflow. (Command: "C-c a n")
 (setq org-agenda-custom-commands
   '(("n" "Work Agenda / INTR / PROG / NEXT / DONE"
-     ((agenda "" nil)
+     (;;(agenda "" nil) ; shows daily view which pollutes with DONE dates
       (todo "INTR" nil)
       (todo "PROG" nil)
       (todo "NEXT" nil)
@@ -111,7 +111,7 @@
      ((org-agenda-files '("~/Sync/RoamNotes/20210816094150-todo.org"))))
 
     ("j" "Personal Agenda / INTR / PROG / NEXT / DONE"
-     ((agenda "" nil)
+     (;;(agenda "" nil) ; shows daily view which pollutes with DONE dates
       (todo "INTR" nil)
       (todo "PROG" nil)
       (todo "NEXT" nil)
