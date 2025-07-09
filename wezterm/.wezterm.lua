@@ -135,7 +135,7 @@ config.mouse_bindings = {
         action = act.OpenLinkAtMouseCursor,
     }
 }
-config.pane_focus_follows_mouse = true
+config.pane_focus_follows_mouse = false
 config.scrollback_lines = 5000
 config.use_dead_keys = false
 config.warn_about_missing_glyphs = false
