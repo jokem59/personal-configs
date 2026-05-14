@@ -112,12 +112,17 @@ alias et='emacsclient -r -nw -a "" "$@"'
 alias h='hx'
 alias ll="ls -alt"
 
+# Option+Left/Right (Karabiner remaps Cmd+B/F here) — bind the xterm CSI form
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;3C' forward-word
+
 # Default editor related settings
 export ALTERNATE_EDITOR=""
 export EDITOR="hx"                  # $EDITOR opens in terminal
 export VISUAL='hx'         # $VISUAL opens in GUI mode
 
 export PATH=$PATH:${BREW_BIN}
+export PATH=$PATH:$(go env GOPATH)/bin
 
 # Source work specific functions
 source ~/git/roblox/scripts/.rbx_zshrc
@@ -179,3 +184,5 @@ export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 setopt EXTENDED_HISTORY
+
+. "$HOME/.local/bin/env"
