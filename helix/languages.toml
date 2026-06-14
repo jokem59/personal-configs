@@ -8,6 +8,13 @@ block-comment-tokens = { start = "/*", end = "*/" }
 language-servers = [ "clangd" ]
 indent = { tab-width = 4, unit = "    " }
 
+[language-server.clangd]
+command = "clangd"
+args = ["--header-insertion=never"]
+
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1"]
+
 [[language]]
 name = "python"
 

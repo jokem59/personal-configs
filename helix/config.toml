@@ -9,13 +9,49 @@ mouse = false
 hidden = false
 git-ignore = false
 
+# [editor.statusline]
+# left = [
+#   "mode",
+#   "spinner",
+#   "spacer",
+#   "version-control",
+#   "spacer",
+#   "separator",
+#   "file-name",
+#   "read-only-indicator",
+#   "file-modification-indicator",
+# ]
+# center = []
+# right = [
+#   "diagnostics",
+#   "workspace-diagnostics",
+#   "position",
+#   "total-line-numbers",
+#   "position-percentage",
+#   "file-encoding",
+#   "file-line-ending",
+#   "file-type",
+#   "register",
+#   "selections",
+# ]
+# separator = "|"
+
 [editor.soft-wrap]
 enable = true
 
-[keys.normal]
-"space" = { o = "file_picker_in_current_buffer_directory" }
+[keys.normal.space]
+o = "file_picker_in_current_buffer_directory"
+
+[keys.normal.space.v]
+b = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
+m = ":sh git show --no-patch --format='Commit: %%H%%nAuthor: %%an (%%ar)%%nDate:   %%ad%%n%%n%%B' $(git blame -L %{cursor_line},+1 -l %{buffer_name} | awk '{print $1}')"
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[editor.auto-save]
+focus-lost = true
+after-delay.enable = true
+after-delay.timeout = 300000

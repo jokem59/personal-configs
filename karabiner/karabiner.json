@@ -515,10 +515,7 @@
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
-                                            "^org\\.gnu\\.Aquamacs$",
-                                            "^io\\.alacritty$",
-                                            "^org\\.alacritty$",
-                                            "^com\\.github\\.wez\\.wezterm$"
+                                            "^org\\.gnu\\.Aquamacs$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }

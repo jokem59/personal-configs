@@ -115,11 +115,23 @@ alias ll="ls -alt"
 # Option+Left/Right (Karabiner remaps Cmd+B/F here) — bind the xterm CSI form
 bindkey '^[[1;3D' backward-word
 bindkey '^[[1;3C' forward-word
+# Fn+Option+Forward-Delete (Karabiner remaps Cmd+D here) — delete word forward
+bindkey '^[[3;3~' kill-word
 
 # Default editor related settings
 export ALTERNATE_EDITOR=""
 export EDITOR="hx"                  # $EDITOR opens in terminal
 export VISUAL='hx'         # $VISUAL opens in GUI mode
+
+# Show start time + duration after each command
+zmodload zsh/datetime
+preexec() { _cmd_start=$EPOCHREALTIME; }
+precmd()  {
+    [[ -z $_cmd_start ]] && return
+    local elapsed=$(( EPOCHREALTIME - _cmd_start ))
+    printf '\e[90m[%s, took %.2fs]\e[0m\n' "$(date +%H:%M:%S)" "$elapsed"
+    unset _cmd_start
+}
 
 export PATH=$PATH:${BREW_BIN}
 export PATH=$PATH:$(go env GOPATH)/bin
