@@ -251,5 +251,45 @@ function setup_mo() {
     chown -R ${USERNAME}:${USERNAME} "${USER_HOME}/.config/mo"
 }
 
+function setup_keyd() {
+    echo "Configuring keyd key mapper..."
+    if apt-cache show keyd &>/dev/null; then
+        apt install keyd -y
+    else
+        echo "keyd package not found in repositories. Building from source..."
+        # Install build dependencies
+        apt install -y build-essential git
+        
+        # Clone and build
+        local temp_dir
+        temp_dir=$(mktemp -d)
+        git clone --depth=1 https://github.com/rvaiya/keyd.git "$temp_dir"
+        make -C "$temp_dir"
+        make -C "$temp_dir" install
+        rm -rf "$temp_dir"
+    fi
+
+    # Ensure /etc/keyd exists
+    mkdir -p /etc/keyd
+
+    # Copy config
+    rm -f /etc/keyd/default.conf
+    cp "${PERSONAL_CONFIGS}/keyd/default.conf" /etc/keyd/default.conf
+
+    # Enable and start keyd service
+    if command -v systemctl &>/dev/null; then
+        if [ "$DRY_RUN" = "true" ]; then
+            echo "[DRY RUN] systemctl enable --now keyd"
+        else
+            systemctl daemon-reload
+            systemctl enable --now keyd
+            systemctl restart keyd
+        fi
+    else
+        echo "Systemd not detected. Please start keyd manually."
+    fi
+}
+
+
 
 
