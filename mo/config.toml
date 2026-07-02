@@ -1,0 +1,17 @@
+# Where notes live. ~ expands to $HOME.
+corpus_path = "~/Sync/notes"
+
+# Subdirectory under corpus_path for daily files.
+daily_subdir = "daily"
+
+# Inbox file (relative to corpus_path) used by `mo capture` if daily_target = false.
+inbox_file = "inbox.md"
+
+# If true, capture appends to daily/YYYY-MM-DD.md. If false, appends to inbox_file.
+daily_target = true
+
+# Editor override. If empty, uses $VISUAL, then $EDITOR, then helix/hx/vi.
+editor = ""
+
+# Cursor motion style in the note viewer. "vi" or "helix".
+motions = "vi"

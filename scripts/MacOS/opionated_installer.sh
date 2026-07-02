@@ -153,6 +153,18 @@ function setup_tmux() {
 	ln -sf "${PERSONAL_CONFIGS}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
 }
 
+function setup_mo() {
+	# Support standard Apple App Support path
+	mkdir -p "${HOME}/Library/Application Support/mo"
+	rm -f "${HOME}/Library/Application Support/mo/config.toml"
+	ln -sf "${PERSONAL_CONFIGS}/mo/config.toml" "${HOME}/Library/Application Support/mo/config.toml"
+
+	# Support XDG fallback path
+	mkdir -p "${HOME}/.config/mo"
+	rm -f "${HOME}/.config/mo/config.toml"
+	ln -sf "${PERSONAL_CONFIGS}/mo/config.toml" "${HOME}/.config/mo/config.toml"
+}
+
 ### Main Wrapper
 function main() {
 	mkdir -p "${HOME}/.config"
@@ -186,6 +198,7 @@ function main() {
 	setup_syncthing
 	setup_rust
 	setup_gitu
+	setup_mo
 
 	if [ ! -e "/opt/homebrew/bin/hx" ]; then
 		setup_helix

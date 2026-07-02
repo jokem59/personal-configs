@@ -202,6 +202,12 @@ function Set-SymLinks {
     Backup-File $alacrittyConfigDir
     Safe-NewItem -Path "$home\.config" -Name alacritty -ItemType SymbolicLink -Value "$REPO_ROOT\alacritty" -Force
 
+    # Mo config
+    $moConfigDir = "$env:APPDATA\mo"
+    if (-not (Test-Path $moConfigDir) -and -not $DryRun) { New-Item -ItemType Directory -Path $moConfigDir | Out-Null }
+    Backup-File "$moConfigDir\config.toml"
+    Safe-NewItem -Path $moConfigDir -Name config.toml -ItemType SymbolicLink -Value "$REPO_ROOT\mo\config.toml" -Force
+
     # PowerShell Profile config
     $splitIndex = $profile.IndexOf("Microsoft.PowerShell_profile.ps1")
     if ($splitIndex -ge 0) {

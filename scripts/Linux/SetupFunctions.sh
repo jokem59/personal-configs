@@ -239,4 +239,17 @@ function setup_gitu() {
     fi
 }
 
+function setup_mo() {
+    # Ensure config directory exists
+    mkdir -p "${USER_HOME}/.config/mo"
+
+    # Symlink config
+    rm -f "${USER_HOME}/.config/mo/config.toml"
+    ln -sf "${PERSONAL_CONFIGS}/mo/config.toml" "${USER_HOME}/.config/mo/config.toml"
+
+    # Fix ownership
+    chown -R ${USERNAME}:${USERNAME} "${USER_HOME}/.config/mo"
+}
+
+
 

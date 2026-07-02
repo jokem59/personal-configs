@@ -374,6 +374,7 @@ run_full_setup() {
         setup_syncthing
         setup_rust
         setup_gitu
+        setup_mo
         get_latex_packages
         setup_gnome_terminal
         setup_gnome_settings
@@ -400,6 +401,7 @@ run_full_setup() {
         setup_syncthing
         setup_rust
         setup_gitu
+        setup_mo
     fi
     echo "Full Setup completed successfully!"
 }
@@ -456,6 +458,7 @@ run_selective_setup() {
         if ask_install "Syncthing background replication"; then setup_syncthing; fi
         if ask_install "Rust programming language and components"; then setup_rust; fi
         if ask_install "gitu Git TUI"; then setup_gitu; fi
+        if ask_install "mo note-taking config"; then setup_mo; fi
         if ask_install "LaTeX complete package suite (Large download)"; then get_latex_packages; fi
         if ask_install "GNOME desktop tweaks and custom font imports"; then setup_gnome_terminal; setup_gnome_settings; fi
         
@@ -489,6 +492,7 @@ run_selective_setup() {
         if ask_install "Syncthing replication service"; then setup_syncthing; fi
         if ask_install "Rust & cargo tools"; then setup_rust; fi
         if ask_install "gitu Git TUI"; then setup_gitu; fi
+        if ask_install "mo note-taking config"; then setup_mo; fi
     fi
     echo "Selective component setup completed!"
 }
