@@ -18,4 +18,6 @@ style = { blinking = "Always" }
 bindings = [
   { key = "Y", mods = "Control", action = "Paste" },
   { key = "W", mods = "Alt", action = "Copy" },
+  { key = "N", mods = "Control", chars = "\u001b[B" },
+  { key = "P", mods = "Control", chars = "\u001b[A" },
 ]
