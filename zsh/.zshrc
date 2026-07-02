@@ -1,5 +1,11 @@
 #source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if command -v brew &>/dev/null; then
+    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -134,13 +140,19 @@ precmd()  {
 }
 
 export PATH=$PATH:${BREW_BIN}
-export PATH=$PATH:$(go env GOPATH)/bin
+if command -v go &>/dev/null; then
+    export PATH=$PATH:$(go env GOPATH)/bin
+fi
 
 # Source work specific functions
-source ~/git/roblox/scripts/.rbx_zshrc
+if [ -f ~/git/roblox/scripts/.rbx_zshrc ]; then
+    source ~/git/roblox/scripts/.rbx_zshrc
+fi
 
 # Source helper scripts
-source ~/git/roblox/scripts/fflag.sh
+if [ -f ~/git/roblox/scripts/fflag.sh ]; then
+    source ~/git/roblox/scripts/fflag.sh
+fi
 
 # st requires this export for programs like helix to detect true color support
 export COLORTERM=truecolor
@@ -196,7 +208,11 @@ export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 setopt EXTENDED_HISTORY
-. "$HOME/.local/bin/env"
+if [ -f "$HOME/.local/bin/env" ]; then
+    . "$HOME/.local/bin/env"
+elif [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion

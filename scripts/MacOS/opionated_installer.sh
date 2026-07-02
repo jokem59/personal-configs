@@ -1,185 +1,197 @@
 #!/bin/bash
 
-### Reserved for Globals
-SETUP_SCRIPT_DIR=${HOME}/dev
+### Dynamic Pathing & Globals
+if [ -z "${PERSONAL_CONFIGS:-}" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    PERSONAL_CONFIGS="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+fi
+
 BREW_BIN="/opt/homebrew/bin/brew"
 ZSHRC_PATH=${HOME}/.zshrc
-EMACS_BIN="/opt/homebrew/bin/emacs"
 
-### Reserved for functions and imports
-function setup_emacs() {
-	# Install emacs
-	"$BREW_BIN" tap d12frosted/emacs-plus
-	"$BREW_BIN" install emacs-plus
-
-	# Register emacs as daemon service on startup
-	local emplist="/Library/LaunchAgents/emacs_server.plist"
-    cat > ${emplist}<< EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<plist version="1.0">
-  <dict>
-    <key>Label</key>
-    <string>emacs_server</string>
-    <key>ProgramArguments</key>
-    <array>
-      <string>/opt/homebrew/opt/emacs-plus/bin/emacs</string>
-      <string>--fg-daemon</string>
-    </array>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>KeepAlive</key>
-    <true/>
-    <key>StandardOutPath</key>
-    <string>/tmp/emacs_server.stdout.log</string>
-    <key>StandardErrorPath</key>
-    <string>/tmp/emacs_server.stderr.log</string>
-  </dict>
-</plist>
-EOF
-	
-	launchctl load -w ${emplist} 
-
-	local EMACS_CONFIG_DIR="${SETUP_SCRIPT_DIR}/personal-configs/emacs/.emacs.d"
-	if [ ! -d "$EMACS_CONFIG_DIR" ]; then
-		echo "${FUNCNAME[0]}: Could not find source emacs configuration directory, exiting"
-		exit 1
-	fi
-
-	ln -Fs "$EMACS_CONFIG_DIR" "${HOME}/.emacs.d"
-}
+### Functions
 
 function setup_homebrew() {
 	# Install homebrew
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-	# After installation, need to do the following
-	#echo >> ${ZSHRC_PATH}
-	#echo 'eval "$(${BREW_BIN} shellenv)"' >> ${ZSHRC_PATH}
-	#eval "$(${BREW_BIN} shellenv)"
+	if ! command -v brew &>/dev/null; then
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		eval "$(${BREW_BIN} shellenv)"
+	fi
 }
 
 function setup_macos_settings() {
 	# Disable mouse pointer acceleration, requires restart to take effect
 	echo "${FUNCNAME[0]}: Disabling mouse/trackpad pointer acceleration"
-	defaults write -g com.apple.mouse.scaling -1
-	defaults write -g com.apply.trackpad.scaling -1
+	defaults write -g com.apple.mouse.scaling -1 2>/dev/null || true
+	defaults write -g com.apple.trackpad.scaling -1 2>/dev/null || true
 
 	# Turn off natural scrolling
-	if [ $(defaults read -g com.apple.swipescrolldirection 2>/dev/null) == "1" ]; then
-		echo "${FUNCNAME[0]}: Natural scolling is ON, disabling"
+	if [ "$(defaults read -g com.apple.swipescrolldirection 2>/dev/null)" == "1" ]; then
+		echo "${FUNCNAME[0]}: Natural scrolling is ON, disabling"
 		defaults write -g com.apple.swipescrolldirection -bool false
 	fi
 }
 
 function setup_rectangle() {
-	"$BREW_BIN" install rectangle
+	"$BREW_BIN" install --cask rectangle
 }
 
-function setup_wezterm() {
-	"$BREW_BIN" install wezterm
+function setup_alacritty() {
+	"$BREW_BIN" install --cask alacritty
 	
-	local WEZTERM_CONFIG="${SETUP_SCRIPT_DIR}/personal-configs/wezterm/.wezterm.lua"
-	if [ ! -e "$WEZTERM_CONFIG" ]; then
-		echo "${FUNCNAME[0]}: Could not find source wezterm configuration file, exiting"
+	local ALACRITTY_CONFIG_DIR="${PERSONAL_CONFIGS}/alacritty"
+	if [ ! -d "$ALACRITTY_CONFIG_DIR" ]; then
+		echo "${FUNCNAME[0]}: Could not find source alacritty configuration dir, exiting"
 		exit 1 
 	fi
 
-	ln -sf "$WEZTERM_CONFIG" "${HOME}/.wezterm.lua"	
+	mkdir -p "${HOME}/.config/alacritty"
+	rm "${HOME}/.config/alacritty/alacritty.toml" 2>/dev/null || true
+	ln -sf "$ALACRITTY_CONFIG_DIR/alacritty.toml" "${HOME}/.config/alacritty/alacritty.toml"
+
+	if [ -d "$ALACRITTY_CONFIG_DIR/themes" ]; then
+		rm -rf "${HOME}/.config/alacritty/themes" 2>/dev/null || true
+		ln -sf "$ALACRITTY_CONFIG_DIR/themes" "${HOME}/.config/alacritty/themes"
+	fi
+
+	if [ -d "$ALACRITTY_CONFIG_DIR/themes-pack" ]; then
+		rm -rf "${HOME}/.config/alacritty/themes-pack" 2>/dev/null || true
+		ln -sf "$ALACRITTY_CONFIG_DIR/themes-pack" "${HOME}/.config/alacritty/themes-pack"
+	fi
 }
 
 function setup_fonts() {
-	"$BREW_BIN" install --cask font-roboto-mono 
+	"$BREW_BIN" install --cask font-roboto-mono
 }
 
 function setup_karabiner() {
 	"$BREW_BIN" install --cask karabiner-elements
 
-	local KARABINER_CONFIG="${SETUP_SCRIPT_DIR}/personal-configs/karabiner"
+	local KARABINER_CONFIG="${PERSONAL_CONFIGS}/karabiner"
 	if [ ! -d "$KARABINER_CONFIG" ]; then
 		echo "${FUNCNAME[0]}: Could not find source karabiner configuration file, exiting"
 		exit 1
 	fi
 
-	ln -Fs "$KARABINER_CONFIG" "${HOME}/.config/karabiner"
+	mkdir -p "${HOME}/.config"
+	rm -rf "${HOME}/.config/karabiner" 2>/dev/null || true
+	ln -sF "$KARABINER_CONFIG" "${HOME}/.config/karabiner"
 }
 
 function setup_helix() {
 	"$BREW_BIN" install helix
 
-	local HX_CONFIG_DIR="${SETUP_SCRIPT_DIR}/personal-configs/helix"
+	local HX_CONFIG_DIR="${PERSONAL_CONFIGS}/helix"
 	if [ ! -d "$HX_CONFIG_DIR" ]; then
 		echo "${FUNCNAME[0]}: Could not find source helix configuration dir, exiting"
 		exit 1
 	fi
 
+	mkdir -p "${HOME}/.config"
+	rm -rf "${HOME}/.config/helix" 2>/dev/null || true
 	ln -sF "$HX_CONFIG_DIR" "${HOME}/.config/helix"
 }
 
 function setup_zsh() {
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	"$BREW_BIN" install zsh-autosuggestions
+	if [ ! -d "${HOME}/.oh-my-zsh" ]; then
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+	fi
+	"$BREW_BIN" install zsh-autosuggestions zsh-syntax-highlighting
 
-	local ZSHRC_CONFIG="${SETUP_SCRIPT_DIR}/personal-configs/zsh/.zshrc"
+	local ZSHRC_CONFIG="${PERSONAL_CONFIGS}/zsh/.zshrc"
 	if [ ! -e "$ZSHRC_CONFIG" ]; then
 		echo "${FUNCNAME[0]}: Could not find source .zshrc configuration, exiting"
 		exit 1
 	fi
 
+	rm "${HOME}/.zshrc" 2>/dev/null || true
 	ln -sf "$ZSHRC_CONFIG" "${HOME}/.zshrc" 
 }
 
-### Main
-# TODO: Optional to install karabiner since it uses custom keybindings others might not want
-# TODO: Optionally take in path to setup scripts
+function setup_bash() {
+	local BASHRC_CONFIG="${PERSONAL_CONFIGS}/bash/.bashrc"
+	if [ ! -e "$BASHRC_CONFIG" ]; then
+		echo "${FUNCNAME[0]}: Could not find source .bashrc configuration, exiting"
+		exit 1
+	fi
+
+	rm "${HOME}/.bashrc" 2>/dev/null || true
+	ln -sf "$BASHRC_CONFIG" "${HOME}/.bashrc"
+
+	if [ ! -d "${HOME}/.bash-git-prompt" ]; then
+		git clone https://github.com/magicmonty/bash-git-prompt.git "${HOME}/.bash-git-prompt" --depth=1
+	fi
+}
+
+function setup_syncthing() {
+	"$BREW_BIN" install syncthing
+	"$BREW_BIN" services start syncthing 2>/dev/null || true
+}
+
+function setup_rust() {
+	if ! command -v rustup &>/dev/null; then
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+		source "${HOME}/.cargo/env"
+	fi
+	rustup component add rust-src
+	cargo install rust-analyzer 2>/dev/null || true
+}
+
+function setup_gitu() {
+	"$BREW_BIN" install gitu
+}
+
+function setup_vim() {
+	"$BREW_BIN" install vim
+	rm "${HOME}/.vimrc" 2>/dev/null || true
+	ln -sf "${PERSONAL_CONFIGS}/vim/.vimrc" "${HOME}/.vimrc"
+}
+
+function setup_tmux() {
+	"$BREW_BIN" install tmux
+	rm -f "${HOME}/.tmux.conf"
+	ln -sf "${PERSONAL_CONFIGS}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
+}
+
+### Main Wrapper
 function main() {
-	mkdir "${HOME}/.config"
+	mkdir -p "${HOME}/.config"
 
 	setup_macos_settings
 
-	# Installs basic tools such as git, gcc, the works
-	xcode-select --install
-
-	# Assumes setups scripts go into ~/dev, allow this to be overridden
-	if [ ! -d "$SETUP_SCRIPT_DIR" ]; then
-		mkdir "$SETUP_SCRIPT_DIR"
+	if [ ! -d "/Library/Developer/CommandLineTools" ]; then
+		xcode-select --install
 	fi
 
-	pushd "$SETUP_SCRIPT_DIR"
-	# TODO: replace with variable
-	git clone https://github.com/jokem59/personal-configs.git 
-	popd
+	setup_homebrew
 
-	# Setup zshrc, oh-my-zsh, zsh-autocomplete, link zshrc in
-	if [ ! -e "${HOME}/.oh-my-zsh" ]; then
+	if [ ! -e "$ZSHRC_PATH" ] || [ ! -d "${HOME}/.oh-my-zsh" ]; then
 		setup_zsh
 	fi
 
-	if [ ! -e "$BREW_BIN" ]; then
-		setup_homebrew
-	fi
-
-	if [ ! -e "$EMACS_BIN" ]; then
-		setup_emacs
-	fi
+	setup_bash
+	setup_vim
+	setup_tmux
 
 	if [ ! -e "/opt/homebrew/Caskroom/rectangle" ]; then
 		setup_rectangle
 	fi
 
-	# Setup Wezterm
-	if [ ! -e "/opt/homebrew/bin/wezterm" ]; then
-		setup_wezterm
+	if [ ! -e "/Applications/Alacritty.app" ]; then
+		setup_alacritty
 	fi
 
 	setup_fonts
 	setup_karabiner
+	setup_syncthing
+	setup_rust
+	setup_gitu
 
-	# Setup syncthing; something for later
-
-	# Setup helix
 	if [ ! -e "/opt/homebrew/bin/hx" ]; then
 		setup_helix
 	fi
 }
 
-main
+if [ -z "${MAC_SETUP_NO_RUN:-}" ]; then
+	main
+fi
