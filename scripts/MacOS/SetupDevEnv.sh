@@ -35,3 +35,16 @@ brew install helix
 
 # Install gitu
 brew install gitu
+
+# Install tmux and oh-my-tmux
+brew install tmux fzf
+git clone https://github.com/gpakosz/.tmux.git ~/.local/share/tmux/oh-my-tmux
+mkdir -p ~/.config/tmux
+ln -sf ~/.local/share/tmux/oh-my-tmux/.tmux.conf ~/.config/tmux/tmux.conf
+ln -sf ~/dev/personal-configs/tmux/.tmux.conf.local ~/.config/tmux/tmux.conf.local
+
+# tmux plugins
+git clone https://github.com/fcsonline/tmux-thumbs ~/dev/tmux-thumbs
+cd ~/dev/tmux-thumbs && cargo build --release && cd -
+git clone https://github.com/tmux-plugins/tmux-resurrect ~/dev/tmux-resurrect
+git clone https://github.com/tmux-plugins/tmux-continuum ~/dev/tmux-continuum

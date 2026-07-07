@@ -1,0 +1,92 @@
+# ~/.tmux.conf.local — overrides for gpakosz/.tmux (oh-my-tmux)
+
+# ---- prefix ----
+set -g prefix C-t #!important
+set -g prefix2 None #!important
+bind C-t send-prefix #!important
+
+# ---- general ----
+set -g mode-keys vi #!important
+set -g mouse on #!important
+set -sg escape-time 0 #!important
+set -g history-limit 5000 #!important
+set -g allow-passthrough on #!important
+set -g set-clipboard on #!important
+
+# ---- splits (inherit cwd) ----
+bind | split-window -hc "#{pane_current_path}" #!important
+bind - split-window -vc "#{pane_current_path}" #!important
+
+# ---- panes ----
+bind q display-panes #!important
+bind x kill-pane #!important
+bind + break-pane #!important
+
+# ---- reload config ----
+bind I source-file ~/.config/tmux/tmux.conf\; display-message "Config reloaded" #!important
+
+# ---- keybinding cheatsheet ----
+bind ? display-popup -E -w 80% -h 70% "tmux list-keys | fzf --reverse --header='Table          Key                  Command'" #!important
+
+# ---- sync panes ----
+bind r set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}" #!important
+
+# ---- paste buffer picker → clipboard ----
+bind b display-popup -E -w 80% -h 60% "tmux list-buffers -F '#{buffer_name}: #{buffer_sample}' | fzf --reverse | cut -d: -f1 | xargs -I%% tmux show-buffer -b %% | $HOME/dev/personal-configs/tmux/yank.sh" #!important
+
+# ---- copy mode selection (vi) ----
+bind -T copy-mode-vi v   send-keys -X begin-selection #!important
+bind -T copy-mode-vi C-v send-keys -X rectangle-toggle #!important
+bind -T copy-mode-vi /   command-prompt -i -I "#{pane_search_string}" -T search -p "(search down)" "send-keys -X search-forward-incremental \"%%%\"" #!important
+bind -T copy-mode-vi ?   command-prompt -i -I "#{pane_search_string}" -T search -p "(search up)" "send-keys -X search-backward-incremental \"%%%\"" #!important
+
+# ---- copy via OSC 52 / pbcopy ----
+yank="$HOME/dev/personal-configs/tmux/yank.sh"
+bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "$yank" #!important
+bind -T copy-mode-vi y     send-keys -X copy-pipe-and-cancel "$yank" #!important
+bind -T copy-mode-vi Y     send-keys -X copy-pipe-no-clear "$yank" #!important
+
+# ---- tmux-resurrect ----
+set -g @resurrect-capture-pane-contents 'on'
+run-shell ~/dev/tmux-resurrect/resurrect.tmux
+
+# ---- tmux-continuum ----
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '15'
+run-shell ~/dev/tmux-continuum/continuum.tmux
+
+# ---- tmux-thumbs ----
+set -g @thumbs-command 'echo -n {} | $HOME/dev/personal-configs/tmux/yank.sh'
+run-shell /Users/joekim/dev/tmux-thumbs/tmux-thumbs.tmux
+
+# ---- theme: VS Code Dark+ (vibrant) ----
+tmux_conf_theme_colour_1="#1e1e1e"   # bg dark
+tmux_conf_theme_colour_2="#2d2d2d"   # bg lighter
+tmux_conf_theme_colour_3="#a0a0a0"   # fg muted
+tmux_conf_theme_colour_4="#6cb6ff"   # accent blue (brighter)
+tmux_conf_theme_colour_5="#ffdd57"   # yellow (brighter)
+tmux_conf_theme_colour_6="#ffffff"   # fg bright
+tmux_conf_theme_colour_7="#ffffff"   # fg bright
+tmux_conf_theme_colour_8="#ffffff"   # fg bright
+tmux_conf_theme_colour_9="#2472c8"   # status left bg (vivid blue)
+tmux_conf_theme_colour_10="#3c3c3c"  # status left bg mid
+tmux_conf_theme_colour_11="#2d2d2d"  # status left bg dim
+tmux_conf_theme_colour_12="#a0a0a0"  # status right fg dim
+tmux_conf_theme_colour_13="#ffffff"  # status right fg mid
+tmux_conf_theme_colour_14="#ffffff"  # status right fg bright
+tmux_conf_theme_colour_15="#2d2d2d"  # status right bg dim
+tmux_conf_theme_colour_16="#3c3c3c"  # status right bg mid
+tmux_conf_theme_colour_17="#2472c8"  # status right bg bright
+
+tmux_conf_theme_pane_border="#444444"
+tmux_conf_theme_pane_active_border="#6cb6ff"
+tmux_conf_theme_pane_indicator="#6cb6ff"
+tmux_conf_theme_pane_active_indicator="#6cb6ff"
+
+tmux_conf_theme_message_fg="#1e1e1e"
+tmux_conf_theme_message_bg="#ffdd57"
+tmux_conf_theme_mode_fg="#1e1e1e"
+tmux_conf_theme_mode_bg="#6cb6ff"
+
+tmux_conf_theme_window_status_current_fg="#ffffff"
+tmux_conf_theme_window_status_current_bg="#2472c8"
