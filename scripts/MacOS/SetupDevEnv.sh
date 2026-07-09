@@ -1,5 +1,18 @@
-# Install HomeBrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Install Xcode Command Line Tools (git, clang, etc.)
+if ! xcode-select -p >/dev/null 2>&1; then
+  xcode-select --install
+  # Block until the CLT install completes (GUI installer runs async)
+  until xcode-select -p >/dev/null 2>&1; do
+    sleep 5
+  done
+fi
+
+# Install HomeBrew (non-interactive: skips the "Press RETURN" prompt)
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Auto-accept prompts for the rest of the script
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_ENV_HINTS=1
 
 # Install emacs
 brew tap d12frosted/emacs-plus
@@ -35,6 +48,9 @@ brew install helix
 
 # Install gitu
 brew install gitu
+
+# Install Scroll Reverser (natural scroll for mouse, not trackpad)
+brew install --cask scroll-reverser
 
 # Install tmux and oh-my-tmux
 brew install tmux fzf
