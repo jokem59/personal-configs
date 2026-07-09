@@ -28,6 +28,9 @@ bind I source-file ~/.config/tmux/tmux.conf\; display-message "Config reloaded" 
 # ---- keybinding cheatsheet ----
 bind ? display-popup -E -w 80% -h 70% "tmux list-keys | fzf --reverse --header='Table          Key                  Command'" #!important
 
+# ---- command picker (M-x style) ----
+bind \; display-popup -E -w 60% -h 60% "tmux list-commands -F '#{command_list_name}' | fzf --reverse | xargs -I{} tmux command-prompt -I '{} '" #!important
+
 # ---- sync panes ----
 bind r set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}" #!important
 
