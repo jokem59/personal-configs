@@ -20,4 +20,5 @@ bindings = [
   { key = "W", mods = "Alt", action = "Copy" },
   { key = "N", mods = "Control", chars = "\u001b[B" },
   { key = "P", mods = "Control", chars = "\u001b[A" },
+  { key = "Slash", mods = "Control", chars = "\u001f" },
 ]
