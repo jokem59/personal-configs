@@ -60,7 +60,7 @@ run-shell ~/dev/tmux-continuum/continuum.tmux
 
 # ---- tmux-thumbs ----
 set -g @thumbs-command 'echo -n {} | $HOME/dev/personal-configs/tmux/yank.sh'
-run-shell /Users/joekim/dev/tmux-thumbs/tmux-thumbs.tmux
+run-shell ~/dev/tmux-thumbs/tmux-thumbs.tmux
 
 # ---- theme: Doom Molokai ----
 tmux_conf_theme_colour_1="#1c1e1f"   # bg dark

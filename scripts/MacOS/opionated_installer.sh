@@ -148,9 +148,53 @@ function setup_vim() {
 }
 
 function setup_tmux() {
-	"$BREW_BIN" install tmux
+	"$BREW_BIN" install tmux fzf
+
+	# Clone oh-my-tmux if it doesn't exist
+	if [ ! -d "${HOME}/.local/share/tmux/oh-my-tmux" ]; then
+		echo "Cloning oh-my-tmux..."
+		git clone https://github.com/gpakosz/.tmux.git "${HOME}/.local/share/tmux/oh-my-tmux"
+	fi
+
+	# Ensure config directory exists
+	mkdir -p "${HOME}/.config/tmux"
+
+	# Symlink configurations
+	rm -f "${HOME}/.config/tmux/tmux.conf"
+	ln -sf "${HOME}/.local/share/tmux/oh-my-tmux/.tmux.conf" "${HOME}/.config/tmux/tmux.conf"
+
+	rm -f "${HOME}/.config/tmux/tmux.conf.local"
+	ln -sf "${PERSONAL_CONFIGS}/tmux/.tmux.conf.local" "${HOME}/.config/tmux/tmux.conf.local"
+
+	# Remove ~/.tmux.conf so that tmux falls back to ~/.config/tmux/tmux.conf
 	rm -f "${HOME}/.tmux.conf"
-	ln -sf "${PERSONAL_CONFIGS}/tmux/.tmux.conf" "${HOME}/.tmux.conf"
+
+	# Clone and setup tmux plugins
+	if [ ! -d "${HOME}/dev/tmux-resurrect" ]; then
+		echo "Cloning tmux-resurrect..."
+		mkdir -p "${HOME}/dev"
+		git clone https://github.com/tmux-plugins/tmux-resurrect.git "${HOME}/dev/tmux-resurrect"
+	fi
+
+	if [ ! -d "${HOME}/dev/tmux-continuum" ]; then
+		echo "Cloning tmux-continuum..."
+		mkdir -p "${HOME}/dev"
+		git clone https://github.com/tmux-plugins/tmux-continuum.git "${HOME}/dev/tmux-continuum"
+	fi
+
+	if [ ! -d "${HOME}/dev/tmux-thumbs" ]; then
+		echo "Cloning tmux-thumbs..."
+		mkdir -p "${HOME}/dev"
+		git clone https://github.com/fcsonline/tmux-thumbs.git "${HOME}/dev/tmux-thumbs"
+		
+		# Build thumbs if cargo exists
+		if command -v cargo &>/dev/null; then
+			echo "Building tmux-thumbs..."
+			(cd "${HOME}/dev/tmux-thumbs" && cargo build --release)
+		else
+			echo "Warning: Cargo not found. Please install Rust/Cargo to build tmux-thumbs."
+		fi
+	fi
 }
 
 function setup_mo() {
