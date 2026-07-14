@@ -22,6 +22,11 @@ bind q display-panes #!important
 bind x kill-pane #!important
 bind + break-pane #!important
 
+# ---- pane borders: plain tmux defaults (override gpakosz theme) ----
+set -g pane-border-lines single #!important
+set -g pane-border-style default #!important
+set -g pane-active-border-style "#{?pane_in_mode,fg=yellow,#{?synchronize-panes,fg=red,fg=green}}" #!important
+
 # ---- reload config ----
 bind I source-file ~/.config/tmux/tmux.conf\; display-message "Config reloaded" #!important
 
@@ -62,36 +67,31 @@ run-shell ~/dev/tmux-continuum/continuum.tmux
 set -g @thumbs-command 'echo -n {} | $HOME/dev/personal-configs/tmux/yank.sh'
 run-shell ~/dev/tmux-thumbs/tmux-thumbs.tmux
 
-# ---- theme: Doom Molokai ----
-tmux_conf_theme_colour_1="#1c1e1f"   # bg dark
-tmux_conf_theme_colour_2="#222323"   # bg-alt
-tmux_conf_theme_colour_3="#767679"   # fg muted (base6)
-tmux_conf_theme_colour_4="#66d9ef"   # accent cyan
-tmux_conf_theme_colour_5="#e2c770"   # yellow
-tmux_conf_theme_colour_6="#1c1e1f"   # status left fg (dark on green)
-tmux_conf_theme_colour_7="#d6d6d4"   # status left fg mid
-tmux_conf_theme_colour_8="#d6d6d4"   # status left fg dim
-tmux_conf_theme_colour_9="#b6e63e"   # status left bg (green)
-tmux_conf_theme_colour_10="#2d2e2e"  # status left bg mid (base3)
-tmux_conf_theme_colour_11="#222323"  # status left bg dim (bg-alt)
-tmux_conf_theme_colour_12="#767679"  # status right fg dim (base6)
-tmux_conf_theme_colour_13="#d6d6d4"  # status right fg mid
-tmux_conf_theme_colour_14="#1c1e1f"  # status right fg bright (dark on green)
-tmux_conf_theme_colour_15="#222323"  # status right bg dim
-tmux_conf_theme_colour_16="#2d2e2e"  # status right bg mid (base3)
-tmux_conf_theme_colour_17="#fb2874"  # status right bg bright (magenta)
+# ---- theme: Subaru WRX STI 555 rally (rally blue / gold / STI pink) ----
+tmux_conf_theme_colour_1="#0a0f1e"   # bg (very dark navy)
+tmux_conf_theme_colour_2="#141b30"   # bg-alt
+tmux_conf_theme_colour_3="#8a90a6"   # fg muted
+tmux_conf_theme_colour_4="#2a6fe0"   # accent rally blue
+tmux_conf_theme_colour_5="#e8b923"   # gold
+tmux_conf_theme_colour_6="#1c1e1f"   # status left fg (dark on green) — Doom Molokai
+tmux_conf_theme_colour_7="#d6d6d4"   # status left fg mid — Doom Molokai
+tmux_conf_theme_colour_8="#d6d6d4"   # status left fg dim — Doom Molokai
+tmux_conf_theme_colour_9="#b6e63e"   # status left bg (green) — Doom Molokai
+tmux_conf_theme_colour_10="#2d2e2e"  # status left bg mid (base3) — Doom Molokai
+tmux_conf_theme_colour_11="#222323"  # status left bg dim (bg-alt) — Doom Molokai
+tmux_conf_theme_colour_12="#8a90a6"  # status right fg dim
+tmux_conf_theme_colour_13="#0a0f1e"  # status right fg mid (dark on gold)
+tmux_conf_theme_colour_14="#ffffff"  # status right fg bright (white on pink)
+tmux_conf_theme_colour_15="#141b30"  # status right bg dim (bg-alt)
+tmux_conf_theme_colour_16="#e8b923"  # status right bg mid (gold)
+tmux_conf_theme_colour_17="#e6007e"  # status right bg bright (STI pink)
 
-tmux_conf_theme_pane_border="#4e4e4e"
-tmux_conf_theme_pane_active_border="#b6e63e"
-tmux_conf_theme_pane_indicator="#b6e63e"
-tmux_conf_theme_pane_active_indicator="#b6e63e"
+tmux_conf_theme_message_fg="#0a0f1e"
+tmux_conf_theme_message_bg="#e8b923"
+tmux_conf_theme_mode_fg="#ffffff"
+tmux_conf_theme_mode_bg="#e6007e"
 
-tmux_conf_theme_message_fg="#1c1e1f"
-tmux_conf_theme_message_bg="#e2c770"
-tmux_conf_theme_mode_fg="#1c1e1f"
-tmux_conf_theme_mode_bg="#66d9ef"
-
-tmux_conf_theme_window_status_fg="#767679"
-tmux_conf_theme_window_status_bg="#1c1e1f"
-tmux_conf_theme_window_status_current_fg="#1c1e1f"
-tmux_conf_theme_window_status_current_bg="#66d9ef"
+tmux_conf_theme_window_status_fg="#8a90a6"
+tmux_conf_theme_window_status_bg="#0a0f1e"
+tmux_conf_theme_window_status_current_fg="#ffffff"
+tmux_conf_theme_window_status_current_bg="#2a6fe0"
