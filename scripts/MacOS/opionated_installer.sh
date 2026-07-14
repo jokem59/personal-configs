@@ -12,11 +12,14 @@ ZSHRC_PATH=${HOME}/.zshrc
 ### Functions
 
 function setup_homebrew() {
-	# Install homebrew
+	# Install homebrew (non-interactive: skips the "Press RETURN" prompt)
 	if ! command -v brew &>/dev/null; then
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 		eval "$(${BREW_BIN} shellenv)"
 	fi
+	# Suppress cleanup/env hints for the rest of the run
+	export HOMEBREW_NO_INSTALL_CLEANUP=1
+	export HOMEBREW_NO_ENV_HINTS=1
 }
 
 function setup_macos_settings() {
@@ -215,8 +218,12 @@ function main() {
 
 	setup_macos_settings
 
-	if [ ! -d "/Library/Developer/CommandLineTools" ]; then
+	if ! xcode-select -p &>/dev/null; then
 		xcode-select --install
+		# Block until the CLT install completes (GUI installer runs async)
+		until xcode-select -p &>/dev/null; do
+			sleep 5
+		done
 	fi
 
 	setup_homebrew
@@ -239,6 +246,7 @@ function main() {
 
 	setup_fonts
 	setup_karabiner
+	setup_scroll_reverser
 	setup_syncthing
 	setup_rust
 	setup_gitu

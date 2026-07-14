@@ -386,8 +386,12 @@ run_full_setup() {
             exit 1
         fi
         setup_macos_settings
-        if [ ! -d "/Library/Developer/CommandLineTools" ]; then
+        if ! xcode-select -p >/dev/null 2>&1; then
             xcode-select --install
+            # Block until the CLT install completes (GUI installer runs async)
+            until xcode-select -p >/dev/null 2>&1; do
+                sleep 5
+            done
         fi
         setup_homebrew
         setup_zsh
@@ -399,6 +403,7 @@ run_full_setup() {
         setup_rectangle
         setup_fonts
         setup_karabiner
+        setup_scroll_reverser
         setup_syncthing
         setup_rust
         setup_gitu
@@ -491,6 +496,7 @@ run_selective_setup() {
         if ask_install "Rectangle window manager"; then setup_rectangle; fi
         if ask_install "Roboto Mono custom fonts"; then setup_fonts; fi
         if ask_install "Karabiner-elements for PC keys"; then setup_karabiner; fi
+        if ask_install "Scroll Reverser (natural scroll for mouse only)"; then setup_scroll_reverser; fi
         if ask_install "Syncthing replication service"; then setup_syncthing; fi
         if ask_install "Rust & cargo tools"; then setup_rust; fi
         if ask_install "gitu Git TUI"; then setup_gitu; fi
