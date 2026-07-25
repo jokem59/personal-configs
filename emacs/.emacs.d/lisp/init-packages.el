@@ -14,6 +14,7 @@
 
 (defvar jokem/packages '(; misc / tools
                          use-package
+                         eat
                          all-the-icons
                          all-the-icons-completion
                          org-roam
@@ -26,6 +27,8 @@
                          vertico
                          consult
                          consult-ls-git
+                         consult-eglot
+                         which-key-posframe
                          marginalia
                          orderless
                          pulsar

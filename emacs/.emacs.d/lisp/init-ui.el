@@ -104,6 +104,7 @@
 ;; Don't show trailing whitespace in minibuffer
 (dolist (hook '(special-mode-hook
                 term-mode-hook
+                eat-mode-hook
                 comint-mode-hook
                 compilation-mode-hook
                 minibuffer-setup-hook))
@@ -162,7 +163,7 @@ i.e. windows tiled side-by-side."
 ;;
 ;; Theme
 ;;
-(set-face-attribute 'default nil :family "Roboto Mono" :weight 'medium :height 130)
+(set-face-attribute 'default nil :family "Roboto Mono" :weight 'normal :height 130)
 (setq-default line-spacing 1)
 
 (if (string-equal system-type "darwin")

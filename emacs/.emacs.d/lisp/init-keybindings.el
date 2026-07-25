@@ -9,7 +9,9 @@
 (global-set-key (kbd "C-;") 'consult-yank-from-kill-ring)
 
 (global-set-key (kbd "C-<f5>") 'mlinum-mode)
-(global-set-key "\M-g" 'goto-line)
+;; Bind goto-line under M-g M-g so the M-g prefix map stays intact
+;; (M-g n / M-g p navigate flymake/eglot diagnostics via next-error).
+(global-set-key (kbd "M-g M-g") 'goto-line)
 (global-set-key "\M-l" 'copy-current-line-position-to-clipboard)
 (global-set-key (kbd "C-x C-e") 'eval-and-replace)
 (global-set-key '[f9] 'c-beginning-of-defun)
@@ -60,5 +62,23 @@
   (other-window -1)
   (run-hooks 'my-previous-window-hook))
 (global-set-key (kbd "C-x p") 'my-previous-window)
+
+;; which-key: helix-style popup listing available keys after a prefix
+;; (e.g. `C-c l', `C-x', `M-g'). Built into Emacs 30 — no package needed.
+(setq which-key-idle-delay 0.4)   ; pause before the popup appears (default 1.0)
+(which-key-mode 1)
+
+;; Show the which-key menu as a floating child-frame anchored just below point
+;; (helix-style), in GUI frames only. Child frames aren't available in a
+;; terminal, so there we fall back to the default bottom popup. Under the
+;; daemon the initial frame is non-graphical, so decide per-frame via a hook.
+(when (require 'which-key-posframe nil t)
+  (setq which-key-posframe-poshandler #'posframe-poshandler-point-bottom-left-corner)
+  (defun my/which-key-posframe-per-frame (&optional frame)
+    (with-selected-frame (or frame (selected-frame))
+      (which-key-posframe-mode (if (display-graphic-p) 1 -1))))
+  (add-hook 'server-after-make-frame-hook #'my/which-key-posframe-per-frame)
+  (add-hook 'after-make-frame-functions   #'my/which-key-posframe-per-frame)
+  (my/which-key-posframe-per-frame))
 
 (provide 'init-keybindings)
