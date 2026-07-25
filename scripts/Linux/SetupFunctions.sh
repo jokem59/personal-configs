@@ -112,80 +112,37 @@ function setup_gnome_settings() {
 }
 
 function setup_tmux() {
-    apt install tmux fzf -y
-
-    # Clone oh-my-tmux if it doesn't exist
-    if [ ! -d "${USER_HOME}/.local/share/tmux/oh-my-tmux" ]; then
-        echo "Cloning oh-my-tmux..."
-        if [ "${DRY_RUN:-}" = "true" ]; then
-            echo "[DRY RUN] Would clone oh-my-tmux to ${USER_HOME}/.local/share/tmux/oh-my-tmux"
-        else
-            sudo -u ${USERNAME} -i git clone https://github.com/gpakosz/.tmux.git "${USER_HOME}/.local/share/tmux/oh-my-tmux"
-        fi
-    fi
-
-    # Ensure config directory exists
     if [ "${DRY_RUN:-}" = "true" ]; then
+        echo "[DRY RUN] apt install tmux fzf git -y"
+        echo "[DRY RUN] Would remove ${USER_HOME}/.tmux.conf"
+        echo "[DRY RUN] Would clone/update oh-my-tmux at ${USER_HOME}/.local/share/tmux/oh-my-tmux"
         echo "[DRY RUN] Would create directory ${USER_HOME}/.config/tmux"
-    else
-        sudo -u ${USERNAME} -i mkdir -p "${USER_HOME}/.config/tmux"
-    fi
-
-    # Symlink configurations
-    if [ "${DRY_RUN:-}" = "true" ]; then
         echo "[DRY RUN] Would symlink tmux.conf and tmux.conf.local"
+        echo "[DRY RUN] Would clone/update tmux-resurrect, tmux-continuum, tmux-thumbs to ${USER_HOME}/dev"
+        echo "[DRY RUN] Would build tmux-thumbs with cargo (installing Rust first if needed)"
     else
-        rm -f "${USER_HOME}/.config/tmux/tmux.conf"
-        sudo -u ${USERNAME} -i ln -sf "${USER_HOME}/.local/share/tmux/oh-my-tmux/.tmux.conf" "${USER_HOME}/.config/tmux/tmux.conf"
+        apt install tmux fzf git -y
 
-        rm -f "${USER_HOME}/.config/tmux/tmux.conf.local"
+        rm -f "${USER_HOME}/.tmux.conf"
+        sudo -u ${USERNAME} -i git clone https://github.com/gpakosz/.tmux.git "${USER_HOME}/.local/share/tmux/oh-my-tmux" 2>/dev/null || (cd "${USER_HOME}/.local/share/tmux/oh-my-tmux" && sudo -u ${USERNAME} -i git pull)
+        sudo -u ${USERNAME} -i mkdir -p "${USER_HOME}/.config/tmux"
+        sudo -u ${USERNAME} -i ln -sf "${USER_HOME}/.local/share/tmux/oh-my-tmux/.tmux.conf" "${USER_HOME}/.config/tmux/tmux.conf"
         sudo -u ${USERNAME} -i ln -sf "${PERSONAL_CONFIGS}/tmux/.tmux.conf.local" "${USER_HOME}/.config/tmux/tmux.conf.local"
 
-        # Remove ~/.tmux.conf so that tmux falls back to ~/.config/tmux/tmux.conf
-        rm -f "${USER_HOME}/.tmux.conf"
-    fi
+        # tmux plugins
+        sudo -u ${USERNAME} -i mkdir -p "${USER_HOME}/dev"
+        sudo -u ${USERNAME} -i git clone https://github.com/tmux-plugins/tmux-resurrect "${USER_HOME}/dev/tmux-resurrect" 2>/dev/null || (cd "${USER_HOME}/dev/tmux-resurrect" && sudo -u ${USERNAME} -i git pull)
+        sudo -u ${USERNAME} -i git clone https://github.com/tmux-plugins/tmux-continuum "${USER_HOME}/dev/tmux-continuum" 2>/dev/null || (cd "${USER_HOME}/dev/tmux-continuum" && sudo -u ${USERNAME} -i git pull)
+        sudo -u ${USERNAME} -i git clone https://github.com/fcsonline/tmux-thumbs "${USER_HOME}/dev/tmux-thumbs" 2>/dev/null || (cd "${USER_HOME}/dev/tmux-thumbs" && sudo -u ${USERNAME} -i git pull)
 
-    # Clone and setup tmux plugins
-    # 1. tmux-resurrect
-    if [ ! -d "${USER_HOME}/dev/tmux-resurrect" ]; then
-        echo "Cloning tmux-resurrect..."
-        if [ "${DRY_RUN:-}" = "true" ]; then
-            echo "[DRY RUN] Would clone tmux-resurrect to ${USER_HOME}/dev/tmux-resurrect"
-        else
-            sudo -u ${USERNAME} -i mkdir -p "${USER_HOME}/dev"
-            sudo -u ${USERNAME} -i git clone https://github.com/tmux-plugins/tmux-resurrect.git "${USER_HOME}/dev/tmux-resurrect"
+        # We need rust/cargo to build tmux-thumbs. If not installed, we can run setup_rust
+        if ! sudo -u ${USERNAME} -i command -v cargo &>/dev/null; then
+            echo "Cargo not found. Installing Rust first to build tmux-thumbs..."
+            setup_rust
         fi
-    fi
 
-    # 2. tmux-continuum
-    if [ ! -d "${USER_HOME}/dev/tmux-continuum" ]; then
-        echo "Cloning tmux-continuum..."
-        if [ "${DRY_RUN:-}" = "true" ]; then
-            echo "[DRY RUN] Would clone tmux-continuum to ${USER_HOME}/dev/tmux-continuum"
-        else
-            sudo -u ${USERNAME} -i mkdir -p "${USER_HOME}/dev"
-            sudo -u ${USERNAME} -i git clone https://github.com/tmux-plugins/tmux-continuum.git "${USER_HOME}/dev/tmux-continuum"
-        fi
-    fi
-
-    # 3. tmux-thumbs
-    if [ ! -d "${USER_HOME}/dev/tmux-thumbs" ]; then
-        echo "Cloning tmux-thumbs..."
-        if [ "${DRY_RUN:-}" = "true" ]; then
-            echo "[DRY RUN] Would clone tmux-thumbs to ${USER_HOME}/dev/tmux-thumbs and build it"
-        else
-            sudo -u ${USERNAME} -i mkdir -p "${USER_HOME}/dev"
-            sudo -u ${USERNAME} -i git clone https://github.com/fcsonline/tmux-thumbs.git "${USER_HOME}/dev/tmux-thumbs"
-            
-            # We need rust/cargo to build tmux-thumbs. If not installed, we can run setup_rust
-            if ! sudo -u ${USERNAME} -i command -v cargo &>/dev/null; then
-                echo "Cargo not found. Installing Rust first to build tmux-thumbs..."
-                setup_rust
-            fi
-            
-            echo "Building tmux-thumbs..."
-            sudo -u ${USERNAME} -i bash -c "cd ${USER_HOME}/dev/tmux-thumbs && cargo build --release"
-        fi
+        echo "Building tmux-thumbs..."
+        sudo -u ${USERNAME} -i bash -c "cd ${USER_HOME}/dev/tmux-thumbs && cargo build --release"
     fi
 }
 
@@ -292,6 +249,12 @@ function setup_rust() {
         sudo -u ${USERNAME} -i rm -rf "$ra_dir"
     else
         echo "rust-analyzer is already installed. Skipping."
+    fi
+
+    # Build tmux-thumbs if it was cloned but cargo wasn't available at the time
+    if [ -d "${USER_HOME}/dev/tmux-thumbs" ] && ! [ -f "${USER_HOME}/dev/tmux-thumbs/target/release/tmux-thumbs" ]; then
+        echo "Building tmux-thumbs..."
+        sudo -u ${USERNAME} -i bash -c "cd '${USER_HOME}/dev/tmux-thumbs' && cargo build --release"
     fi
 }
 
