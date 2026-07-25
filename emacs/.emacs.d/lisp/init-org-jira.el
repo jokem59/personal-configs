@@ -1,6 +1,11 @@
 (setq jiralib-url "https://roblox.atlassian.net")
 
-(load-file "~/dev/nosync_emacs_configs/init-org-jira-cookie.el")
+;; Machine-local, untracked file holding the Jira auth cookie. Not every
+;; machine has this set up, so don't let its absence abort the rest of init.el.
+(let ((jira-cookie-file (expand-file-name "~/dev/nosync_emacs_configs/init-org-jira-cookie.el")))
+  (if (file-exists-p jira-cookie-file)
+      (load-file jira-cookie-file)
+    (message "init-org-jira: %s not found, skipping (org-jira will be unauthenticated)" jira-cookie-file)))
 
 ;; Our jira doesn't allow reporter field to be edited, so we exclude it when we post
 (setq jiralib-update-issue-fields-exclude-list '(reporter))

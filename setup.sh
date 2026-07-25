@@ -368,6 +368,7 @@ run_full_setup() {
         setup_bash_linux
         setup_zsh_linux
         setup_vim
+        setup_emacs
         setup_tmux
         setup_helix
         setup_alacritty
@@ -397,6 +398,7 @@ run_full_setup() {
         setup_zsh
         setup_bash
         setup_vim
+        setup_emacs
         setup_tmux
         setup_helix
         setup_alacritty
@@ -458,6 +460,7 @@ run_selective_setup() {
         if ask_install "Bash configuration and prompt"; then setup_bash_linux; fi
         if ask_install "Zsh shell & Oh-My-Zsh"; then setup_zsh_linux; fi
         if ask_install "Vim editor configuration"; then setup_vim; fi
+        if ask_install "Emacs editor configuration"; then setup_emacs; fi
         if ask_install "Tmux terminal multiplexer"; then setup_tmux; fi
         if ask_install "Helix editor configuration"; then setup_helix; fi
         if ask_install "Alacritty terminal emulator"; then setup_alacritty; fi
@@ -486,10 +489,11 @@ run_selective_setup() {
             esac
         }
 
-        if ask_install "macOS mouse/scrolling settings"; then setup_macos_settings; fi
+        if ask_install "macOS mouse/scrolling/keyboard settings"; then setup_macos_settings; fi
         if ask_install "Zsh shell & Oh-My-Zsh"; then setup_zsh; fi
         if ask_install "Bash configuration and prompt"; then setup_bash; fi
         if ask_install "Vim editor configuration"; then setup_vim; fi
+        if ask_install "Emacs editor configuration"; then setup_emacs; fi
         if ask_install "Tmux terminal multiplexer"; then setup_tmux; fi
         if ask_install "Helix editor configuration"; then setup_helix; fi
         if ask_install "Alacritty terminal emulator"; then setup_alacritty; fi

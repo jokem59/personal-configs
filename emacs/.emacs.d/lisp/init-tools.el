@@ -66,6 +66,15 @@
   ;; The :init section is always executed.
   :init
 
+  ;; Emacs 30 replaced the old multi-arg `seconds-to-string' (from time-date.el,
+  ;; which took SECONDS &optional NO-SECONDS ABBREV) with a native 1-arg subr of
+  ;; the same name. marginalia still calls the old 3-arg form via `compat-call',
+  ;; which now errors with wrong-number-of-arguments. Drop the extra args so it
+  ;; falls back to the native formatting instead of crashing. Safe to remove
+  ;; once marginalia/compat ship a proper fix for Emacs 30.
+  (require 'time-date)
+  (advice-add 'seconds-to-string :filter-args (lambda (args) (list (car args))))
+
   ;; Marginalia must be activated in the :init section of use-package such that
   ;; the mode gets enabled right away. Note that this forces loading the
   ;; package.

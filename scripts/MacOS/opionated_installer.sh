@@ -33,6 +33,17 @@ function setup_macos_settings() {
 		echo "${FUNCNAME[0]}: Natural scrolling is ON, disabling"
 		defaults write -g com.apple.swipescrolldirection -bool false
 	fi
+
+	# Faster key repeat than the System Settings slider allows (1 = fastest
+	# repeat, 10 = short initial delay), and disable the press-and-hold accent
+	# popup so holding a key repeats it instead. Both requested by default in
+	# most Cocoa text views; without this, held movement keys (C-n/C-v/etc in
+	# Emacs and others) feel choppy. Requires restarting apps (or logging out)
+	# to take full effect everywhere.
+	echo "${FUNCNAME[0]}: Setting faster key repeat rate and disabling press-and-hold"
+	defaults write -g KeyRepeat -int 1
+	defaults write -g InitialKeyRepeat -int 10
+	defaults write -g ApplePressAndHoldEnabled -bool false
 }
 
 function setup_rectangle() {
@@ -93,6 +104,54 @@ function setup_helix() {
 	mkdir -p "${HOME}/.config"
 	rm -rf "${HOME}/.config/helix" 2>/dev/null || true
 	ln -sF "$HX_CONFIG_DIR" "${HOME}/.config/helix"
+}
+
+function setup_emacs() {
+	"$BREW_BIN" tap d12frosted/emacs-plus
+	# Homebrew >= 6.0 blocks loading formulae from third-party taps until trusted.
+	# Older Homebrew has no `trust` subcommand, so tolerate its absence/failure.
+	"$BREW_BIN" trust --tap d12frosted/emacs-plus 2>/dev/null || true
+	"$BREW_BIN" install emacs-plus
+
+	# Symlink the .app bundle into /Applications so it shows in Launchpad/Spotlight
+	# and can be dragged onto the Dock (brew doesn't do this for formulae)
+	local EMACS_APP_DIR
+	EMACS_APP_DIR="$("$BREW_BIN" --prefix emacs-plus)/Emacs.app"
+	if [ -d "$EMACS_APP_DIR" ]; then
+		rm -rf "/Applications/Emacs.app" 2>/dev/null || true
+		ln -sf "$EMACS_APP_DIR" "/Applications/Emacs.app"
+	fi
+
+	local EMACS_CONFIG_DIR="${PERSONAL_CONFIGS}/emacs/.emacs.d"
+	if [ ! -d "$EMACS_CONFIG_DIR" ]; then
+		echo "${FUNCNAME[0]}: Could not find source emacs configuration dir, exiting"
+		exit 1
+	fi
+
+	rm -rf "${HOME}/.emacs.d" 2>/dev/null || true
+	ln -sf "$EMACS_CONFIG_DIR" "${HOME}/.emacs.d"
+
+	# Install the all-the-icons glyph fonts. Without them, icons in Emacs
+	# completion UIs (vertico + marginalia + all-the-icons-completion, used by
+	# find-file etc.) render as blank/missing glyphs.
+	local EMACS_BIN
+	EMACS_BIN="$("$BREW_BIN" --prefix emacs-plus)/bin/emacs"
+	if [ ! -f "${HOME}/Library/Fonts/all-the-icons.ttf" ]; then
+		"$EMACS_BIN" --batch \
+			--eval "(require 'package)" \
+			--eval "(add-to-list 'package-archives '(\"melpa\" . \"https://melpa.org/packages/\") t)" \
+			--eval "(package-initialize)" \
+			--eval "(unless (package-installed-p 'all-the-icons) (package-refresh-contents) (package-install 'all-the-icons))" \
+			--eval "(require 'all-the-icons)" \
+			--eval "(all-the-icons-install-fonts t)"
+	fi
+
+	# Register emacs daemon as a per-user LaunchAgent (avoids requiring sudo)
+	mkdir -p "${HOME}/Library/LaunchAgents"
+	rm -f "${HOME}/Library/LaunchAgents/emacs_server.plist"
+	ln -sf "${PERSONAL_CONFIGS}/scripts/MacOS/emacs_server.plist" "${HOME}/Library/LaunchAgents/emacs_server.plist"
+	launchctl unload "${HOME}/Library/LaunchAgents/emacs_server.plist" 2>/dev/null || true
+	launchctl load -w "${HOME}/Library/LaunchAgents/emacs_server.plist"
 }
 
 function setup_zsh() {
@@ -215,6 +274,10 @@ function main() {
 	setup_bash
 	setup_vim
 	setup_tmux
+
+	if [ ! -d "/opt/homebrew/opt/emacs-plus" ]; then
+		setup_emacs
+	fi
 
 	if [ ! -e "/opt/homebrew/Caskroom/rectangle" ]; then
 		setup_rectangle
