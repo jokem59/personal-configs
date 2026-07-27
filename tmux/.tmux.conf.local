@@ -9,7 +9,7 @@ bind C-t send-prefix #!important
 set -g mode-keys vi #!important
 set -g mouse on #!important
 set -sg escape-time 0 #!important
-set -g history-limit 5000 #!important
+set -g history-limit 50000 #!important
 set -g allow-passthrough on #!important
 set -g set-clipboard on #!important
 
