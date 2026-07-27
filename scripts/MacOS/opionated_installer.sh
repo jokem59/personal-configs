@@ -46,6 +46,24 @@ function setup_macos_settings() {
 	defaults write -g ApplePressAndHoldEnabled -bool false
 }
 
+function setup_scroll_reverser() {
+	"$BREW_BIN" install --cask scroll-reverser
+
+	# Reverse trackpad scrolling on both axes, mouse left un-reversed.
+	# Scroll Reverser predates per-axis support: the vertical axis is tied to
+	# the original InvertScrollingOn toggle, horizontal is the separate
+	# ReverseX opt-in added later.
+	defaults write com.pilotmoon.scroll-reverser InvertScrollingOn -bool true
+	defaults write com.pilotmoon.scroll-reverser ReverseX -bool true
+	defaults write com.pilotmoon.scroll-reverser ReverseMouse -bool false
+
+	# Restart so the new prefs take effect
+	killall "Scroll Reverser" 2>/dev/null || true
+	open -a "Scroll Reverser"
+
+	echo "${FUNCNAME[0]}: NOTE macOS will prompt for Accessibility/Input Monitoring permission on first launch; this can't be granted non-interactively"
+}
+
 function setup_rectangle() {
 	"$BREW_BIN" install --cask rectangle
 }
