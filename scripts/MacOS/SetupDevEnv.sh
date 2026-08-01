@@ -26,7 +26,16 @@ setup_prereqs() {
 
 setup_emacs() {
   brew tap d12frosted/emacs-plus
-  brew install emacs-plus
+  # Pin to @30 (deterministic; the unversioned formula silently tracks whatever
+  # major is latest, which is how a macOS/brew update once left us broken).
+  brew install emacs-plus@30
+
+  # Point /Applications/Emacs.app at the keg so every launch path — Spotlight,
+  # Dock, `open -a Emacs`, and the Karabiner Opt+3 binding — hits this build.
+  # (emacs-plus doesn't install into /Applications itself.)
+  rm -f /Applications/Emacs.app
+  ln -s /opt/homebrew/opt/emacs-plus@30/Emacs.app /Applications/Emacs.app
+  /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f /Applications/Emacs.app
 
   # Register emacs daemon service
   sudo ln -s ./emacs_server.plist /Library/LaunchAgents/emacs_server.plist
@@ -59,9 +68,39 @@ setup_karabiner() {
 }
 
 setup_helix() {
-  brew install helix
+  brew install helix duti
 
   # Symlink helix configs
+
+  # Double-click-to-open-in-Helix: build a tiny wrapper .app (from tracked
+  # AppleScript source) that hands double-clicked files to open-in-helix.sh,
+  # register it with Launch Services, and set it as default for code/text files.
+  local repo="$HOME/dev/personal-configs/helix"
+  local app="$HOME/Applications/HelixOpener.app"
+  local plist="$app/Contents/Info.plist"
+  local pb=/usr/libexec/PlistBuddy
+
+  mkdir -p "$HOME/Applications"
+  rm -rf "$app"
+  osacompile -o "$app" "$repo/helix-opener.applescript"
+
+  # Stable bundle id (so duti can target it) + declare it an editor for
+  # text/source/data so Launch Services accepts it as a default handler.
+  # osacompile apps have no CFBundleIdentifier — add it (Set if somehow present).
+  "$pb" -c "Add :CFBundleIdentifier string com.joekim.helixopener" "$plist" 2>/dev/null \
+    || "$pb" -c "Set :CFBundleIdentifier com.joekim.helixopener" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes array" "$plist" 2>/dev/null || true
+  "$pb" -c "Add :CFBundleDocumentTypes:0 dict" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:CFBundleTypeName string Text/Source" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:CFBundleTypeRole string Editor" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes array" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:0 string public.text" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:1 string public.source-code" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:2 string public.data" "$plist"
+
+  # Register with Launch Services, then set the default associations.
+  /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f "$app"
+  sh "$repo/set-helix-defaults.sh"
 }
 
 setup_gitu() {
