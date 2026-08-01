@@ -130,7 +130,9 @@
  '(nhexl-line-width 8)
  '(objed-cursor-color "#ff5555")
  '(org-agenda-files
-   '("~/Sync/RoamNotes/20210816094150-todo.org"
+   '("~/Sync/RoamNotes"
+     "~/Sync/RoamNotes/daily"
+     "~/Sync/RoamNotes/20210816094150-todo.org"
      "/Users/joekim/Sync/RoamNotes/20211028151721-cpp.org"
      "/Users/joekim/Sync/RoamNotes/20250204170642-roblox_bible.org"
      "/Users/joekim/Sync/RoamNotes/20211010224151-rust.org"))
