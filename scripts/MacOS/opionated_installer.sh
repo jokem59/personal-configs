@@ -269,6 +269,24 @@ function setup_mo() {
 	ln -sf "${PERSONAL_CONFIGS}/mo/config.toml" "${HOME}/.config/mo/config.toml"
 }
 
+function setup_claude_skills() {
+	# Symlink each Claude Code skill from the repo into ~/.claude/skills so it is
+	# reusable across machines. Uses -n so re-runs replace the link, not nest inside it.
+	mkdir -p "${HOME}/.claude/skills"
+	for skill_dir in "${PERSONAL_CONFIGS}/claude/skills/"*/; do
+		[ -d "$skill_dir" ] || continue
+		local name
+		name="$(basename "$skill_dir")"
+		ln -sfn "${skill_dir%/}" "${HOME}/.claude/skills/${name}"
+	done
+}
+
+function setup_roam_notes() {
+	# Provision the personal org-roam store (Syncthing-synced). Idempotent; if
+	# Syncthing later populates ~/Sync/RoamNotes this just no-ops.
+	mkdir -p "${HOME}/Sync/RoamNotes/daily"
+}
+
 ### Main Wrapper
 function main() {
 	mkdir -p "${HOME}/.config"
@@ -312,6 +330,8 @@ function main() {
 	setup_rust
 	setup_gitu
 	setup_mo
+	setup_claude_skills
+	setup_roam_notes
 
 	if [ ! -e "/opt/homebrew/bin/hx" ]; then
 		setup_helix

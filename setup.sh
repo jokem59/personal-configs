@@ -376,6 +376,8 @@ run_full_setup() {
         setup_rust
         setup_gitu
         setup_mo
+        setup_claude_skills
+        setup_roam_notes
         setup_keyd
         get_latex_packages
         setup_gnome_terminal
@@ -410,6 +412,8 @@ run_full_setup() {
         setup_rust
         setup_gitu
         setup_mo
+        setup_claude_skills
+        setup_roam_notes
     fi
     echo "Full Setup completed successfully!"
 }

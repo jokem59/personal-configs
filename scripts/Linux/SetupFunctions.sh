@@ -285,6 +285,24 @@ function setup_mo() {
     chown -R ${USERNAME}:${USERNAME} "${USER_HOME}/.config/mo"
 }
 
+function setup_claude_skills() {
+    # Symlink each Claude Code skill from the repo into ~/.claude/skills so it is
+    # reusable across machines. -n so re-runs replace the link, not nest inside it.
+    mkdir -p "${USER_HOME}/.claude/skills"
+    for skill_dir in "${PERSONAL_CONFIGS}/claude/skills/"*/; do
+        [ -d "$skill_dir" ] || continue
+        ln -sfn "${skill_dir%/}" "${USER_HOME}/.claude/skills/$(basename "$skill_dir")"
+    done
+    chown -R ${USERNAME}:${USERNAME} "${USER_HOME}/.claude/skills"
+}
+
+function setup_roam_notes() {
+    # Provision the personal org-roam store (Syncthing-synced). Idempotent; if
+    # Syncthing later populates ~/Sync/RoamNotes this just no-ops.
+    mkdir -p "${USER_HOME}/Sync/RoamNotes/daily"
+    [ "$DRY_RUN" = "false" ] && chown -R ${USERNAME}:${USERNAME} "${USER_HOME}/Sync/RoamNotes"
+}
+
 function setup_keyd() {
     echo "Configuring keyd key mapper..."
     if apt-cache show keyd &>/dev/null; then
