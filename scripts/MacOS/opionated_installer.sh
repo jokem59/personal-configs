@@ -34,15 +34,15 @@ function setup_macos_settings() {
 		defaults write -g com.apple.swipescrolldirection -bool false
 	fi
 
-	# Faster key repeat than the System Settings slider allows (1 = fastest
-	# repeat, 10 = short initial delay), and disable the press-and-hold accent
-	# popup so holding a key repeats it instead. Both requested by default in
-	# most Cocoa text views; without this, held movement keys (C-n/C-v/etc in
-	# Emacs and others) feel choppy. Requires restarting apps (or logging out)
-	# to take full effect everywhere.
-	echo "${FUNCNAME[0]}: Setting faster key repeat rate and disabling press-and-hold"
-	defaults write -g KeyRepeat -int 1
-	defaults write -g InitialKeyRepeat -int 10
+	# 6/25 is macOS's own out-of-box default (before anyone touches the
+	# System Settings slider) -- 1/10 and 3/20 were both tried here and felt
+	# too fast for held movement keys (C-n/C-v/etc in Emacs and others).
+	# Also disable the press-and-hold accent popup so holding a key repeats
+	# it instead of showing the accent picker. Requires restarting apps (or
+	# logging out) to take full effect everywhere.
+	echo "${FUNCNAME[0]}: Setting key repeat rate and disabling press-and-hold"
+	defaults write -g KeyRepeat -int 6
+	defaults write -g InitialKeyRepeat -int 25
 	defaults write -g ApplePressAndHoldEnabled -bool false
 }
 
@@ -60,6 +60,13 @@ function setup_scroll_reverser() {
 	# Restart so the new prefs take effect
 	killall "Scroll Reverser" 2>/dev/null || true
 	open -a "Scroll Reverser"
+
+	# Launch at login, so trackpad reversal is in effect immediately after
+	# a reboot instead of waiting until the app is opened manually.
+	if ! osascript -e 'tell application "System Events" to get login item "Scroll Reverser"' &>/dev/null; then
+		echo "${FUNCNAME[0]}: Adding Scroll Reverser as a login item"
+		osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Scroll Reverser.app", hidden:true}'
+	fi
 
 	echo "${FUNCNAME[0]}: NOTE macOS will prompt for Accessibility/Input Monitoring permission on first launch; this can't be granted non-interactively"
 }
