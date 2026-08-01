@@ -114,7 +114,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Open emacs terminal and attach to existing deamon, passing along any args
 alias e='emacsclient -r -n -a "" "$@"'
-alias et='emacsclient -r -nw -a "" "$@"'
+alias et='emacsclient -nw -a "" "$@"'
 alias h='hx'
 alias ll="ls -alt"
 
