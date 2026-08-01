@@ -10,5 +10,18 @@ emacs/.emacs.d/auto-save-list/*
 emacs/.emacs.d/eln-cache/*
 emacs/.emacs.d/elpa/*
 emacs/.emacs.d/history
+# Generated per-machine state that lands in the repo because ~/.emacs.d symlinks
+# here. The org-roam DB now lives in ~/.cache/emacs/ (machine-local); ignore any
+# stray/legacy copy plus other runtime artifacts as a safety net.
 emacs/.emacs.d/org-roam.db
+emacs/.emacs.d/.org-id-locations
+emacs/.emacs.d/bookmarks
 emacs/.emacs.d/places
+emacs/.emacs.d/request/
+emacs/.emacs.d/tramp
+emacs/.emacs.d/transient/
+
+# Work-only (Roblox) config — kept out of source control (see the untracked
+# overlay ~/dev/nosync_emacs_configs/init-org-roam-work.el)
+emacs/.emacs.d/lisp/init-org-jira.el
+claude/skills/org-roam-notes/

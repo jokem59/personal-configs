@@ -101,22 +101,17 @@
 (setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
 
 ;; Customized view for the daily workflow. (Command: "C-c a n")
+;; Personal default: no dedicated todo file — scan the whole personal store so
+;; INTR/PROG/NEXT keywords written inline in dailies + notes surface. The work
+;; machine's overlay (init-org-roam-work.el) redefines this to the work todo file.
 (setq org-agenda-custom-commands
-  '(("n" "Work Agenda / INTR / PROG / NEXT / DONE"
+  '(("n" "Agenda / INTR / PROG / NEXT / DONE"
      (;;(agenda "" nil) ; shows daily view which pollutes with DONE dates
       (todo "INTR" nil)
       (todo "PROG" nil)
       (todo "NEXT" nil)
       (todo "DONE" nil))
-     ((org-agenda-files '("~/Sync/RoamNotes/20210816094150-todo.org"))))
-
-    ("j" "Personal Agenda / INTR / PROG / NEXT / DONE"
-     (;;(agenda "" nil) ; shows daily view which pollutes with DONE dates
-      (todo "INTR" nil)
-      (todo "PROG" nil)
-      (todo "NEXT" nil)
-      (todo "DONE" nil))
-     ((org-agenda-files '("~/Sync/RoamNotes/20250522101720-personal_todo.org"))))))
+     ((org-agenda-files (list "~/Sync/RoamNotes/")))))) ; live loops across the personal graph
 ;; END TODO Workflow
 
 (use-package org-tree-slide
