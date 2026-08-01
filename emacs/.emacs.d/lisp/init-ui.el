@@ -169,6 +169,17 @@ i.e. windows tiled side-by-side."
 (if (string-equal system-type "darwin")
     (set-face-attribute 'default nil :height 155))
 
+;; Roboto Mono has no glyphs for box-drawing or block-element characters, so
+;; Emacs falls back to an unrelated font for them. That fallback's glyph
+;; width rarely matches Roboto Mono's cell width, which breaks the fixed
+;; character grid that terminal emulators like eat rely on (e.g. Claude
+;; Code's splash screen renders with ragged/misaligned borders). The
+;; Nerd-Font-patched "Mono" variant redraws these glyphs to fit exactly
+;; within Roboto Mono's own monospace cell, so route those ranges to it.
+(when (member "RobotoMono Nerd Font Mono" (font-family-list))
+  (set-fontset-font t '(#x2500 . #x257F) "RobotoMono Nerd Font Mono") ; box drawing
+  (set-fontset-font t '(#x2580 . #x259F) "RobotoMono Nerd Font Mono")) ; block elements
+
 ;; When navigating back to home (~), make the previous part of CWD invsible
 (setq file-name-shadow-properties '(invisible t intangible t))
 
