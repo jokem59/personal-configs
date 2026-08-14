@@ -42,7 +42,33 @@ prefix ARG, start a fresh session instead."
     (require 'eat)
     (let ((eat-buffer-name "*declawd*"))
       (eat (declawd--command) (and arg t))))
+  (defun my/eat-new ()
+    "Always start a new eat session.
+Plain `eat' reuses the existing *eat* buffer; this always creates a
+fresh session instead. Switch back to existing terminals with `C-x b'."
+    (interactive)
+    (eat nil t))                        ; nil = default shell, t = force new
   :bind
-  ("C-c c" . declawd))
+  (("C-c c" . declawd)
+   ("C-c t" . my/eat-new)))
+
+;; Make `C-c C-e' a single toggle between emacs-mode (read-only; scroll/search/
+;; yank like a normal buffer -- eat's "copy mode") and semi-char terminal input.
+;; Out of the box `C-c C-e' only *enters* emacs-mode; the return trip is
+;; `C-c C-j'. `eat-emacs-mode' sets `buffer-read-only' t and `eat-semi-char-mode'
+;; sets it nil, which is a reliable way to tell which state we're in.
+(defun my/eat-toggle-emacs-mode ()
+  "Toggle eat between emacs-mode (copy/scroll) and semi-char terminal input."
+  (interactive)
+  (if buffer-read-only
+      (eat-semi-char-mode)
+    (eat-emacs-mode)))
+
+(with-eval-after-load 'eat
+  ;; The base `eat-mode-map' is the keymap live during emacs-mode, so binding it
+  ;; here makes the return trip work. In semi-char/line mode the more-specific
+  ;; map's own `C-c C-e' -> `eat-emacs-mode' shadows this, which does the
+  ;; entering half of the toggle anyway -- so the behavior is symmetric.
+  (define-key eat-mode-map (kbd "C-c C-e") #'my/eat-toggle-emacs-mode))
 
 (provide 'init-claude)

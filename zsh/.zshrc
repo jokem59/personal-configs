@@ -218,6 +218,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 
+# eat (emacs terminal) shell integration: prompt + directory tracking.
+# Sourced last so its precmd/preexec hooks and widgets aren't overridden by
+# oh-my-zsh or the plugins above. No-op outside eat.
+if [[ -n "$EAT_SHELL_INTEGRATION_DIR" ]]; then
+    source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+fi
+
 # Added by Antigravity CLI installer
 export PATH="/home/jokem/.local/bin:$PATH"
 
