@@ -1,7 +1,3 @@
-;; Golden ratio settings
-(require 'golden-ratio)
-(golden-ratio-mode 1)
-
 ;; Disable auto complete
 (setq auto-complete-mode nil)
 
@@ -34,7 +30,6 @@
 
 (menu-bar-mode 0)
 (display-time)
-(golden-ratio-mode 1)
 (setq-default show-trailing-whitespace 1)
 
 ;; These settings hide the truncation glyhphs on terminal and gui repsectively

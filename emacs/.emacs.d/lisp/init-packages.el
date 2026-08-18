@@ -18,7 +18,6 @@
                          all-the-icons
                          all-the-icons-completion
                          org-roam
-                         golden-ratio
                          expand-region
                          deadgrep
                          company

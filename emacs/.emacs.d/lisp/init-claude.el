@@ -57,18 +57,32 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
 ;; Out of the box `C-c C-e' only *enters* emacs-mode; the return trip is
 ;; `C-c C-j'. `eat-emacs-mode' sets `buffer-read-only' t and `eat-semi-char-mode'
 ;; sets it nil, which is a reliable way to tell which state we're in.
+(defvar-local my/eat--saved-cursor-type nil
+  "`cursor-type' saved on entering emacs-mode, restored on leaving.")
+
 (defun my/eat-toggle-emacs-mode ()
   "Toggle eat between emacs-mode (copy/scroll) and semi-char terminal input."
   (interactive)
   (if buffer-read-only
-      (eat-semi-char-mode)
-    (eat-emacs-mode)))
+      (progn
+        (eat-semi-char-mode)
+        ;; Hand the cursor back to eat (it tracks the program's cursor state).
+        (setq-local cursor-type my/eat--saved-cursor-type))
+    (setq-local my/eat--saved-cursor-type cursor-type)
+    (eat-emacs-mode)
+    ;; eat leaves `cursor-type' at whatever the program last requested. A TUI
+    ;; like Claude Code hides its cursor (`cursor-type' nil), so point would be
+    ;; invisible in copy mode even though it moves -- force it visible.
+    (setq-local cursor-type 'box)))
 
 (with-eval-after-load 'eat
-  ;; The base `eat-mode-map' is the keymap live during emacs-mode, so binding it
-  ;; here makes the return trip work. In semi-char/line mode the more-specific
-  ;; map's own `C-c C-e' -> `eat-emacs-mode' shadows this, which does the
-  ;; entering half of the toggle anyway -- so the behavior is symmetric.
-  (define-key eat-mode-map (kbd "C-c C-e") #'my/eat-toggle-emacs-mode))
+  ;; Route `C-c C-e' through our toggle in BOTH directions so the cursor fix
+  ;; runs on entry as well as exit:
+  ;;   - `eat-mode-map' is live during emacs-mode -> handles the return trip.
+  ;;   - `eat-semi-char-mode-map' is more specific and normally binds `C-c C-e'
+  ;;     straight to `eat-emacs-mode' (eat.el), which would enter copy mode
+  ;;     WITHOUT forcing the cursor visible. Override it here.
+  (define-key eat-mode-map (kbd "C-c C-e") #'my/eat-toggle-emacs-mode)
+  (define-key eat-semi-char-mode-map (kbd "C-c C-e") #'my/eat-toggle-emacs-mode))
 
 (provide 'init-claude)
