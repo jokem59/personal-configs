@@ -67,7 +67,14 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
       (progn
         (eat-semi-char-mode)
         ;; Hand the cursor back to eat (it tracks the program's cursor state).
-        (setq-local cursor-type my/eat--saved-cursor-type))
+        (setq-local cursor-type my/eat--saved-cursor-type)
+        ;; Copy mode may have scrolled the window far from the prompt. Re-sync
+        ;; the display so the terminal cursor (the prompt) is back in view --
+        ;; this is what eat itself runs on new output (see `eat--adjust-*').
+        (when eat-terminal
+          (funcall (or eat--synchronize-scroll-function
+                       #'eat--synchronize-scroll)
+                   (eat--synchronize-scroll-windows 'force-selected))))
     (setq-local my/eat--saved-cursor-type cursor-type)
     (eat-emacs-mode)
     ;; eat leaves `cursor-type' at whatever the program last requested. A TUI
