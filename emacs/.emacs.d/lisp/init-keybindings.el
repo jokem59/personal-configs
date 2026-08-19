@@ -63,6 +63,14 @@
   (run-hooks 'my-previous-window-hook))
 (global-set-key (kbd "C-x p") 'my-previous-window)
 
+;; tmux-style split glyphs (mirrors ~/.tmux.conf.local `bind |' / `bind -').
+;; The glyph looks like the resulting divider:
+;;   C-x |  -> side-by-side panes (vertical divider)   [split-window-right]
+;;   C-x -  -> stacked panes      (horizontal divider)  [split-window-below]
+;; NOTE: `C-x -' shadows the rarely-used `shrink-window-if-larger-than-buffer'.
+(global-set-key (kbd "C-x |") 'split-window-right)
+(global-set-key (kbd "C-x -") 'split-window-below)
+
 ;; which-key: helix-style popup listing available keys after a prefix
 ;; (e.g. `C-c l', `C-x', `M-g'). Built into Emacs 30 — no package needed.
 (setq which-key-idle-delay 0.4)   ; pause before the popup appears (default 1.0)
