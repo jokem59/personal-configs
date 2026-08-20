@@ -83,13 +83,22 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
     (setq-local cursor-type 'box)))
 
 (with-eval-after-load 'eat
-  ;; Route `C-c C-e' through our toggle in BOTH directions so the cursor fix
-  ;; runs on entry as well as exit:
-  ;;   - `eat-mode-map' is live during emacs-mode -> handles the return trip.
-  ;;   - `eat-semi-char-mode-map' is more specific and normally binds `C-c C-e'
-  ;;     straight to `eat-emacs-mode' (eat.el), which would enter copy mode
-  ;;     WITHOUT forcing the cursor visible. Override it here.
-  (define-key eat-mode-map (kbd "C-c C-e") #'my/eat-toggle-emacs-mode)
-  (define-key eat-semi-char-mode-map (kbd "C-c C-e") #'my/eat-toggle-emacs-mode))
+  ;; Make a bare `C-c' send SIGINT in semi-char mode, like a real terminal,
+  ;; instead of eat's default `C-c C-c'. This turns `C-c' from a prefix key
+  ;; into a self-insert of ETX (^C), so eat's other `C-c ...' commands
+  ;; (`eat-kill-process', `eat-char-mode', ...) are no longer reachable via
+  ;; `C-c' -- use `M-x' for those on the rare occasion they're needed.
+  (define-key eat-semi-char-mode-map (kbd "C-c")
+              (lambda () (interactive) (eat-input-char ?\C-c 1)))
+
+  ;; With `C-c' repurposed, the copy-mode toggle moves to `C-''. Bind it in
+  ;; BOTH maps so the same key works in both directions (and so the cursor fix
+  ;; in `my/eat-toggle-emacs-mode' runs on entry as well as exit):
+  ;;   - `eat-semi-char-mode-map' (semi-char input) -> enter emacs/copy mode.
+  ;;   - `eat-mode-map' (live during emacs-mode)     -> return to semi-char.
+  ;; `C-'' has no ASCII control code, so it can never be sent to the terminal
+  ;; program -- stealing it here costs nothing.
+  (define-key eat-semi-char-mode-map (kbd "C-'") #'my/eat-toggle-emacs-mode)
+  (define-key eat-mode-map           (kbd "C-'") #'my/eat-toggle-emacs-mode))
 
 (provide 'init-claude)

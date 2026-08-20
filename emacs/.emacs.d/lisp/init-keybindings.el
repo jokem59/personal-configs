@@ -71,22 +71,10 @@
 (global-set-key (kbd "C-x |") 'split-window-right)
 (global-set-key (kbd "C-x -") 'split-window-below)
 
-;; which-key: helix-style popup listing available keys after a prefix
-;; (e.g. `C-c l', `C-x', `M-g'). Built into Emacs 30 — no package needed.
+;; which-key: popup listing available keys after a prefix (e.g. `C-c l',
+;; `C-x', `M-g'). Built into Emacs 30 — no package needed. Uses the
+;; traditional bottom-of-frame popup.
 (setq which-key-idle-delay 0.4)   ; pause before the popup appears (default 1.0)
 (which-key-mode 1)
-
-;; Show the which-key menu as a floating child-frame anchored just below point
-;; (helix-style), in GUI frames only. Child frames aren't available in a
-;; terminal, so there we fall back to the default bottom popup. Under the
-;; daemon the initial frame is non-graphical, so decide per-frame via a hook.
-(when (require 'which-key-posframe nil t)
-  (setq which-key-posframe-poshandler #'posframe-poshandler-point-bottom-left-corner)
-  (defun my/which-key-posframe-per-frame (&optional frame)
-    (with-selected-frame (or frame (selected-frame))
-      (which-key-posframe-mode (if (display-graphic-p) 1 -1))))
-  (add-hook 'server-after-make-frame-hook #'my/which-key-posframe-per-frame)
-  (add-hook 'after-make-frame-functions   #'my/which-key-posframe-per-frame)
-  (my/which-key-posframe-per-frame))
 
 (provide 'init-keybindings)
