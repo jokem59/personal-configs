@@ -91,6 +91,13 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
   (define-key eat-semi-char-mode-map (kbd "C-c")
               (lambda () (interactive) (eat-input-char ?\C-c 1)))
 
+  ;; In GUI Emacs `C-/' is its own key event, not the 0x1F (^_) control byte a
+  ;; TTY sends, so eat never forwards it and it falls through to Emacs `undo'
+  ;; (meaningless on terminal output -- it just jostles point). Forward it as
+  ;; ^_ so it reaches the shell's undo, exactly like the already-working `C-_'.
+  (define-key eat-semi-char-mode-map (kbd "C-/")
+              (lambda () (interactive) (eat-input-char ?\C-_ 1)))
+
   ;; With `C-c' repurposed, the copy-mode toggle moves to `C-''. Bind it in
   ;; BOTH maps so the same key works in both directions (and so the cursor fix
   ;; in `my/eat-toggle-emacs-mode' runs on entry as well as exit):
