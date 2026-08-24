@@ -30,7 +30,13 @@
 
 (menu-bar-mode 0)
 (display-time)
-(setq-default show-trailing-whitespace 1)
+
+;; Show trailing whitespace only where you actually edit -- code and prose.
+;; The default stays nil, so terminals (eat), special/UI buffers, the
+;; minibuffer, which-key popups, the echo area, etc. are all clean without
+;; per-buffer opt-outs.
+(dolist (hook '(prog-mode-hook text-mode-hook))
+  (add-hook hook (lambda () (setq show-trailing-whitespace t))))
 
 ;; These settings hide the truncation glyhphs on terminal and gui repsectively
 ;; When resizing windows, they can refresh many times which is visually distracting
@@ -125,16 +131,6 @@ near-black buffer background instead of blending in.")
  ;;  (progn
  ;;    (solaire-mode-swap-bg)
  ;;    (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))))
-
-;; Don't show trailing whitespace in minibuffer
-(dolist (hook '(special-mode-hook
-                term-mode-hook
-                eat-mode-hook
-                comint-mode-hook
-                compilation-mode-hook
-                minibuffer-setup-hook))
-  (add-hook hook
-            (lambda () (setq show-trailing-whitespace nil))))
 
 (setq electric-pair-mode nil) ; disable auto matching of braces
 (setq visible-bell t)
