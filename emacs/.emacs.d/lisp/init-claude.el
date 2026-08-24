@@ -137,6 +137,17 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
             (setq eat--synchronize-scroll-function
                   #'my/eat-synchronize-scroll-lazy)))
 
+;; Claude Code's tool-call marker `⏺' (U+23FA) isn't in Roboto Mono, so Emacs
+;; draws it from STIX Two Math, whose taller metrics inflate that screen line
+;; and make it wobble on cursor blink / redisplay. Remap it (DISPLAY only --
+;; buffer text is unchanged, so yanks still yield `⏺') to `•' (U+2022), which
+;; Roboto Mono renders at the normal line height.
+(add-hook 'eat-mode-hook
+          (lambda ()
+            (unless buffer-display-table
+              (setq buffer-display-table (make-display-table)))
+            (aset buffer-display-table ?⏺ (vector ?•))))
+
 ;; Clickable links in the terminal. eat 0.9.4 doesn't handle OSC 8 hyperlinks,
 ;; so we detect plain-text URLs/emails with `goto-address-mode'. It registers
 ;; with jit-lock, so URLs in fresh output get fontified as they scroll into
