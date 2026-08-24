@@ -188,5 +188,15 @@ LEAF is (PT . WND).  Falls back to the corner overlay in a terminal."
 (setq which-key-idle-delay 0.4      ; pause before the popup appears (default 1.0)
       which-key-popup-type 'minibuffer)
 (which-key-mode 1)
+;; which-key pads its columns with spaces to align them; with the global
+;; `show-trailing-whitespace' those pads render as red blocks. Disable it in
+;; both places which-key might render the listing: its own ` *which-key*'
+;; buffer, and the echo-area buffers it echoes into for the minibuffer popup
+;; (the interactive-minibuffer-setup-hook above reaches neither).
+(add-hook 'which-key-init-buffer-hook
+          (lambda () (setq-local show-trailing-whitespace nil)))
+(dolist (b '(" *Echo Area 0*" " *Echo Area 1*"))
+  (with-current-buffer (get-buffer-create b)
+    (setq-local show-trailing-whitespace nil)))
 
 (provide 'init-keybindings)
