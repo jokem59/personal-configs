@@ -83,7 +83,7 @@
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9)
         aw-scope 'frame                 ; only this frame's windows
         aw-background t                 ; dim other windows while choosing
-        aw-dispatch-always t)           ; always show the number labels
+        aw-dispatch-always nil)         ; 2 windows: switch directly; 3+: show labels
   ;; Big, bold corner number (also the terminal fallback below). No `:family'
   ;; is set, so it renders in your default Emacs font. Color inherits the
   ;; theme's `warning' face so it matches the active theme instead of
