@@ -108,6 +108,35 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
   (define-key eat-semi-char-mode-map (kbd "C-'") #'my/eat-toggle-emacs-mode)
   (define-key eat-mode-map           (kbd "C-'") #'my/eat-toggle-emacs-mode))
 
+;; Stop the eat window from bouncing a line up/down while a program animates
+;; (e.g. Claude Code's "thinking" spinner). eat re-runs its scroll sync on
+;; every output chunk and `recenter's the window to the terminal cursor; when
+;; the program's cursor row wobbles by a line each tick, that recenter makes
+;; the whole view jump. Swap in a gentler sync (buffer-local) that only
+;; recenters when the cursor has actually scrolled out of view -- otherwise it
+;; just moves point, leaving the scroll position steady. Mirrors
+;; `eat--synchronize-scroll' but guards the `recenter' with a visibility check.
+(defun my/eat-synchronize-scroll-lazy (windows)
+  "Sync WINDOWS to the terminal cursor, recentering only when it's off-screen."
+  (dolist (window windows)
+    (if (eq window 'buffer)
+        (goto-char (eat-term-display-cursor eat-terminal))
+      (set-window-point window (eat-term-display-cursor eat-terminal))
+      (unless (pos-visible-in-window-p
+               (eat-term-display-cursor eat-terminal) window)
+        (with-selected-window window
+          (recenter
+           (- (how-many "\n" (eat-term-display-beginning eat-terminal)
+                        (eat-term-display-cursor eat-terminal))
+              (cdr (eat-term-size eat-terminal))
+              (max 0 (- (floor (window-screen-lines))
+                        (cdr (eat-term-size eat-terminal)))))))))))
+
+(add-hook 'eat-mode-hook
+          (lambda ()
+            (setq eat--synchronize-scroll-function
+                  #'my/eat-synchronize-scroll-lazy)))
+
 ;; Clickable links in the terminal. eat 0.9.4 doesn't handle OSC 8 hyperlinks,
 ;; so we detect plain-text URLs/emails with `goto-address-mode'. It registers
 ;; with jit-lock, so URLs in fresh output get fontified as they scroll into
