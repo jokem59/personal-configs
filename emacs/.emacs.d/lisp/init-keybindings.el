@@ -49,6 +49,37 @@
   :bind
   (("C-c g" . #'consult-ls-git)))
 
+;; Buffer handling. `consult-buffer' for switching -- live preview and
+;; narrowable sources (open buffers, recent files, bookmarks, project buffers;
+;; narrow with `b'/`f'/`p' SPC). `ibuffer' as a full buffer manager (mark,
+;; bulk-kill, sort) in place of the plain buffer list.
+(global-set-key (kbd "C-x b")   #'consult-buffer)
+(global-set-key (kbd "C-x C-b") #'ibuffer)
+
+;; Auto-group the ibuffer list by project (built-in project.el) so buffers
+;; cluster by repo; buffers with no project fall into ibuffer's Default group.
+(defun my/ibuffer-project-filter-groups ()
+  "Return `ibuffer' filter groups, one per project root among live buffers."
+  (let (roots)
+    (dolist (buf (buffer-list))
+      (when-let* ((root (with-current-buffer buf
+                          (when-let ((p (project-current nil)))
+                            (expand-file-name (project-root p))))))
+        (unless (assoc root roots)
+          (push (cons root (file-name-nondirectory (directory-file-name root)))
+                roots))))
+    (mapcar (lambda (r)
+              (list (cdr r)
+                    `(predicate . (when-let ((p (project-current nil)))
+                                    (equal (expand-file-name (project-root p))
+                                           ,(car r))))))
+            (nreverse roots))))
+
+(add-hook 'ibuffer-hook
+          (lambda ()
+            (setq ibuffer-filter-groups (my/ibuffer-project-filter-groups))
+            (ibuffer-update nil t)))
+
 ;; Other commands
 (global-set-key (kbd "C-x C-i") 'consult-imenu)
 (global-set-key (kbd "C-c f") #'deadgrep)
@@ -152,9 +183,10 @@ LEAF is (PT . WND).  Falls back to the corner overlay in a terminal."
         aw--remove-leading-chars-fn #'my/aw-remove-posframes))
 
 ;; which-key: popup listing available keys after a prefix (e.g. `C-c l',
-;; `C-x', `M-g'). Built into Emacs 30 — no package needed. Uses the
-;; traditional bottom-of-frame popup.
-(setq which-key-idle-delay 0.4)   ; pause before the popup appears (default 1.0)
+;; `C-x', `M-g'). Built into Emacs 30 — no package needed. Show it in the
+;; minibuffer (like consult/vertico) rather than a posframe or side window.
+(setq which-key-idle-delay 0.4      ; pause before the popup appears (default 1.0)
+      which-key-popup-type 'minibuffer)
 (which-key-mode 1)
 
 (provide 'init-keybindings)
