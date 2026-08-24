@@ -151,6 +151,16 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
               (setq buffer-display-table (make-display-table)))
             (aset buffer-display-table ?⏺ (vector ?•))))
 
+;; Drop inter-line padding in terminals. The frame-wide `line-spacing' (set in
+;; init-ui.el for prose/code) adds a pixel *below* every rendered line. eat
+;; sizes the child to `(floor (window-screen-lines))' -- the rows that fit above
+;; the mode line -- but that trailing pixel on the bottom-most row has nowhere to
+;; go, so the final terminal row's descent + spacing is clipped by the mode line
+;; and its glyphs bleed into the mode-line row (the "last line is covered by the
+;; status bar" symptom). Terminal grids don't want inter-line padding anyway;
+;; zero it out buffer-locally so the last row sits flush above the mode line.
+(add-hook 'eat-mode-hook (lambda () (setq-local line-spacing nil)))
+
 ;; Clickable links in the terminal. eat 0.9.4 doesn't handle OSC 8 hyperlinks,
 ;; so we detect plain-text URLs/emails with `goto-address-mode'. It registers
 ;; with jit-lock, so URLs in fresh output get fontified as they scroll into
