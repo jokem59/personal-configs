@@ -84,16 +84,59 @@
         aw-scope 'frame                 ; only this frame's windows
         aw-background t                 ; dim other windows while choosing
         aw-dispatch-always t)           ; always show the number labels
-  ;; Big, bold corner number. No `:family' is set, so it renders in your
-  ;; default Emacs font. Color inherits the theme's `warning' face so it
-  ;; matches the active theme (dark+ etc.) instead of ace-window's hardcoded
-  ;; red -- swap the inherited face (e.g. `success', `link',
-  ;; `font-lock-keyword-face') if you want a different accent.
+  ;; Big, bold corner number (also the terminal fallback below). No `:family'
+  ;; is set, so it renders in your default Emacs font. Color inherits the
+  ;; theme's `warning' face so it matches the active theme instead of
+  ;; ace-window's hardcoded red -- swap the inherited face (e.g. `success',
+  ;; `link', `font-lock-keyword-face') for a different accent.
   (set-face-attribute 'aw-leading-char-face nil
                       :inherit 'warning
                       :foreground 'unspecified
                       :weight 'bold
-                      :height 5.0))
+                      :height 5.0)
+
+  ;; --- big, CENTERED per-window labels via posframe (tmux display-panes) ----
+  ;; Swap ace-window's display/cleanup hooks for ones that float a large number
+  ;; in a child frame centered in each window. GUI only; terminals fall back to
+  ;; the corner overlay above. NOTE: do NOT pass `:position 0' to posframe --
+  ;; position 0 is an invalid buffer position (they start at 1) and posframe
+  ;; does `goto-char' on it -> "Args out of range: 0". Omitting it defaults to
+  ;; point, which the window-center poshandler ignores anyway.
+  (require 'posframe)
+
+  (defface my/aw-posframe-face '((t :inherit warning :weight bold :height 6.0))
+    "Face for the big centered ace-window number.")
+
+  (defvar my/aw-posframe-buffers nil
+    "Posframe buffers currently shown for an ace-window selection.")
+
+  (defun my/aw-lead-overlay-posframe (path leaf)
+    "Float PATH's number centered in LEAF's window via a posframe.
+LEAF is (PT . WND).  Falls back to the corner overlay in a terminal."
+    (if (not (display-graphic-p))
+        (aw--lead-overlay path leaf)
+      (let* ((wnd (cdr leaf))
+             (label (string (avy--key-to-char (car (last path)))))
+             (buf (format " *aw-posframe %s*" wnd)))
+        (with-selected-window wnd
+          (posframe-show
+           buf
+           :string (propertize (format " %s " label) 'face 'my/aw-posframe-face)
+           :poshandler #'posframe-poshandler-window-center
+           :internal-border-width 4
+           :internal-border-color (face-foreground 'warning nil t)
+           :background-color (face-background 'default nil t)))
+        (push buf my/aw-posframe-buffers))))
+
+  (defun my/aw-remove-posframes (&rest _)
+    "Delete the ace-window selection posframes."
+    (dolist (buf my/aw-posframe-buffers)
+      (posframe-delete buf))
+    (setq my/aw-posframe-buffers nil)
+    (avy--remove-leading-chars))
+
+  (setq aw--lead-overlay-fn #'my/aw-lead-overlay-posframe
+        aw--remove-leading-chars-fn #'my/aw-remove-posframes))
 
 ;; which-key: popup listing available keys after a prefix (e.g. `C-c l',
 ;; `C-x', `M-g'). Built into Emacs 30 — no package needed. Uses the
