@@ -80,15 +80,27 @@
 (setq window-divider-default-places 'right-only
       window-divider-default-right-width 2)
 (window-divider-mode 1)
-;; The theme loads on `after-init-hook'; recolor the dividers afterward (append
-;; so this runs after the theme-loading hook) to track the themed mode line.
+;; The theme loads on `after-init-hook'; adjust these theme-dependent faces
+;; afterward (append so this runs after the theme-loading hook).
+(defvar my/mode-line-inactive-bg "#3a2f42"
+  "Background for the inactive mode line -- a dark, muted version of the
+active bar's purple so unselected windows' bars stay visible against the
+near-black buffer background instead of blending in.")
 (add-hook 'after-init-hook
           (lambda ()
+            ;; Dividers track the (themed) active mode-line color.
             (let ((c (face-background 'mode-line nil t)))
               (dolist (f '(window-divider
                            window-divider-first-pixel
                            window-divider-last-pixel))
-                (set-face-foreground f c))))
+                (set-face-foreground f c)))
+            ;; The theme's inactive mode line (#1d1d1d) is nearly the buffer
+            ;; background (#1e1e1e), so unselected windows' bars vanish. Give
+            ;; them a distinct bar (also covers solaire-mode's variant).
+            (set-face-background 'mode-line-inactive my/mode-line-inactive-bg)
+            (when (facep 'solaire-mode-line-inactive-face)
+              (set-face-background 'solaire-mode-line-inactive-face
+                                   my/mode-line-inactive-bg)))
           t)
 
 ;; Solaire-mode is an aesthetic plugin designed to visually distinguish "real" buffers vs "unreal" buffers
