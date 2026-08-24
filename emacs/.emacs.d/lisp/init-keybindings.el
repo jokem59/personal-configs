@@ -65,20 +65,33 @@
 
 ;; tmux-style split glyphs (mirrors ~/.tmux.conf.local `bind |' / `bind -').
 ;; The glyph looks like the resulting divider:
-;;   C-x |  -> side-by-side panes (vertical divider)   [split-window-right]
-;;   C-x -  -> stacked panes      (horizontal divider)  [split-window-below]
-;; NOTE: `C-x -' shadows the rarely-used `shrink-window-if-larger-than-buffer'.
-(global-set-key (kbd "C-x |") 'split-window-right)
-(global-set-key (kbd "C-x -") 'split-window-below)
+;;   C-x | , C-x \  -> side-by-side panes (vertical divider)   [split-window-right]
+;;   C-x -          -> stacked panes      (horizontal divider)  [split-window-below]
+;; Like tmux, focus moves INTO the new pane after splitting -- the plain
+;; `split-window-*' commands leave point in the original window, so wrap them
+;; to select the window they return. `C-x \' is a Shift-free alias for `C-x |';
+;; `C-x -' shadows the rarely-used `shrink-window-if-larger-than-buffer'.
+(defun my/split-window-right-focus ()
+  "Split side by side and move focus into the new (right) window."
+  (interactive)
+  (select-window (split-window-right)))
+(defun my/split-window-below-focus ()
+  "Split stacked and move focus into the new (below) window."
+  (interactive)
+  (select-window (split-window-below)))
+(global-set-key (kbd "C-x |")  #'my/split-window-right-focus)
+(global-set-key (kbd "C-x \\") #'my/split-window-right-focus)
+(global-set-key (kbd "C-x -")  #'my/split-window-below-focus)
 
 ;; ace-window: the tmux `<prefix> q' analog -- overlay a number on each window
-;; and press it to jump. Bound over `C-x o'. `aw-dispatch-always' t makes it
-;; ALWAYS flash the labels (even with just 2 windows), just like tmux's
-;; display-panes, rather than silently switching. Number labels mirror tmux's
-;; pane numbers (swap `aw-keys' to home-row letters if you prefer).
+;; and press it to jump. Bound to `C-x q' (mirroring tmux's `prefix q'); plain
+;; `C-x o' stays `other-window' for quick cycling. With `aw-dispatch-always'
+;; nil, 2 windows switch directly and 3+ show the number labels (matching
+;; tmux). Number labels mirror tmux's pane numbers (swap `aw-keys' to home-row
+;; letters if you prefer).
 (use-package ace-window
   :ensure t
-  :bind (("C-x o" . ace-window))
+  :bind (("C-x q" . ace-window))
   :config
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9)
         aw-scope 'frame                 ; only this frame's windows
