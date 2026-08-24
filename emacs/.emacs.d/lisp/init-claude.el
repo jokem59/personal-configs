@@ -108,4 +108,12 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
   (define-key eat-semi-char-mode-map (kbd "C-'") #'my/eat-toggle-emacs-mode)
   (define-key eat-mode-map           (kbd "C-'") #'my/eat-toggle-emacs-mode))
 
+;; Clickable links in the terminal. eat 0.9.4 doesn't handle OSC 8 hyperlinks,
+;; so we detect plain-text URLs/emails with `goto-address-mode'. It registers
+;; with jit-lock, so URLs in fresh output get fontified as they scroll into
+;; view -- no manual re-scan needed. Activate a link with a mouse click; or in
+;; copy mode (`C-'') with `C-c RET' on the URL. (In semi-char mode `C-c' is
+;; SIGINT, so keyboard activation there isn't available -- use the mouse.)
+(add-hook 'eat-mode-hook #'goto-address-mode)
+
 (provide 'init-claude)
