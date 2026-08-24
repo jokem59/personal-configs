@@ -148,7 +148,14 @@
  '(org-export-backends '(ascii html icalendar latex md odt))
  '(org-roam-database-connector 'sqlite-builtin)
  '(org-src-preserve-indentation t)
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(ace-window all-the-icons-completion clipetty company
+                consult-eglot consult-ls-git deadgrep doom-themes eat
+                expand-region git-gutter gruvbox-theme
+                js3-mode log4j-mode magit marginalia mu4e-column-faces
+                orderless org-jira org-roam org-tree-slide powershell
+                pulsar rust-mode solaire-mode tide vertico web-mode
+                which-key-posframe yaml-mode))
  '(pdf-view-midnight-colors (cons "#f8f8f2" "#282a36"))
  '(pulsar-pulse-functions
    '(recenter-top-bottom move-to-window-line-top-bottom reposition-window
