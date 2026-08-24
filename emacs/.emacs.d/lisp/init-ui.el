@@ -73,6 +73,24 @@
 ;; Theme
 (add-hook 'after-init-hook (lambda () (load-theme 'doom-dark+)))
 
+;; Visible separators between side-by-side (vertical) splits. Stacked splits
+;; are already separated by the mode line; vertical splits only get the thin,
+;; near-invisible `vertical-border'. Turn on right-edge window dividers and
+;; color them like the mode line so both split kinds read consistently.
+(setq window-divider-default-places 'right-only
+      window-divider-default-right-width 2)
+(window-divider-mode 1)
+;; The theme loads on `after-init-hook'; recolor the dividers afterward (append
+;; so this runs after the theme-loading hook) to track the themed mode line.
+(add-hook 'after-init-hook
+          (lambda ()
+            (let ((c (face-background 'mode-line nil t)))
+              (dolist (f '(window-divider
+                           window-divider-first-pixel
+                           window-divider-last-pixel))
+                (set-face-foreground f c))))
+          t)
+
 ;; Solaire-mode is an aesthetic plugin designed to visually distinguish "real" buffers vs "unreal" buffers
 (require 'solaire-mode)
 
