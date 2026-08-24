@@ -19,6 +19,7 @@
                          all-the-icons-completion
                          org-roam
                          expand-region
+                         ace-window
                          deadgrep
                          company
                          flycheck

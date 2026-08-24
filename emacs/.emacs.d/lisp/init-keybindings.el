@@ -71,6 +71,30 @@
 (global-set-key (kbd "C-x |") 'split-window-right)
 (global-set-key (kbd "C-x -") 'split-window-below)
 
+;; ace-window: the tmux `<prefix> q' analog -- overlay a number on each window
+;; and press it to jump. Bound over `C-x o'. `aw-dispatch-always' t makes it
+;; ALWAYS flash the labels (even with just 2 windows), just like tmux's
+;; display-panes, rather than silently switching. Number labels mirror tmux's
+;; pane numbers (swap `aw-keys' to home-row letters if you prefer).
+(use-package ace-window
+  :ensure t
+  :bind (("C-x o" . ace-window))
+  :config
+  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9)
+        aw-scope 'frame                 ; only this frame's windows
+        aw-background t                 ; dim other windows while choosing
+        aw-dispatch-always t)           ; always show the number labels
+  ;; Big, bold corner number. No `:family' is set, so it renders in your
+  ;; default Emacs font. Color inherits the theme's `warning' face so it
+  ;; matches the active theme (dark+ etc.) instead of ace-window's hardcoded
+  ;; red -- swap the inherited face (e.g. `success', `link',
+  ;; `font-lock-keyword-face') if you want a different accent.
+  (set-face-attribute 'aw-leading-char-face nil
+                      :inherit 'warning
+                      :foreground 'unspecified
+                      :weight 'bold
+                      :height 5.0))
+
 ;; which-key: popup listing available keys after a prefix (e.g. `C-c l',
 ;; `C-x', `M-g'). Built into Emacs 30 — no package needed. Uses the
 ;; traditional bottom-of-frame popup.
