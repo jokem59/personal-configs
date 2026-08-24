@@ -56,6 +56,22 @@
 (global-set-key (kbd "C-x b")   #'consult-buffer)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
 
+;; Quick buffer rename. `rename-buffer' is only reachable via `M-x'; bind it and
+;; prefill the current name so you edit rather than retype -- handy for giving
+;; eat/declawd sessions (`*eat*<6>', `*declawd*') distinct names. The `unique'
+;; arg auto-suffixes <2>, <3>... on a name clash instead of erroring.
+;;
+;; Bound under `C-x' (not `C-c'): init-eat.el makes bare `C-c' send SIGINT in
+;; eat, so a `C-c'-prefixed key never reaches Emacs in a terminal buffer -- the
+;; exact place we most want to rename. `C-x' is in `eat-semi-char-non-bound-keys',
+;; so eat lets it fall through to Emacs (same reason `C-x b'/`C-x q' work in eat).
+;; `C-x C-r' only shadows the rarely-used `find-file-read-only'.
+(defun my/rename-buffer ()
+  "Rename the current buffer, offering its current name for editing."
+  (interactive)
+  (rename-buffer (read-string "Rename buffer to: " (buffer-name)) 'unique))
+(global-set-key (kbd "C-x C-r") #'my/rename-buffer)
+
 ;; Auto-group the ibuffer list by project (built-in project.el) so buffers
 ;; cluster by repo; buffers with no project fall into ibuffer's Default group.
 (defun my/ibuffer-project-filter-groups ()
