@@ -28,6 +28,7 @@
                          consult
                          consult-ls-git
                          consult-eglot
+                         posframe          ; used directly for ace-window's centered labels
                          which-key-posframe
                          marginalia
                          orderless

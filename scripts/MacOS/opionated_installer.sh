@@ -138,6 +138,10 @@ function setup_emacs() {
 	"$BREW_BIN" trust --tap d12frosted/emacs-plus 2>/dev/null || true
 	"$BREW_BIN" install emacs-plus
 
+	# deadgrep (C-c f) and consult's grep commands shell out to ripgrep; without
+	# it those searches silently fail.
+	"$BREW_BIN" install ripgrep
+
 	# Symlink the .app bundle into /Applications so it shows in Launchpad/Spotlight
 	# and can be dragged onto the Dock (brew doesn't do this for formulae)
 	local EMACS_APP_DIR
