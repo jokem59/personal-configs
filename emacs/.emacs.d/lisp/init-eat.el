@@ -1,5 +1,8 @@
-;; Run declawd (the Claude Code wrapper) inside Emacs via the eat terminal,
-;; falling back to the plain `claude' CLI when declawd isn't installed.
+;; eat terminal configuration: input-mode ergonomics (bare C-c = SIGINT, C-/
+;; undo, C-' copy-mode toggle), copy-mode cursor visibility, steady-scroll and
+;; glyph fixes for animated TUIs, clickable links, and a launcher for declawd
+;; (the Claude Code wrapper, falling back to the plain `claude' CLI when
+;; declawd isn't installed) that runs inside eat.
 ;;
 ;; eat is pure elisp with no native module, unlike vterm. The vterm-based
 ;; `claude-code' package can't be used here: building vterm's C module needs
@@ -156,4 +159,4 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
 ;; SIGINT, so keyboard activation there isn't available -- use the mouse.)
 (add-hook 'eat-mode-hook #'goto-address-mode)
 
-(provide 'init-claude)
+(provide 'init-eat)

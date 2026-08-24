@@ -32,7 +32,7 @@
 (require 'init-org)
 (require 'init-org-roam)
 (require 'init-magit)
-(require 'init-claude)
+(require 'init-eat)
 (require 'init-language-base)
 ;; This goes last as it often relies on functions defined in the above
 (require 'init-keybindings)
