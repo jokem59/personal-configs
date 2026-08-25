@@ -5,7 +5,7 @@
     <string>emacs_server</string>
     <key>ProgramArguments</key>
     <array>
-      <string>/opt/homebrew/opt/emacs-plus/bin/emacs</string>
+      <string>/opt/homebrew/opt/emacs-plus@30/bin/emacs</string>
       <string>--fg-daemon</string>
     </array>
     <key>RunAtLoad</key>

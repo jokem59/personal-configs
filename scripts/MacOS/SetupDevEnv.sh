@@ -30,16 +30,33 @@ setup_emacs() {
   # major is latest, which is how a macOS/brew update once left us broken).
   brew install emacs-plus@30
 
-  # Point /Applications/Emacs.app at the keg so every launch path — Spotlight,
-  # Dock, `open -a Emacs`, and the Karabiner Opt+3 binding — hits this build.
-  # (emacs-plus doesn't install into /Applications itself.)
+  # Point /Applications/Emacs.app at the keg so every GUI launch path — Spotlight,
+  # Dock, and the `osascript ... activate` that the Opt+3 emacsclient binding uses
+  # to raise the frame — hits this build. (emacs-plus doesn't install into
+  # /Applications itself.)
   rm -f /Applications/Emacs.app
   ln -s /opt/homebrew/opt/emacs-plus@30/Emacs.app /Applications/Emacs.app
   /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f /Applications/Emacs.app
 
-  # Register emacs daemon service
-  sudo ln -s ./emacs_server.plist /Library/LaunchAgents/emacs_server.plist
-  launchctl load -w /Library/LaunchAgents/emacs_server.plist
+  # Register the Emacs daemon as a per-user LaunchAgent (no sudo; matches the
+  # per-user Homebrew install and logs under /tmp). RunAtLoad + KeepAlive keep a
+  # single headless daemon alive; the Karabiner Opt+3 binding and the shell
+  # `emacsclient` aliases ($EDITOR/$VISUAL, `e`/`et`) all attach to it, so
+  # everything shares one Emacs.
+  local plist_src="$HOME/dev/personal-configs/scripts/MacOS/emacs_server.plist"
+  local plist_dst="$HOME/Library/LaunchAgents/emacs_server.plist"
+
+  # Drop any stale system-wide copy from older setups: it collides on the same
+  # "emacs_server" label and historically pointed at an older emacs-plus keg.
+  if [ -e /Library/LaunchAgents/emacs_server.plist ]; then
+    sudo launchctl unload /Library/LaunchAgents/emacs_server.plist 2>/dev/null || true
+    sudo rm -f /Library/LaunchAgents/emacs_server.plist
+  fi
+
+  mkdir -p "$HOME/Library/LaunchAgents"
+  ln -sf "$plist_src" "$plist_dst"
+  launchctl unload "$plist_dst" 2>/dev/null || true
+  launchctl load -w "$plist_dst"
 }
 
 setup_zsh() {
