@@ -109,7 +109,13 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
   ;; `C-'' has no ASCII control code, so it can never be sent to the terminal
   ;; program -- stealing it here costs nothing.
   (define-key eat-semi-char-mode-map (kbd "C-'") #'my/eat-toggle-emacs-mode)
-  (define-key eat-mode-map           (kbd "C-'") #'my/eat-toggle-emacs-mode))
+  (define-key eat-mode-map           (kbd "C-'") #'my/eat-toggle-emacs-mode)
+
+  ;; In emacs/copy mode, also accept a bare `q' to jump back to semi-char input
+  ;; (vi-style). Bound only in `eat-mode-map', so it fires solely in emacs-mode:
+  ;; during semi-char/char input `eat-semi-char-mode-map' binds `q' to
+  ;; `eat-self-input' and shadows this, so typing `q' at the shell still works.
+  (define-key eat-mode-map           (kbd "q")   #'my/eat-toggle-emacs-mode))
 
 ;; Stop the eat window from bouncing a line up/down while a program animates
 ;; (e.g. Claude Code's "thinking" spinner). eat re-runs its scroll sync on
