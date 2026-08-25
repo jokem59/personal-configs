@@ -309,6 +309,37 @@ i.e. windows tiled side-by-side."
 
 (pulsar-global-mode 1)
 
+;; Flash the whole active window when Emacs regains focus from another app, so
+;; it's obvious where you've landed on switch-back. `after-focus-change-function'
+;; fires on both focus-in and focus-out (and can fire spuriously), so only act
+;; on an actual unfocused -> focused transition.
+(require 'pulse)
+
+(defface my/focus-flash
+  '((t :inherit pulsar-magenta))
+  "Face used to flash the active window when Emacs regains focus.")
+
+(defun my/flash-active-window ()
+  "Briefly flash and fade the visible region of the selected window.
+Uses `pulse.el' so it fades out like a pulsar pulse, but covers the whole
+window instead of a single line."
+  (let ((win (selected-window)))
+    (with-selected-window win
+      (pulse-momentary-highlight-region (window-start) (window-end nil t)
+                                        'my/focus-flash))))
+
+(defvar my/emacs-had-focus t
+  "Non-nil if any Emacs frame had focus at the previous focus-change event.")
+
+(defun my/pulse-on-focus-gain ()
+  "Flash the active window when an Emacs frame gains focus."
+  (let ((focused (and (seq-some #'frame-focus-state (frame-list)) t)))
+    (when (and focused (not my/emacs-had-focus))
+      (my/flash-active-window))
+    (setq my/emacs-had-focus focused)))
+
+(add-function :after after-focus-change-function #'my/pulse-on-focus-gain)
+
 ;; Return back to the position in the file you last visited
 (save-place-mode 1)
 
