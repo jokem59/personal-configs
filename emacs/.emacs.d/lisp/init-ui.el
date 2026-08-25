@@ -210,10 +210,10 @@ i.e. windows tiled side-by-side."
 (setq-default mode-line-format
               '("%e"
                 mode-line-front-space
-                mode-line-mule-info
+                my/modeline-encoding
+                " "
+                my/modeline-modified
                 mode-line-client
-                mode-line-modified
-                mode-line-remote
                 mode-line-frame-identification
                 mode-line-buffer-identification
                 "   "
@@ -224,6 +224,44 @@ i.e. windows tiled side-by-side."
                 "        "
                 mode-line-misc-info))
                 ;;mode-line-end-spaces))
+
+;; Readable replacements for the cryptic left-edge status cluster (`U:**-').
+;; Always visible: coding system, end-of-line style, and save state spelled out,
+;; e.g. "UTF-8 LF saved" / "UTF-8 CRLF ●" / "latin-1 LF RO".
+
+;; Save state: `RO' when read-only, a red dot for a file with unsaved changes,
+;; else "saved". Non-file buffers (scratch, eat, *Messages*) show no state word
+;; -- "saved" is meaningless there and a permanent red dot would just be noise.
+(defvar-local my/modeline-modified
+  '(:eval
+    (cond
+     (buffer-read-only
+      (propertize "RO" 'face 'warning 'help-echo "Read-only buffer"))
+     ((and (buffer-modified-p) (buffer-file-name))
+      (propertize "●" 'face 'error 'help-echo "Unsaved changes"))
+     ((buffer-file-name)
+      (propertize "saved" 'help-echo "No unsaved changes"))
+     (t "")))
+  "Readable modified / read-only indicator (replaces `mode-line-modified').")
+(put 'my/modeline-modified 'risky-local-variable t)
+
+;; Coding system + EOL in words: "UTF-8 LF", "UTF-8 CRLF", "latin-1 LF", ...
+;; (`mode-line-mule-info' abbreviates all of this down to a cryptic "U:").
+(defun my/modeline--encoding ()
+  "Readable coding-system + end-of-line style, e.g. \"UTF-8 LF\"."
+  (let* ((cs   (or buffer-file-coding-system 'utf-8-unix))
+         (base (coding-system-base cs))
+         (eol  (coding-system-eol-type cs))
+         (name (if (memq base '(utf-8 utf-8-unix prefer-utf-8 undecided))
+                   "UTF-8"
+                 (replace-regexp-in-string "\\`iso-" "" (symbol-name base))))
+         (eol-str (pcase eol (1 "CRLF") (2 "CR") (_ "LF"))))
+    (concat name " " eol-str)))
+
+(defvar-local my/modeline-encoding
+  '(:eval (my/modeline--encoding))
+  "Readable coding/EOL indicator (replaces `mode-line-mule-info').")
+(put 'my/modeline-encoding 'risky-local-variable t)
 
 
 (defvar-local my/modeline-buffer-name
