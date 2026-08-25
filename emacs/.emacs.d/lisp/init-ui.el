@@ -29,6 +29,11 @@
                 (scroll-bar-mode -1)))))
 
 (menu-bar-mode 0)
+;; Mode-line clock: 24-hour time, prefixed with the weekday + date, and no
+;; system load-average number.
+(setq display-time-24hr-format t)
+(setq display-time-day-and-date t)
+(setq display-time-default-load-average nil)
 (display-time)
 
 ;; Show trailing whitespace only where you actually edit -- code and prose.
@@ -221,7 +226,8 @@ i.e. windows tiled side-by-side."
                 (vc-mode vc-mode)
                 "  "
                 my/modeline-major-mode
-                "        "
+                ;; Push the clock (in `mode-line-misc-info') to the right edge.
+                mode-line-format-right-align
                 mode-line-misc-info))
                 ;;mode-line-end-spaces))
 
