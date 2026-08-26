@@ -215,6 +215,46 @@ COUNT defaults to 1; a negative COUNT moves backward.  Wraps around."
         (select-window (nth (mod (+ idx (or count 1)) n) wins))))))
 (global-set-key (kbd "C-x o") #'my/other-window-aw)
 
+;; tmux-style `rotate-window' (tmux `prefix C-o' / `M-o'): keep the window
+;; layout fixed and cycle the BUFFERS through the panes. Rotates in the same
+;; `aw-window-list' order as `C-x o'/`C-x q', carrying each buffer's scroll
+;; position and point along. `C-x C-o' shadows `delete-blank-lines' (still on
+;; `M-x'); `C-x M-o' rotates the other way.
+(defun my/rotate-window-buffers (&optional count)
+  "Rotate buffers through the current windows, tmux `rotate-window' style.
+The layout stays fixed; each window's buffer shifts COUNT steps along
+ace-window's ordering.  A negative COUNT rotates the other way."
+  (interactive "p")
+  (require 'ace-window)
+  (let* ((wins (aw-window-list))
+         (n (length wins)))
+    (if (< n 2)
+        (message "Need at least two windows to rotate")
+      (let ((states (mapcar (lambda (w)
+                              (list (window-buffer w)
+                                    (window-start w)
+                                    (window-point w)))
+                            wins))
+            (k (mod (or count 1) n))
+            (sel (or (seq-position wins (selected-window)) 0)))
+        (dotimes (i n)
+          (let ((w (nth i wins))
+                (src (nth (mod (- i k) n) states)))
+            (set-window-buffer w (nth 0 src))
+            (set-window-start  w (nth 1 src))
+            (set-window-point  w (nth 2 src))))
+        ;; Follow the content: focus moves to wherever the previously active
+        ;; window's buffer landed, so the active buffer stays active.
+        (select-window (nth (mod (+ sel k) n) wins))))))
+
+(defun my/rotate-window-buffers-backward (&optional count)
+  "Rotate window buffers the opposite way to `my/rotate-window-buffers'."
+  (interactive "p")
+  (my/rotate-window-buffers (- (or count 1))))
+
+(global-set-key (kbd "C-x C-o") #'my/rotate-window-buffers)
+(global-set-key (kbd "C-x M-o") #'my/rotate-window-buffers-backward)
+
 ;; which-key: popup listing available keys after a prefix (e.g. `C-c l',
 ;; `C-x', `M-g'). Built into Emacs 30 — no package needed. Show it in the
 ;; minibuffer (like consult/vertico) rather than a posframe or side window.
