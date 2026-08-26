@@ -106,7 +106,7 @@
 
 (defun my-previous-window ()
   (interactive)
-  (other-window -1)
+  (my/other-window-aw -1)
   (run-hooks 'my-previous-window-hook))
 (global-set-key (kbd "C-x p") 'my-previous-window)
 
@@ -197,6 +197,23 @@ LEAF is (PT . WND).  Falls back to the corner overlay in a terminal."
 
   (setq aw--lead-overlay-fn #'my/aw-lead-overlay-posframe
         aw--remove-leading-chars-fn #'my/aw-remove-posframes))
+
+;; Keep `C-x o' cycling in the SAME order ace-window (`C-x q') numbers windows,
+;; so stepping through with `C-x o' matches the labels `C-x q' shows. Plain
+;; `other-window' uses the window-tree cyclic order, which diverges from
+;; ace-window's spatial (top-left -> bottom-right) `aw-window-list' order after
+;; splits; cycle `aw-window-list' directly instead.
+(defun my/other-window-aw (&optional count)
+  "Select the window COUNT steps away in ace-window's ordering.
+COUNT defaults to 1; a negative COUNT moves backward.  Wraps around."
+  (interactive "p")
+  (require 'ace-window)
+  (let* ((wins (aw-window-list))
+         (n (length wins)))
+    (when (> n 0)
+      (let ((idx (or (seq-position wins (selected-window)) 0)))
+        (select-window (nth (mod (+ idx (or count 1)) n) wins))))))
+(global-set-key (kbd "C-x o") #'my/other-window-aw)
 
 ;; which-key: popup listing available keys after a prefix (e.g. `C-c l',
 ;; `C-x', `M-g'). Built into Emacs 30 — no package needed. Show it in the
