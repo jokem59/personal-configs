@@ -25,3 +25,10 @@ emacs/.emacs.d/transient/
 # overlay ~/dev/nosync_emacs_configs/init-org-roam-work.el)
 emacs/.emacs.d/lisp/init-org-jira.el
 claude/skills/org-roam-notes/
+
+# macOS Finder metadata
+.DS_Store
+
+# Karabiner writes timestamped auto-backups here on every config change;
+# machine-local churn, not part of the tracked config.
+karabiner/automatic_backups/
