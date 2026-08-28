@@ -91,28 +91,32 @@
 (setq window-divider-default-places 'right-only
       window-divider-default-right-width 2)
 (window-divider-mode 1)
-;; The theme loads on `after-init-hook'; adjust these theme-dependent faces
-;; afterward (append so this runs after the theme-loading hook).
+;; Theme-dependent faces. `enable-theme-functions' (Emacs 29.1+) runs *after* a
+;; theme is fully enabled, so `mode-line''s background is at its final themed
+;; value when we read it. `after-init-hook' fired mid-theme-load and handed the
+;; dividers a near-invisible pre-theme color (#252526 against a #1e1e1e buffer).
 (defvar my/mode-line-inactive-bg "#3a2f42"
   "Background for the inactive mode line -- a dark, muted version of the
 active bar's purple so unselected windows' bars stay visible against the
 near-black buffer background instead of blending in.")
-(add-hook 'after-init-hook
-          (lambda ()
-            ;; Dividers track the (themed) active mode-line color.
-            (let ((c (face-background 'mode-line nil t)))
-              (dolist (f '(window-divider
-                           window-divider-first-pixel
-                           window-divider-last-pixel))
-                (set-face-foreground f c)))
-            ;; The theme's inactive mode line (#1d1d1d) is nearly the buffer
-            ;; background (#1e1e1e), so unselected windows' bars vanish. Give
-            ;; them a distinct bar (also covers solaire-mode's variant).
-            (set-face-background 'mode-line-inactive my/mode-line-inactive-bg)
-            (when (facep 'solaire-mode-line-inactive-face)
-              (set-face-background 'solaire-mode-line-inactive-face
-                                   my/mode-line-inactive-bg)))
-          t)
+(defun my/apply-theme-faces (&rest _)
+  "Re-color divider and inactive mode-line faces after a theme is enabled.
+Attached to `enable-theme-functions', which passes the theme symbol (ignored)."
+  ;; Dividers track the (themed) active mode-line color so both split kinds
+  ;; read consistently.
+  (let ((c (face-background 'mode-line nil t)))
+    (dolist (f '(window-divider
+                 window-divider-first-pixel
+                 window-divider-last-pixel))
+      (set-face-foreground f c)))
+  ;; The theme's inactive mode line (#1d1d1d) is nearly the buffer background
+  ;; (#1e1e1e), so unselected windows' bars vanish. Give them a distinct bar
+  ;; (also covers solaire-mode's variant).
+  (set-face-background 'mode-line-inactive my/mode-line-inactive-bg)
+  (when (facep 'solaire-mode-line-inactive-face)
+    (set-face-background 'solaire-mode-line-inactive-face
+                         my/mode-line-inactive-bg)))
+(add-hook 'enable-theme-functions #'my/apply-theme-faces)
 
 ;; Solaire-mode is an aesthetic plugin designed to visually distinguish "real" buffers vs "unreal" buffers
 (require 'solaire-mode)
