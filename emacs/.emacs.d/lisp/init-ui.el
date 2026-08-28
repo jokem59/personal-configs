@@ -327,7 +327,13 @@ i.e. windows tiled side-by-side."
   "Briefly flash and fade the visible region of the selected window.
 Uses `pulse.el' so it fades out like a pulsar pulse, but covers the whole
 window instead of a single line."
-  (let ((win (selected-window)))
+  ;; Force the timed fade-out. `pulse-flag' is nil in this config, which makes
+  ;; `pulse-momentary-highlight-region' skip its fade timer and rely on
+  ;; `pre-command-hook' to clear the overlay -- so the flash gets stuck on until
+  ;; the next keystroke when focus is regained without a following command
+  ;; (e.g. the Opt+3 `select-frame-set-input-focus' path).
+  (let ((win (selected-window))
+        (pulse-flag t))
     (with-selected-window win
       (pulse-momentary-highlight-region (window-start) (window-end nil t)
                                         'my/focus-flash))))
@@ -343,6 +349,20 @@ window instead of a single line."
     (setq my/emacs-had-focus focused)))
 
 (add-function :after after-focus-change-function #'my/pulse-on-focus-gain)
+
+;; Entry point for the Karabiner Opt+3 binding. Focus an existing graphical
+;; frame (raising Emacs) or make one, then flash it *synchronously*. Flashing
+;; here -- rather than leaving it to `my/pulse-on-focus-gain' -- avoids the
+;; macOS NS focus-change event's occasional 1-2s lag, which otherwise makes the
+;; pulse trail the app switch. Setting `my/emacs-had-focus' means the (possibly
+;; late) focus-gain hook sees no unfocused->focused transition and won't emit a
+;; duplicate flash.
+(defun my/focus-or-make-frame ()
+  "Focus an existing graphical frame or create one, then flash it."
+  (let ((f (seq-find #'display-graphic-p (frame-list))))
+    (select-frame-set-input-focus (or f (make-frame))))
+  (my/flash-active-window)
+  (setq my/emacs-had-focus t))
 
 ;; Return back to the position in the file you last visited
 (save-place-mode 1)

@@ -84,7 +84,7 @@
                                     "key_code": "3",
                                     "modifiers": { "mandatory": ["left_option"] }
                                 },
-                                "to": [{ "shell_command": "/opt/homebrew/bin/emacsclient -c -n -a '' && /usr/bin/osascript -e 'tell application \"Emacs\" to activate'" }],
+                                "to": [{ "shell_command": "/opt/homebrew/bin/emacsclient -n -a '' -e '(my/focus-or-make-frame)' && /usr/bin/osascript -e 'tell application \"Emacs\" to activate'" }],
                                 "type": "basic"
                             },
                             {
