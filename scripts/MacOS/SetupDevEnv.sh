@@ -49,14 +49,17 @@ setup_emacs() {
   # Drop any stale system-wide copy from older setups: it collides on the same
   # "emacs_server" label and historically pointed at an older emacs-plus keg.
   if [ -e /Library/LaunchAgents/emacs_server.plist ]; then
-    sudo launchctl unload /Library/LaunchAgents/emacs_server.plist 2>/dev/null || true
+    sudo launchctl bootout system/emacs_server 2>/dev/null || true
     sudo rm -f /Library/LaunchAgents/emacs_server.plist
   fi
 
   mkdir -p "$HOME/Library/LaunchAgents"
   ln -sf "$plist_src" "$plist_dst"
-  launchctl unload "$plist_dst" 2>/dev/null || true
-  launchctl load -w "$plist_dst"
+  # Modern launchd verbs (bootout/bootstrap) targeting the per-user GUI domain.
+  # The legacy `launchctl load -w` / `unload` throw "Input/output error" (EIO)
+  # on recent macOS even against a valid plist, so use bootstrap explicitly.
+  launchctl bootout "gui/$(id -u)/emacs_server" 2>/dev/null || true
+  launchctl bootstrap "gui/$(id -u)" "$plist_dst"
 }
 
 setup_zsh() {
