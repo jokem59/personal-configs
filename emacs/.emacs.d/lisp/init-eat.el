@@ -200,12 +200,125 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
 ;; zero it out buffer-locally so the last row sits flush above the mode line.
 (add-hook 'eat-mode-hook (lambda () (setq-local line-spacing nil)))
 
-;; Clickable links in the terminal. eat 0.9.4 doesn't handle OSC 8 hyperlinks,
-;; so we detect plain-text URLs/emails with `goto-address-mode'. It registers
-;; with jit-lock, so URLs in fresh output get fontified as they scroll into
-;; view -- no manual re-scan needed. Activate a link with a mouse click; or in
-;; copy mode (`C-'') with `C-c RET' on the URL. (In semi-char mode `C-c' is
-;; SIGINT, so keyboard activation there isn't available -- use the mouse.)
-(add-hook 'eat-mode-hook #'goto-address-mode)
+;; Clickable links in the terminal. eat 0.9.4 doesn't implement OSC 8
+;; hyperlinks, and long links are the catch: eat hard-wraps a line at the
+;; terminal width by inserting an actual newline, so a URL that overflows is
+;; split across buffer lines and a single-line matcher (`goto-address-mode')
+;; catches only -- and mangles -- the first fragment.
+;;
+;; eat tags *those* wrap newlines with an `eat--t-wrap-line' text property (a
+;; genuine line break has none), which lets us stitch a wrapped link back
+;; together: for each logical line we build a string with eat's wrap newlines
+;; removed, match URLs/emails against that, then map each match back onto the
+;; buffer span (wrap newline and all) and lay a clickable overlay over it. We
+;; use overlays rather than text properties so the link `face' layers over
+;; eat's own color faces instead of clobbering them -- this is how goto-address
+;; works too. Runs via jit-lock, so links in fresh output are picked up as they
+;; scroll into view. Activate with a mouse-2 click, or in copy mode (`C-'')
+;; with `C-c RET' on the link.
+(require 'goto-addr)
+
+(defun my/eat-open-link (&optional event)
+  "Open the eat link at point, or at EVENT's position for a mouse click."
+  (interactive (list last-nonmenu-event))
+  (let* ((pos (if (consp event) (posn-point (event-end event)) (point)))
+         (url (and pos (get-char-property pos 'my/eat-url))))
+    (if url (browse-url url) (message "No link at point"))))
+
+(defvar my/eat-link-keymap
+  (let ((map (make-sparse-keymap)))
+    (define-key map [mouse-2]       #'my/eat-open-link)
+    (define-key map (kbd "C-c RET") #'my/eat-open-link)
+    map)
+  "Keymap active over a linkified URL/email in an eat buffer.")
+
+(defun my/eat--hard-line-beginning (pos)
+  "Start of POS's logical line, treating eat soft-wrap newlines as non-breaks."
+  (save-excursion
+    (goto-char pos)
+    (catch 'done
+      (while (search-backward "\n" nil t)
+        (unless (get-text-property (point) 'eat--t-wrap-line)
+          (throw 'done (1+ (point)))))
+      (point-min))))
+
+(defun my/eat--hard-line-end (pos)
+  "End of POS's logical line, treating eat soft-wrap newlines as non-breaks."
+  (save-excursion
+    (goto-char pos)
+    (catch 'done
+      (while (search-forward "\n" nil t)
+        (unless (get-text-property (1- (point)) 'eat--t-wrap-line)
+          (throw 'done (point))))
+      (point-max))))
+
+(defun my/eat--unlinkify (beg end)
+  "Delete our link overlays overlapping BEG..END, so they can be re-derived."
+  (dolist (ov (overlays-in beg end))
+    (when (overlay-get ov 'my/eat-link)
+      (delete-overlay ov))))
+
+(defun my/eat--apply-link (beg end target face mouse-face)
+  "Overlay a clickable link to TARGET on the buffer span BEG..END."
+  (let ((ov (make-overlay beg end)))
+    (overlay-put ov 'my/eat-link t)
+    (overlay-put ov 'my/eat-url target)
+    (overlay-put ov 'evaporate t)
+    (overlay-put ov 'face face)
+    (overlay-put ov 'mouse-face mouse-face)
+    (overlay-put ov 'help-echo (concat "Link: " target))
+    (overlay-put ov 'keymap my/eat-link-keymap)))
+
+(defun my/eat--linkify-region (start end)
+  "Linkify URLs/emails in START..END, stitching eat's wrap-split lines.
+Registered with jit-lock, so START..END is whatever chunk needs refontifying;
+we widen it to whole logical lines (soft wraps don't count) before scanning."
+  (let ((lbeg (my/eat--hard-line-beginning start))
+        (lend (my/eat--hard-line-end end))
+        (chars nil)
+        (positions nil))
+    (my/eat--unlinkify lbeg lend)
+    ;; Logical text with eat's soft-wrap newlines dropped, plus a map from each
+    ;; logical-string index back to its originating buffer position.
+    (save-excursion
+      (goto-char lbeg)
+      (while (< (point) lend)
+        (let ((ch (char-after)))
+          (unless (and (eq ch ?\n)
+                       (get-text-property (point) 'eat--t-wrap-line))
+            (push ch chars)
+            (push (point) positions)))
+        (forward-char 1)))
+    (when chars
+      (let ((logstr (apply #'string (nreverse chars)))
+            (posvec (vconcat (nreverse positions)))
+            (case-fold-search t))
+        (dolist (spec
+                 (list (list goto-address-url-regexp #'identity
+                             goto-address-url-face goto-address-url-mouse-face)
+                       (list goto-address-mail-regexp
+                             (lambda (m) (concat "mailto:" m))
+                             goto-address-mail-face goto-address-mail-mouse-face)))
+          (let ((re (nth 0 spec)) (mk (nth 1 spec))
+                (face (nth 2 spec)) (mouse-face (nth 3 spec))
+                (pos 0))
+            (while (and (< pos (length logstr))
+                        (string-match re logstr pos))
+              (let ((ms (match-beginning 0))
+                    (me (match-end 0)))
+                ;; ms..me are logical indices; map to buffer positions. The span
+                ;; [bstart,bend) is contiguous in the buffer, so it re-includes
+                ;; any soft-wrap newline we dropped in the middle of the match.
+                (my/eat--apply-link (aref posvec ms)
+                                    (1+ (aref posvec (1- me)))
+                                    (funcall mk (match-string 0 logstr))
+                                    face mouse-face)
+                (setq pos me)))))))))
+
+(defun my/eat--setup-linkify ()
+  "Enable wrap-aware URL/email linkification in this eat buffer."
+  (jit-lock-register #'my/eat--linkify-region))
+
+(add-hook 'eat-mode-hook #'my/eat--setup-linkify)
 
 (provide 'init-eat)
