@@ -63,12 +63,44 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
 (defvar-local my/eat--saved-cursor-type nil
   "`cursor-type' saved on entering emacs-mode, restored on leaving.")
 
+;; The mode line's small "RO" tag is easy to miss, so while read-only
+;; (emacs/copy) mode is active, recolor the whole mode line to the same
+;; beige/yellow -- a full-width status bar that's hard to overlook. Buffer-local
+;; face remaps, so they touch only this terminal's mode line and revert on
+;; returning to input. The beige is the mode line's RO tag (the `warning' face,
+;; read live so it tracks the theme); the text is darkened to the frame
+;; background so it stays legible on the light bar. The "RO" tag itself is
+;; `warning'-colored, so it goes beige-on-beige and effectively vanishes -- fine,
+;; since the whole bar turning beige is now the signal.
+(defun my/eat--ro-modeline-color ()
+  "Beige/yellow used for a read-only eat mode line (matches the RO tag)."
+  (or (face-foreground 'warning nil t) "#d7af5f"))
+
+(defvar-local my/eat--ro-modeline-cookies nil
+  "Face-remap cookies for the read-only mode line, removed on leaving copy mode.")
+
+(defun my/eat--ro-modeline-on ()
+  "Recolor the mode line beige to flag read-only/copy mode."
+  (let ((bg (my/eat--ro-modeline-color))
+        (fg (or (face-background 'default nil t) "#1e1e1e")))
+    (setq my/eat--ro-modeline-cookies
+          (list (face-remap-add-relative 'mode-line-active
+                                         :background bg :foreground fg)
+                (face-remap-add-relative 'mode-line
+                                         :background bg :foreground fg)))))
+
+(defun my/eat--ro-modeline-off ()
+  "Restore the mode line's normal color."
+  (mapc #'face-remap-remove-relative my/eat--ro-modeline-cookies)
+  (setq my/eat--ro-modeline-cookies nil))
+
 (defun my/eat-toggle-emacs-mode ()
   "Toggle eat between emacs-mode (copy/scroll) and semi-char terminal input."
   (interactive)
   (if buffer-read-only
       (progn
         (eat-semi-char-mode)
+        (my/eat--ro-modeline-off)        ; leaving copy mode: restore the bar
         ;; Hand the cursor back to eat (it tracks the program's cursor state).
         (setq-local cursor-type my/eat--saved-cursor-type)
         ;; Copy mode may have scrolled the window far from the prompt. Re-sync
@@ -80,6 +112,7 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
                    (eat--synchronize-scroll-windows 'force-selected))))
     (setq-local my/eat--saved-cursor-type cursor-type)
     (eat-emacs-mode)
+    (my/eat--ro-modeline-on)             ; entering copy mode: light up the bar
     ;; eat leaves `cursor-type' at whatever the program last requested. A TUI
     ;; like Claude Code hides its cursor (`cursor-type' nil), so point would be
     ;; invisible in copy mode even though it moves -- force it visible.
