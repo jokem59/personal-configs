@@ -101,10 +101,6 @@
  '(doom-modeline-vcs-max-length 20)
  '(ediff-split-window-function 'split-window-horizontally)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
- '(exec-path
-   '("~/.cargo/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin"
-     "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/local/games"
-     "/snap/bin"))
  '(exwm-floating-border-color "#242530")
  '(fci-rule-color "#6272a4")
  '(file-name-shadow-properties '(invisible t intangible t))
