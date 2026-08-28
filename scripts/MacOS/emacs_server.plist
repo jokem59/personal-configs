@@ -12,6 +12,12 @@
     <true/>
     <key>KeepAlive</key>
     <true/>
+    <!-- Mark the daemon user-interactive so launchd doesn't deprioritize/throttle
+         it in the background. Together with `defaults write org.gnu.Emacs
+         NSAppSleepDisabled -bool YES` (App Nap off), this keeps focus-change
+         events prompt so the regain-focus flash fires without a 1-2s lag. -->
+    <key>ProcessType</key>
+    <string>Interactive</string>
     <key>StandardOutPath</key>
     <string>/tmp/emacs_server.stdout.log</string>
     <key>StandardErrorPath</key>
