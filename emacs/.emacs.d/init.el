@@ -27,23 +27,11 @@
 ;; Prompt me before quitting
 (setq confirm-kill-emacs 'y-or-n-p)
 
-(require 'init-packages)
-(require 'init-ui)
-(require 'init-utils)
-(require 'init-tools)
-(require 'init-org)
-(require 'init-org-roam)
-(require 'init-magit)
-(require 'init-eat)
-(require 'init-language-base)
-;; This goes last as it often relies on functions defined in the above
-(require 'init-keybindings)
-(require 'init-eglot-cpp)
-(require 'init-eglot)        ; auto-start eglot for every language with a server
-;; init-org-jira is work-only and lives on load-path but is untracked; the work
-;; overlay (init-org-roam-work.el) requires it. Personal machines skip it entirely.
-(require 'tablature-mode)
-
+;; Customize's block lives *above* the `require's on purpose. `package-install'
+;; (called from init-packages) writes `package-selected-packages' back to
+;; `custom-file' -- which is this file -- so if these settings loaded last, an
+;; install during startup would save the still-empty list and clobber the one
+;; below. Setting them first means the saved list is the real one.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -208,3 +196,20 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(require 'init-packages)
+(require 'init-ui)
+(require 'init-utils)
+(require 'init-tools)
+(require 'init-org)
+(require 'init-org-roam)
+(require 'init-magit)
+(require 'init-eat)
+(require 'init-language-base)
+;; This goes last as it often relies on functions defined in the above
+(require 'init-keybindings)
+(require 'init-eglot-cpp)
+(require 'init-eglot)        ; auto-start eglot for every language with a server
+;; init-org-jira is work-only and lives on load-path but is untracked; the work
+;; overlay (init-org-roam-work.el) requires it. Personal machines skip it entirely.
+(require 'tablature-mode)
