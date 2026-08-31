@@ -230,6 +230,16 @@ i.e. windows tiled side-by-side."
 ;;
 ;; Modeline
 ;;
+
+;; Compact, labeled line/column: "L12 C3" instead of the default "(12,3)".
+;; `mode-line-position' (referenced in `mode-line-format' below) renders its
+;; line/column element from `mode-line-position-column-line-format' when both
+;; `line-number-mode' and `column-number-mode' are on. Setting
+;; `column-number-indicator-zero-based' nil makes the column 1-based (Emacs
+;; swaps the %c directive for %C internally), matching how most editors count.
+(setq mode-line-position-column-line-format '(" L%l C%c")
+      column-number-indicator-zero-based nil)
+
 (setq-default mode-line-format
               '("%e"
                 mode-line-front-space
