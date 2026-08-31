@@ -309,6 +309,31 @@ i.e. windows tiled side-by-side."
 ;; Necessary variably property to use locally
 (put 'my/modeline-major-mode 'risky-local-variable t)
 
+;; Nyan Cat as the buffer-position indicator. `nyan-mode' replaces the car of
+;; `mode-line-position' (which the `mode-line-format' above references) with a
+;; rainbow bar + cat tracking point's position through the buffer. Keep the cat
+;; animated -- but only while Emacs is the focused OS app, so its redraw timer
+;; doesn't spin in the background draining the battery. nyan shows animation
+;; frames whenever its timer is live (`nyan--is-animating-p'), so we drive that
+;; timer from focus changes rather than the always-on `nyan-animate-nyancat'
+;; (which starts a permanent timer). Focus is detected the same way as
+;; `my/pulse-on-focus-gain' below.
+(use-package nyan-mode
+  :init
+  (setq nyan-wavy-trail t                 ; rippling rainbow, like the original
+        nyan-bar-length 20)               ; keep the bar tidy in a busy mode line
+  :config
+  (nyan-mode 1)
+  (defun my/nyan-animate-when-focused (&rest _)
+    "Animate Nyan Cat only while some Emacs frame has OS focus."
+    (when (bound-and-true-p nyan-mode)
+      (if (seq-some #'frame-focus-state (frame-list))
+          (nyan-start-animation)
+        (nyan-stop-animation))))
+  (add-function :after after-focus-change-function
+                #'my/nyan-animate-when-focused)
+  (my/nyan-animate-when-focused))         ; sync to current focus at startup
+
 ;; Pulsar, pulse curor on actions
 (require 'pulsar)
 

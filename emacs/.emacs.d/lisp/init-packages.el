@@ -33,6 +33,7 @@
                          marginalia
                          orderless
                          pulsar
+                         nyan-mode
                          git-gutter
                          clipetty
 
