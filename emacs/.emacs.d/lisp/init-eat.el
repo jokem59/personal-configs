@@ -267,6 +267,11 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
     (overlay-put ov 'face face)
     (overlay-put ov 'mouse-face mouse-face)
     (overlay-put ov 'help-echo (concat "Link: " target))
+    ;; `follow-link' t lets a plain left-click (mouse-1) open the link: with
+    ;; `mouse-1-click-follows-link' on (the default), Emacs translates a quick
+    ;; mouse-1 on this overlay into the mouse-2 binding below. Without it only
+    ;; a middle-click worked, which is easy to miss on a trackpad.
+    (overlay-put ov 'follow-link t)
     (overlay-put ov 'keymap my/eat-link-keymap)))
 
 (defun my/eat--linkify-region (start end)
