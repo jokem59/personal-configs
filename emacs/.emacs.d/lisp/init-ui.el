@@ -95,6 +95,13 @@
 ;; theme is fully enabled, so `mode-line''s background is at its final themed
 ;; value when we read it. `after-init-hook' fired mid-theme-load and handed the
 ;; dividers a near-invisible pre-theme color (#252526 against a #1e1e1e buffer).
+;;
+;; Under the daemon this still isn't enough: `enable-theme-functions' fires
+;; during init while the only frame is the non-graphical daemon frame, so
+;; `(face-background 'mode-line)' resolves to a tty/fallback color (#252526),
+;; not the GUI-themed purple (#68217A). The divider gets the fallback and is
+;; never re-read once a real GUI frame exists. So also re-apply on frame
+;; creation (`server-after-make-frame-hook'), guarded for graphic frames.
 (defvar my/mode-line-inactive-bg "#3a2f42"
   "Background for the inactive mode line -- a dark, muted version of the
 active bar's purple so unselected windows' bars stay visible against the
@@ -117,6 +124,13 @@ Attached to `enable-theme-functions', which passes the theme symbol (ignored)."
     (set-face-background 'solaire-mode-line-inactive-face
                          my/mode-line-inactive-bg)))
 (add-hook 'enable-theme-functions #'my/apply-theme-faces)
+;; Daemon: re-apply once a graphic frame exists, so the divider reads the real
+;; GUI-themed `mode-line' color instead of the tty fallback seen during init.
+(defun my/apply-theme-faces-on-graphic-frame (&optional frame)
+  "Run `my/apply-theme-faces' when FRAME (or the selected frame) is graphic."
+  (when (display-graphic-p (or frame (selected-frame)))
+    (my/apply-theme-faces)))
+(add-hook 'server-after-make-frame-hook #'my/apply-theme-faces-on-graphic-frame)
 
 ;; Solaire-mode is an aesthetic plugin designed to visually distinguish "real" buffers vs "unreal" buffers
 (require 'solaire-mode)
