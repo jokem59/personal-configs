@@ -407,9 +407,14 @@ window instead of a single line."
 ;; late) focus-gain hook sees no unfocused->focused transition and won't emit a
 ;; duplicate flash.
 (defun my/focus-or-make-frame ()
-  "Focus an existing graphical frame or create one, then flash it."
+  "Focus an existing graphical frame or create one, then flash it.
+When no graphical frame exists (e.g. right after the daemon starts on a
+fresh login), force an `ns' GUI frame: a bare `(make-frame)' in the
+headless daemon inherits no window-system and tries to build a tty frame,
+which dies with \"Unknown terminal type\" and pops no window."
   (let ((f (seq-find #'display-graphic-p (frame-list))))
-    (select-frame-set-input-focus (or f (make-frame))))
+    (select-frame-set-input-focus
+     (or f (make-frame (and (featurep 'ns) '((window-system . ns)))))))
   (my/flash-active-window)
   (setq my/emacs-had-focus t))
 
