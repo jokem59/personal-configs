@@ -136,11 +136,10 @@
      "/Users/joekim/Sync/RoamNotes/20211010224151-rust.org"))
  '(org-babel-load-languages '((C . t)))
  '(org-emphasis-alist
-   '(("_" (:foreground "#A6E22E" :height nil :underline nil))
-     ("/" (:foreground "#AE81FF" :height nil))
+   '(("_" (:foreground "#A6E22E" :underline nil))
+     ("/" (:foreground "#AE81FF"))
      ("*"
-      (:foreground "#FD971F" :height nil :box nil :weight semi-bold))
-     ("*" bold) ("/" italic) ("_" underline)
+      (:foreground "#FD971F" :box nil :weight semi-bold))
      ("=" org-verbatim verbatim) ("~" org-code verbatim)
      ("+" (:strike-through t))))
  '(org-export-backends '(ascii html icalendar latex md odt))

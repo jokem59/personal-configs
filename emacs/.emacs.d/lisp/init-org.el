@@ -63,8 +63,15 @@
   (find-file org-default-journal-file))
 
 
-;; Enable inline highlighting for codeblocks
+;; Enable inline highlighting for codeblocks. Native fontification runs the
+;; source language's font-lock (e.g. slow CC Mode for C) on every redisplay of
+;; the block, which makes large notes crawl. Keep it on for normal files but
+;; disable it in big buffers so files like roblox_bible.org stay responsive.
 (setq org-src-fontify-natively t)
+(add-hook 'org-mode-hook
+          (lambda ()
+            (when (> (buffer-size) 100000)
+              (setq-local org-src-fontify-natively nil))))
 ;; set maximum indentation for description lists
 (setq org-list-description-max-indent 5)
 ;; prevent demoting heading also shifting text inside sections
@@ -74,13 +81,13 @@
 (setq org-hide-emphasis-markers t)
 
 (add-to-list 'org-emphasis-alist
-             '("*" (:foreground "#FD971F" :height nil :box nil :weight semi-bold)))
+             '("*" (:foreground "#FD971F" :box nil :weight semi-bold)))
 
 (add-to-list 'org-emphasis-alist
-             '("/" (:foreground "#AE81FF" :height nil)))
+             '("/" (:foreground "#AE81FF")))
 
 (add-to-list 'org-emphasis-alist
-             '("_" (:foreground "#A6E22E" :height nil :underline nil)))
+             '("_" (:foreground "#A6E22E" :underline nil)))
 
 ;; START TODO Workflow
 ;; TODO keywords.
