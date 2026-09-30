@@ -69,6 +69,12 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
   :bind
   (("C-c c" . declawd)
    ("C-c t" . my/eat-new)
+   ;; Also on `C-x t' (shadowing the tab-bar prefix, which this config doesn't
+   ;; use): reachable from *inside* a live eat terminal, where `C-c t' can't be
+   ;; -- bare `C-c' is remapped to send SIGINT in semi-char mode, so it never
+   ;; arrives as a prefix. `C-x' passes through semi-char mode untouched, so
+   ;; `C-x t' opens a fresh terminal without first switching to emacs/RO mode.
+   ("C-x t" . my/eat-new)
    ("C-c |" . my/eat-new-split-right)
    ("C-c \\" . my/eat-new-split-right)
    ("C-c -" . my/eat-new-split-below)))
