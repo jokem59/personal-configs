@@ -60,6 +60,50 @@ setup_emacs() {
   # on recent macOS even against a valid plist, so use bootstrap explicitly.
   launchctl bootout "gui/$(id -u)/emacs_server" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$plist_dst"
+
+  # Build the Finder file-open handler for the daemon: a tiny wrapper .app (from
+  # tracked AppleScript source) that hands double-clicked / "Open With" files to
+  # open-in-emacs.sh, which opens them in the shared daemon via emacsclient (it
+  # also focuses a frame on a bare launch, as a harmless fallback). Register it
+  # with Launch Services and set it as the default handler for code/text files
+  # (setup_helix no longer claims these).
+  #
+  # This applet is NOT the Dock icon. Pin the real /Applications/Emacs.app to the
+  # Dock instead: init-ui.el keeps the daemon owning >=1 GUI frame, so the daemon
+  # is always a registered `org.gnu.Emacs' app whose tile coalesces with the
+  # pinned Emacs.app, and clicking it activates the daemon rather than spawning a
+  # standalone GUI Emacs (the process split behind the old "Opt+3 opens a new
+  # frame" / stray-background-Emacs symptoms).
+  brew install duti
+  local repo="$HOME/dev/personal-configs/emacs"
+  local app="$HOME/Applications/EmacsOpener.app"
+  local plist="$app/Contents/Info.plist"
+  local pb=/usr/libexec/PlistBuddy
+
+  mkdir -p "$HOME/Applications"
+  rm -rf "$app"
+  osacompile -o "$app" "$repo/emacs-opener.applescript"
+
+  # Stable bundle id (so duti can target it) + declare it an editor for
+  # text/source/data so Launch Services accepts it as a default handler.
+  # osacompile apps have no CFBundleIdentifier — add it (Set if somehow present).
+  "$pb" -c "Add :CFBundleIdentifier string com.joekim.emacsopener" "$plist" 2>/dev/null \
+    || "$pb" -c "Set :CFBundleIdentifier com.joekim.emacsopener" "$plist"
+  # Deliberately NOT named "Emacs": the pinned Dock icon is the real Emacs.app
+  # (org.gnu.Emacs); this stays "EmacsOpener" so it doesn't masquerade as a
+  # second Emacs in the app switcher / Spotlight.
+  "$pb" -c "Add :CFBundleDocumentTypes array" "$plist" 2>/dev/null || true
+  "$pb" -c "Add :CFBundleDocumentTypes:0 dict" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:CFBundleTypeName string Text/Source" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:CFBundleTypeRole string Editor" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes array" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:0 string public.text" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:1 string public.source-code" "$plist"
+  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:2 string public.data" "$plist"
+
+  # Register with Launch Services, then set the default associations.
+  /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f "$app"
+  sh "$repo/set-emacs-defaults.sh"
 }
 
 setup_zsh() {
@@ -88,39 +132,14 @@ setup_karabiner() {
 }
 
 setup_helix() {
-  brew install helix duti
+  brew install helix
 
   # Symlink helix configs
 
-  # Double-click-to-open-in-Helix: build a tiny wrapper .app (from tracked
-  # AppleScript source) that hands double-clicked files to open-in-helix.sh,
-  # register it with Launch Services, and set it as default for code/text files.
-  local repo="$HOME/dev/personal-configs/helix"
-  local app="$HOME/Applications/HelixOpener.app"
-  local plist="$app/Contents/Info.plist"
-  local pb=/usr/libexec/PlistBuddy
-
-  mkdir -p "$HOME/Applications"
-  rm -rf "$app"
-  osacompile -o "$app" "$repo/helix-opener.applescript"
-
-  # Stable bundle id (so duti can target it) + declare it an editor for
-  # text/source/data so Launch Services accepts it as a default handler.
-  # osacompile apps have no CFBundleIdentifier — add it (Set if somehow present).
-  "$pb" -c "Add :CFBundleIdentifier string com.joekim.helixopener" "$plist" 2>/dev/null \
-    || "$pb" -c "Set :CFBundleIdentifier com.joekim.helixopener" "$plist"
-  "$pb" -c "Add :CFBundleDocumentTypes array" "$plist" 2>/dev/null || true
-  "$pb" -c "Add :CFBundleDocumentTypes:0 dict" "$plist"
-  "$pb" -c "Add :CFBundleDocumentTypes:0:CFBundleTypeName string Text/Source" "$plist"
-  "$pb" -c "Add :CFBundleDocumentTypes:0:CFBundleTypeRole string Editor" "$plist"
-  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes array" "$plist"
-  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:0 string public.text" "$plist"
-  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:1 string public.source-code" "$plist"
-  "$pb" -c "Add :CFBundleDocumentTypes:0:LSItemContentTypes:2 string public.data" "$plist"
-
-  # Register with Launch Services, then set the default associations.
-  /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f "$app"
-  sh "$repo/set-helix-defaults.sh"
+  # NOTE: Helix is no longer the default Finder handler for text/code files.
+  # That role moved to EmacsOpener.app (see setup_emacs). The tracked
+  # helix-opener.applescript / open-in-helix.sh / set-helix-defaults.sh are kept
+  # if you ever want to switch back — run set-helix-defaults.sh to reclaim them.
 }
 
 setup_gitu() {

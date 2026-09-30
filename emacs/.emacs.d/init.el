@@ -14,10 +14,12 @@
 ;; *Async-native-compile-log* if you ever need them.
 (setq native-comp-async-report-warnings-errors 'silent)
 
-(if (string-equal system-type "darwin")
-    ()
-    (when window-system
-      (server-start)))
+;; Start the Emacs server so `emacsclient' (e.g. the Karabiner Opt+3 binding)
+;; can focus this GUI instance. `server-running-p' guards against errors when a
+;; server is already up.
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;; To save sessions
 ;; (desktop-save-mode 1)

@@ -406,17 +406,101 @@ window instead of a single line."
 ;; pulse trail the app switch. Setting `my/emacs-had-focus' means the (possibly
 ;; late) focus-gain hook sees no unfocused->focused transition and won't emit a
 ;; duplicate flash.
+(defun my/next-graphic-frame (frame frames)
+  "The graphical frame after FRAME in FRAMES, wrapping around to the first."
+  (car (or (cdr (memq frame frames)) frames)))
+
+(defun my/make-graphic-frame ()
+  "Create and return a new `ns' GUI frame for the daemon, themed consistently.
+Force `ns': a bare `(make-frame)' in the headless daemon inherits no
+window-system and tries to build a tty frame, which dies with \"Unknown terminal
+type\" and pops no window. And re-apply the theme faces the
+`server-after-make-frame-hook' path applies -- a programmatic `make-frame'
+doesn't fire that hook, so the frame would otherwise get the tty-fallback divider
+color instead of the GUI-themed one (see `my/apply-theme-faces')."
+  (let ((frame (make-frame (and (featurep 'ns) '((window-system . ns))))))
+    (with-selected-frame frame (my/apply-theme-faces))
+    frame))
+
 (defun my/focus-or-make-frame ()
-  "Focus an existing graphical frame or create one, then flash it.
-When no graphical frame exists (e.g. right after the daemon starts on a
-fresh login), force an `ns' GUI frame: a bare `(make-frame)' in the
-headless daemon inherits no window-system and tries to build a tty frame,
-which dies with \"Unknown terminal type\" and pops no window."
-  (let ((f (seq-find #'display-graphic-p (frame-list))))
+  "Focus a graphical daemon frame (cycling on repeat), or create one, then flash.
+Single entry point for every \"bring Emacs forward\" route -- the Karabiner
+Opt+3 binding and the Dock/Finder launcher (EmacsOpener.app) -- so they all act
+on the *same* daemon frames instead of a standalone GUI process:
+  - Emacs is in the background (no frame focused) -> focus the first frame,
+    raising the shared daemon Emacs.
+  - A daemon frame already has focus (you pressed Opt+3 again) -> advance to the
+    next graphical frame, so repeat calls cycle through them.
+  - No graphical frame exists (e.g. right after the daemon starts on a fresh
+    login) -> force an `ns' GUI frame: a bare `(make-frame)' in the headless
+    daemon inherits no window-system and tries to build a tty frame, which dies
+    with \"Unknown terminal type\" and pops no window."
+  (let* ((frames (seq-filter #'display-graphic-p (frame-list)))
+         (focused (seq-find #'frame-focus-state frames)))
     (select-frame-set-input-focus
-     (or f (make-frame (and (featurep 'ns) '((window-system . ns)))))))
+     (cond ((null frames) (my/make-graphic-frame))
+           (focused (my/next-graphic-frame focused frames))
+           (t (car frames)))))
   (my/flash-active-window)
   (setq my/emacs-had-focus t))
+
+;; Keep the daemon registered as a running macOS app by always owning >=1 GUI
+;; frame. A headless `emacs --fg-daemon' never connects to the WindowServer, so
+;; it isn't a "running application": clicking a pinned /Applications/Emacs.app
+;; tile then finds no running org.gnu.Emacs and launches a *standalone* GUI Emacs
+;; -- a second process, the split behind "the first Opt+3 opens a new frame" and
+;; the stray background Emacs. Once the daemon owns a GUI frame it's a foreground
+;; NSApplication whose Dock tile coalesces with the pinned Emacs.app, and clicking
+;; that tile merely activates it. So pop one frame at daemon startup, and respawn
+;; one whenever the last graphical frame is closed.
+(defun my/ensure-graphic-frame ()
+  "Create a GUI frame for the daemon unless a graphical one already exists."
+  (when (and (daemonp) (featurep 'ns)
+             (not (seq-find #'display-graphic-p (frame-list))))
+    (my/make-graphic-frame)))
+
+(when (daemonp)
+  ;; Defer past startup: making an `ns' frame too early in daemon init is flaky
+  ;; (the NS app isn't fully up yet), so let startup settle first.
+  (add-hook 'emacs-startup-hook
+            (lambda () (run-at-time 0.5 nil #'my/ensure-graphic-frame))))
+
+(defun my/respawn-last-graphic-frame (frame)
+  "Respawn a GUI frame when FRAME is the daemon's last graphical one.
+`delete-frame-functions' runs *before* FRAME is gone, so schedule the
+replacement on a 0-delay timer (after the deletion completes) to avoid
+reentrancy. The daemon's hidden tty frame remains, so deleting the last
+graphical frame is allowed rather than refused as \"the sole frame\"."
+  (when (and (daemonp) (featurep 'ns)
+             (display-graphic-p frame)
+             (not (seq-find (lambda (f)
+                              (and (not (eq f frame)) (display-graphic-p f)))
+                            (frame-list))))
+    (run-at-time 0 nil #'my/ensure-graphic-frame)))
+
+(add-hook 'delete-frame-functions #'my/respawn-last-graphic-frame)
+
+;; macOS Cmd-Q: hide Emacs instead of killing the daemon. The ns port binds `s-q'
+;; to `save-buffers-kill-emacs', so an accidental Cmd-Q would take down the shared
+;; daemon and every buffer with it. Rebind it to just hide the whole app (all
+;; frames preserved, daemon alive); Opt+3 or the Dock brings it right back with
+;; your session intact. A non-daemon Emacs keeps the normal quit. This touches
+;; only the Cmd-Q keystroke -- the `ns-power-off' event (Dock > Quit and system
+;; logout/restart/shutdown) is left alone, so a real logout can still terminate
+;; Emacs and won't hang. `term/ns-win.el' sets the default `s-q' binding when the
+;; ns window-system initializes, which under the daemon is *after* this file
+;; loads (at first GUI-frame creation), so bind via `with-eval-after-load' to run
+;; after it rather than be clobbered by it.
+(defun my/quit-keep-daemon ()
+  "Cmd-Q: hide Emacs when running as the daemon; otherwise quit normally."
+  (interactive)
+  (if (and (daemonp) (featurep 'ns))
+      (ns-hide-emacs t)
+    (save-buffers-kill-emacs)))
+
+(when (featurep 'ns)
+  (with-eval-after-load 'ns-win
+    (define-key global-map [?\s-q] #'my/quit-keep-daemon)))
 
 ;; Return back to the position in the file you last visited
 (save-place-mode 1)
