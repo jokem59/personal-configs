@@ -203,6 +203,13 @@ else
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+# zsh-syntax-highlighting styles comments as `fg=black,bold` by default, which
+# renders as literal black (ANSI color 0) and is unreadable on a dark theme
+# (e.g. doom-dark+ in eat). Use a mid gray from the 256-color cube instead of a
+# palette color name so it stays legible across every terminal (eat, alacritty,
+# wezterm, tmux, st) regardless of that terminal's color-0/8 mapping.
+ZSH_HIGHLIGHT_STYLES[comment]='fg=245'
+
 # This must be at the bottom to prevent oh-my-zsh settings from overriding
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=1000000000
