@@ -29,6 +29,12 @@
                 (scroll-bar-mode -1)))))
 
 (menu-bar-mode 0)
+;; The daemon ends up with `menu-bar-mode' back on, so hide the in-frame
+;; "File Edit Options ..." line on terminal frames (emacsclient -t) directly.
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (unless (display-graphic-p frame)
+              (set-frame-parameter frame 'menu-bar-lines 0))))
 ;; Mode-line clock: 24-hour time, prefixed with the weekday + date, and no
 ;; system load-average number.
 (setq display-time-24hr-format t)
