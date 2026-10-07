@@ -235,8 +235,9 @@ Runs from `eat-update-hook' after each output batch; see the comment above."
 ;; use overlays rather than text properties so the link `face' layers over
 ;; eat's own color faces instead of clobbering them -- this is how goto-address
 ;; works too. Runs via jit-lock, so links in fresh output are picked up as they
-;; scroll into view. Activate with a mouse-2 click, or in copy mode with
-;; `C-c RET' on the link.
+;; scroll into view. Activate with a click, from the keyboard with `C-x l'
+;; (avy hints; see `my/eat-open-link-hint'), or in copy mode with RET
+;; on the link.
 (require 'goto-addr)
 
 ;; Rejoin links split across table cells (on demand). When a TUI (e.g. Claude
@@ -338,15 +339,80 @@ If the link's highlighted fragment butts against a `│' table-cell edge, rejoin
 the fragments down that cell first (see `my/eat--reconstruct-url-at'), so a URL
 split across table rows still opens correctly."
   (interactive (list last-nonmenu-event))
-  (let* ((pos (if (consp event) (posn-point (event-end event)) (point)))
-         (ov (and pos (seq-find (lambda (o) (overlay-get o 'my/eat-url))
-                                (overlays-at pos))))
-         (url (and ov (overlay-get ov 'my/eat-url))))
-    (cond
-     ((and ov (my/eat--cell-truncated-p (overlay-end ov)))
-      (browse-url (or (my/eat--reconstruct-url-at (overlay-start ov)) url)))
-     (url (browse-url url))
-     (t (message "No link at point")))))
+  (let ((pos (if (consp event) (posn-point (event-end event)) (point))))
+    (unless (and pos (my/eat--open-link-at pos))
+      (message "No link at point"))))
+
+(defun my/eat--link-overlay-at (pos)
+  "Return our link overlay covering POS, or nil."
+  (seq-find (lambda (o) (overlay-get o 'my/eat-url)) (overlays-at pos)))
+
+(defun my/eat--open-link-at (pos)
+  "Open the link covering POS (rejoining table-split URLs); nil if there's none."
+  (when-let* ((ov (my/eat--link-overlay-at pos))
+              (url (overlay-get ov 'my/eat-url)))
+    (browse-url (or (and (my/eat--cell-truncated-p (overlay-end ov))
+                         (my/eat--reconstruct-url-at (overlay-start ov)))
+                    url))
+    t))
+
+(defun my/eat--link-starts (beg end)
+  "Sorted start positions of our link overlays between BEG and END."
+  (sort (delete-dups
+         (mapcar #'overlay-start
+                 (seq-filter (lambda (o) (overlay-get o 'my/eat-url))
+                             (overlays-in beg end))))
+        #'<))
+
+;; Keyboard link opening. `C-x l' (in both terminal and copy mode -- `C-x'
+;; passes through semi-char mode, see `C-x t' above) labels every link on
+;; screen with avy hint chars, like ace-window does for windows; type a label to
+;; open that link (a lone link opens straight away). Point and mode are left
+;; alone, so this works mid-session without leaving the live terminal. In copy
+;; mode, TAB / S-TAB also step between links and RET opens the one at point.
+(require 'avy)                          ; `avy-with' is a macro: load it first
+
+(defun my/eat-open-link-hint ()
+  "Pick a link visible in the selected eat window with avy hints and open it."
+  (interactive)
+  ;; Links are laid down by jit-lock; make sure the whole window is covered.
+  (jit-lock-fontify-now (window-start) (window-end nil t))
+  (let ((starts (my/eat--link-starts (window-start) (window-end nil t))))
+    (if (null starts)
+        (message "No links on screen")
+      (avy-with my/eat-open-link-hint
+        ;; No mark push / window select, and open instead of jumping.
+        (let ((avy-pre-action #'ignore)
+              (avy-action #'my/eat--open-link-at))
+          (avy-process starts))))))
+
+(defun my/eat-next-link (&optional n)
+  "Move point to the start of the Nth next link (previous if N is negative)."
+  (interactive "p")
+  (setq n (or n 1))
+  (let* ((starts (my/eat--link-starts (point-min) (point-max)))
+         (here (let ((ov (my/eat--link-overlay-at (point))))
+                 (if ov (overlay-start ov) (point))))
+         (cands (if (> n 0)
+                    (seq-filter (lambda (p) (> p here)) starts)
+                  (reverse (seq-filter (lambda (p) (< p here)) starts))))
+         (target (nth (1- (min (abs n) (length cands))) cands)))
+    (if target
+        (goto-char target)
+      (message "No %s link" (if (> n 0) "next" "previous")))))
+
+(defun my/eat-previous-link (&optional n)
+  "Move point to the start of the Nth previous link."
+  (interactive "p")
+  (my/eat-next-link (- (or n 1))))
+
+(with-eval-after-load 'eat
+  (define-key eat-mode-map (kbd "C-x l") #'my/eat-open-link-hint)
+  ;; Like `q', these live only in `eat-mode-map', so they fire solely in copy
+  ;; mode; semi-char input shadows TAB/RET with `eat-self-input'.
+  (define-key eat-mode-map (kbd "TAB")       #'my/eat-next-link)
+  (define-key eat-mode-map (kbd "<backtab>") #'my/eat-previous-link)
+  (define-key eat-mode-map (kbd "RET")       #'my/eat-open-link))
 
 (defvar my/eat-link-keymap
   (let ((map (make-sparse-keymap)))
