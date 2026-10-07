@@ -10,14 +10,59 @@ bold_italic = { family = "Roboto Mono", style = "Bold Italic" }
 size = 16
 offset = { x = 1, y = 1 }
 
+[window]
+# Option sends Meta (M-w, M-b, M-f, ...) instead of composing ∑, ∫, ƒ.
+option_as_alt = "Both"
+
 [cursor]
 style = { blinking = "Always" }
 
 [keyboard]
 bindings = [
   { key = "Y", mods = "Control", action = "Paste" },
-  { key = "W", mods = "Alt", action = "Copy" },
   { key = "N", mods = "Control", chars = "\u001b[B" },
   { key = "P", mods = "Control", chars = "\u001b[A" },
   { key = "Slash", mods = "Control", chars = "\u001f" },
+  # Emacs chords with no plain-byte form: send CSI u so tmux (extended-keys)
+  # can forward them to `emacsclient -t'. Replaces C-=/C-- font zoom (Cmd+=/- still work).
+  { key = "'", mods = "Control", chars = "\u001b[39;5u" },
+  { key = ";", mods = "Control", chars = "\u001b[59;5u" },
+  { key = ".", mods = "Control", chars = "\u001b[46;5u" },
+  { key = ",", mods = "Control", chars = "\u001b[44;5u" },
+  { key = "=", mods = "Control", chars = "\u001b[61;5u" },
+  { key = "-", mods = "Control", chars = "\u001b[45;5u" },
+  # Cmd is Meta, as in GUI Emacs (mac-command-modifier 'meta): Cmd+<letter> sends
+  # ESC <letter>. Overrides Alacritty's Cmd+W/C/V/N/F/... defaults; Cmd+Q still quits.
+  { key = "A", mods = "Command", chars = "\u001ba" },
+  { key = "B", mods = "Command", chars = "\u001bb" },
+  { key = "C", mods = "Command", chars = "\u001bc" },
+  { key = "D", mods = "Command", chars = "\u001bd" },
+  { key = "E", mods = "Command", chars = "\u001be" },
+  { key = "F", mods = "Command", chars = "\u001bf" },
+  { key = "G", mods = "Command", chars = "\u001bg" },
+  { key = "H", mods = "Command", chars = "\u001bh" },
+  { key = "I", mods = "Command", chars = "\u001bi" },
+  { key = "J", mods = "Command", chars = "\u001bj" },
+  { key = "K", mods = "Command", chars = "\u001bk" },
+  { key = "L", mods = "Command", chars = "\u001bl" },
+  { key = "M", mods = "Command", chars = "\u001bm" },
+  { key = "N", mods = "Command", chars = "\u001bn" },
+  { key = "O", mods = "Command", chars = "\u001bo" },
+  { key = "P", mods = "Command", chars = "\u001bp" },
+  { key = "R", mods = "Command", chars = "\u001br" },
+  { key = "S", mods = "Command", chars = "\u001bs" },
+  { key = "T", mods = "Command", chars = "\u001bt" },
+  { key = "U", mods = "Command", chars = "\u001bu" },
+  { key = "V", mods = "Command", chars = "\u001bv" },
+  { key = "W", mods = "Command", chars = "\u001bw" },
+  { key = "X", mods = "Command", chars = "\u001bx" },
+  { key = "Y", mods = "Command", chars = "\u001by" },
+  { key = "Z", mods = "Command", chars = "\u001bz" },
+  # Alacritty matches the shifted character, so Cmd+Shift+, arrives as "<".
+  { key = "<", mods = "Command|Shift", chars = "\u001b<" },
+  { key = ">", mods = "Command|Shift", chars = "\u001b>" },
+  { key = ",", mods = "Command|Shift", chars = "\u001b<" },
+  { key = ".", mods = "Command|Shift", chars = "\u001b>" },
+  { key = "/", mods = "Command", chars = "\u001b/" },
+  { key = ";", mods = "Command", chars = "\u001b;" },
 ]

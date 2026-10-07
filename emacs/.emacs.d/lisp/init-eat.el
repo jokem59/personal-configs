@@ -1,5 +1,5 @@
 ;; eat terminal configuration: input-mode ergonomics (bare C-c = SIGINT, C-/
-;; undo, C-' copy-mode toggle), copy-mode cursor visibility, steady-scroll and
+;; undo, copy-mode toggle), copy-mode cursor visibility, steady-scroll and
 ;; glyph fixes for animated TUIs, clickable links, and a launcher for declawd
 ;; (the Claude Code wrapper, falling back to the plain `claude' CLI when
 ;; declawd isn't installed) that runs inside eat.
@@ -125,16 +125,6 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
   (define-key eat-semi-char-mode-map (kbd "C-/")
               (lambda () (interactive) (eat-input-char ?\C-_ 1)))
 
-  ;; With `C-c' repurposed, the copy-mode toggle moves to `C-''. Bind it in
-  ;; BOTH maps so the same key works in both directions (and so the cursor fix
-  ;; in `my/eat-toggle-emacs-mode' runs on entry as well as exit):
-  ;;   - `eat-semi-char-mode-map' (semi-char input) -> enter emacs/copy mode.
-  ;;   - `eat-mode-map' (live during emacs-mode)     -> return to semi-char.
-  ;; `C-'' has no ASCII control code, so it can never be sent to the terminal
-  ;; program -- stealing it here costs nothing.
-  (define-key eat-semi-char-mode-map (kbd "C-'") #'my/eat-toggle-emacs-mode)
-  (define-key eat-mode-map           (kbd "C-'") #'my/eat-toggle-emacs-mode)
-
   ;; In emacs/copy mode, also accept a bare `q' to jump back to semi-char input
   ;; (vi-style). Bound only in `eat-mode-map', so it fires solely in emacs-mode:
   ;; during semi-char/char input `eat-semi-char-mode-map' binds `q' to
@@ -187,7 +177,7 @@ below it) so the grid's bottom row lands on the window's last usable line."
 ;; while, e.g., Claude streams. `eat-update-hook' runs at the tail of every
 ;; output batch; use it to snap *every* window on this buffer back onto the
 ;; cursor and pin the bottom -- but only while the terminal is LIVE (semi-char
-;; input; `buffer-read-only' nil). In copy/emacs mode (`C-'', read-only) we do
+;; input; `buffer-read-only' nil). In copy/emacs mode (read-only) we do
 ;; nothing, leaving the user free to scroll and read. The same off-screen guard
 ;; as the lazy sync keeps a within-view cursor wobble from recentering, so this
 ;; follows output without reintroducing the animation bounce.
@@ -241,8 +231,8 @@ Runs from `eat-update-hook' after each output batch; see the comment above."
 ;; use overlays rather than text properties so the link `face' layers over
 ;; eat's own color faces instead of clobbering them -- this is how goto-address
 ;; works too. Runs via jit-lock, so links in fresh output are picked up as they
-;; scroll into view. Activate with a mouse-2 click, or in copy mode (`C-'')
-;; with `C-c RET' on the link.
+;; scroll into view. Activate with a mouse-2 click, or in copy mode with
+;; `C-c RET' on the link.
 (require 'goto-addr)
 
 ;; Rejoin links split across table cells (on demand). When a TUI (e.g. Claude

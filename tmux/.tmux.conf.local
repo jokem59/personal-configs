@@ -6,18 +6,29 @@ set -g prefix2 None #!important
 bind C-t send-prefix #!important
 
 # ---- general ----
-set -g mode-keys vi #!important
+set -g mode-keys emacs #!important
+set -g status-keys emacs #!important
 set -g mouse on #!important
 set -sg escape-time 0 #!important
 set -g history-limit 50000 #!important
 set -g allow-passthrough on #!important
 set -g set-clipboard on #!important
+# Forward chords with no plain-byte form (C-', C-;, C-=, ...) as CSI u, so
+# `emacsclient -t' sees them; unambiguous keys (C-a, Tab, M-w) stay as-is.
+# Alacritty can't send these itself, so alacritty.toml binds them to CSI u.
+# Overrides oh-my-tmux's per-terminal guess; applies to panes created after
+# the server starts (restart tmux to pick it up).
+set -s extended-keys always #!important
+set -s extended-keys-format csi-u #!important
 
 # ---- splits (inherit cwd) ----
 bind | split-window -hc "#{pane_current_path}" #!important
 bind - split-window -vc "#{pane_current_path}" #!important
 
-# ---- panes ----
+# ---- panes (C-x o / C-x p / C-x t muscle memory) ----
+bind o select-pane -t :.+ #!important
+bind p select-pane -t :.- #!important
+bind t new-window -c "#{pane_current_path}" #!important
 bind q display-panes #!important
 bind x kill-pane #!important
 bind + break-pane #!important
@@ -42,17 +53,21 @@ bind r set-window-option synchronize-panes\; display-message "synchronize-panes 
 # ---- paste buffer picker → clipboard ----
 bind b display-popup -E -w 80% -h 60% "tmux list-buffers -F '#{buffer_name}: #{buffer_sample}' | fzf --reverse | cut -d: -f1 | xargs -I%% tmux show-buffer -b %% | $HOME/dev/personal-configs/tmux/yank.sh" #!important
 
-# ---- copy mode selection (vi) ----
-bind -T copy-mode-vi v   send-keys -X begin-selection #!important
-bind -T copy-mode-vi C-v send-keys -X rectangle-toggle #!important
-bind -T copy-mode-vi /   command-prompt -i -I "#{pane_search_string}" -T search -p "(search down)" "send-keys -X search-forward-incremental \"%%%\"" #!important
-bind -T copy-mode-vi ?   command-prompt -i -I "#{pane_search_string}" -T search -p "(search up)" "send-keys -X search-backward-incremental \"%%%\"" #!important
-
-# ---- copy via OSC 52 / pbcopy ----
+# ---- copy mode (emacs defaults: C-SPC mark, C-s/C-r search, R rectangle) ----
+# ---- M-w / C-w copy via OSC 52 / pbcopy ----
 yank="$HOME/dev/personal-configs/tmux/yank.sh"
-bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "$yank" #!important
-bind -T copy-mode-vi y     send-keys -X copy-pipe-and-cancel "$yank" #!important
-bind -T copy-mode-vi Y     send-keys -X copy-pipe-no-clear "$yank" #!important
+bind -T copy-mode M-w send-keys -X copy-pipe-and-cancel "$yank" #!important
+bind -T copy-mode C-w send-keys -X copy-pipe-and-cancel "$yank" #!important
+# ---- C-' toggles copy mode without the prefix (was eat's copy-mode key) ----
+bind -n "C-'" copy-mode #!important
+bind -T copy-mode "C-'" send-keys -X cancel #!important
+
+# ---- links ----
+# Pass OSC 8 hyperlinks (e.g. Claude Code's) through to Alacritty, which opens
+# them and plain URLs on Shift+click (Shift bypasses tmux's mouse mode).
+set -as terminal-features "alacritty*:hyperlinks" #!important
+# Enter in copy mode: copy if there's a selection, else open the link at point.
+bind -T copy-mode Enter if -F "#{selection_present}" "send-keys -X copy-pipe-and-cancel \"$yank\"" "run-shell -b '$HOME/dev/personal-configs/tmux/open-url.sh #{pane_id}'" #!important
 
 # ---- tmux-resurrect ----
 set -g @resurrect-capture-pane-contents 'on'
