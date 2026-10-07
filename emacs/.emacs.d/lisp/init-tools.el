@@ -114,6 +114,12 @@ apps are not started from a shell."
     (setq exec-path (split-string path-from-shell path-separator))))
 
 (my/set-exec-path-from-shell-PATH)
+;; .zshrc adds GOPATH/bin only for interactive shells, so the --login PATH
+;; above misses it (and with it gopls).
+(let ((gobin (expand-file-name "~/go/bin")))
+  (when (and (file-directory-p gobin) (not (member gobin exec-path)))
+    (setq exec-path (append exec-path (list gobin)))
+    (setenv "PATH" (concat (getenv "PATH") path-separator gobin))))
 
 ;; Impatient mode to render markdown
 (defun markdown-html (buffer)

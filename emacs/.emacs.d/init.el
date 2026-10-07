@@ -39,6 +39,7 @@
 ;; This goes last as it often relies on functions defined in the above
 (require 'init-keybindings)
 (require 'init-eglot-cpp)
+(require 'init-eglot)        ; auto-start eglot for every language with a server
 ;; init-org-jira is work-only and lives on load-path but is untracked; the work
 ;; overlay (init-org-roam-work.el) requires it. Personal machines skip it entirely.
 (require 'tablature-mode)

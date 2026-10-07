@@ -30,9 +30,6 @@
     (setq eglot-events-buffer-config '(:size 0 :format full))
   (setq eglot-events-buffer-size 0))
 
-(add-hook 'c-mode-hook   #'eglot-ensure)
-(add-hook 'c++-mode-hook #'eglot-ensure)
-
 ;; --- LSP keybindings under the `C-c l' prefix (lsp-mode-style) -----------
 ;; Active only in eglot-managed buffers. `C-c l' then wait shows the menu.
 (with-eval-after-load 'eglot

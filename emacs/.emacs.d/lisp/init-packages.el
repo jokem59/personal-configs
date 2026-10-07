@@ -41,6 +41,9 @@
                          mu4e-column-faces
 
                          ; modes
+                         go-mode           ; .go files (gopls via init-eglot.el)
+                         lua-mode          ; .lua files (lua-language-server)
+                         typescript-mode   ; .ts/.tsx files (typescript-language-server)
                          log4j-mode
                          powershell
                          magit
