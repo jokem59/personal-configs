@@ -336,8 +336,10 @@ i.e. windows tiled side-by-side."
 ;; `my/pulse-on-focus-gain' below.
 (use-package nyan-mode
   :init
-  (setq nyan-wavy-trail t                 ; rippling rainbow, like the original
-        nyan-bar-length 20)               ; keep the bar tidy in a busy mode line
+  ;; Flat trail: the wavy one rebuilds its image on every mode-line refresh,
+  ;; which profiled at ~14% CPU with several busy eat terminals visible.
+  (setq nyan-wavy-trail nil
+        nyan-bar-length 20)             ; keep the bar tidy in a busy mode line
   :config
   (nyan-mode 1)
   (defun my/nyan-animate-when-focused (&rest _)
@@ -348,7 +350,25 @@ i.e. windows tiled side-by-side."
         (nyan-stop-animation))))
   (add-function :after after-focus-change-function
                 #'my/nyan-animate-when-focused)
-  (my/nyan-animate-when-focused))         ; sync to current focus at startup
+  (my/nyan-animate-when-focused)          ; sync to current focus at startup
+
+  ;; `nyan-create' runs on every mode-line refresh and rebuilds ~20 images plus
+  ;; a fresh click keymap per bar cell each time. Busy eat terminals refresh
+  ;; their mode line on every output chunk, which profiled at ~20% CPU. The
+  ;; result depends only on the inputs keyed below, so reuse it per buffer
+  ;; until one of them changes.
+  (defvar-local my/nyan--cache nil
+    "Cons of (KEY . STRING) from the last `nyan-create' in this buffer.")
+  (defun my/nyan-create-cached (orig)
+    (let ((key (list (< (window-width) nyan-minimum-window-width)
+                     (nyan-number-of-rainbows)
+                     (nyan-catface-index)
+                     (and (nyan--is-animating-p) nyan-current-frame)
+                     nyan-cat-face-number nyan-wavy-trail nyan-bar-length)))
+      (if (equal key (car my/nyan--cache))
+          (cdr my/nyan--cache)
+        (cdr (setq my/nyan--cache (cons key (funcall orig)))))))
+  (advice-add 'nyan-create :around #'my/nyan-create-cached))
 
 ;; Pulsar, pulse curor on actions
 (require 'pulsar)
