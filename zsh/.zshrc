@@ -157,41 +157,33 @@ fi
 # st requires this export for programs like helix to detect true color support
 export COLORTERM=truecolor
 
+# Open a terminal frame (-t) on the shared Emacs daemon (launchd's emacs_server;
+# $ALTERNATE_EDITOR="" starts one only if it's down). 'em -' reads stdin into a
+# *stdin* buffer; the frame itself reads keys from /dev/tty since stdin is the pipe.
+# Files (and +LINE) are opened via --eval find-file rather than as emacsclient
+# args, so they aren't owned by this client and survive C-x C-c / C-x 5 0
+# (server-kill-new-buffers would otherwise kill them when the frame closes).
 function em()
 {
-    args=""
-    nw=false
-    # check if emacsclient is already running
-    if pgrep -U $(id -u) emacsclient > /dev/null; then running=true; fi
-
-    # check if the user wants TUI mode
+    if [[ "$1" == "-" ]]; then
+        local tmp="$(mktemp /tmp/emacsstdin-XXX)"
+        cat >"$tmp"
+        emacsclient -t --eval "(let ((b (generate-new-buffer \"*stdin*\"))) (switch-to-buffer b) (insert-file-contents \"$tmp\") (delete-file \"$tmp\"))" </dev/tty
+        return
+    fi
+    local -a opts forms
+    local arg line=""
     for arg in "$@"; do
-    	if [ "$arg" = "-nw" ] || [ "$arg" = "-t" ] || [ "$arg" = "--tty" ]
-	then
-    	    nw=true
-    	fi
+        case "$arg" in
+            +[0-9]*) line="${arg#+}" ;;
+            -*)      opts+=("$arg") ;;
+            *)       forms+=("(find-file ${(qqq)arg:a})${line:+ (goto-line $line)}"); line="" ;;
+        esac
     done
-
-    # if called without arguments - open a new gui instance
-    if [ "$#" -eq "0" ] || [ "$running" != true ]; then
-	args=(-c $args) 		# open emacsclient in a new window
-    fi
-    if [ "$#" -gt "0" ]; then
-	# if 'em -' open standard input (e.g. pipe)
-	if [[ "$1" == "-" ]]; then
-    	    TMP="$(mktemp /tmp/emacsstdin-XXX)"
-    	    cat >$TMP
-	    args=($args --eval '(let ((b (generate-new-buffer "*stdin*"))) (switch-to-buffer b) (insert-file-contents "'${TMP}'") (delete-file "'${TMP}'"))')
-	else
-	    args=($@ $args)
-	fi
-    fi
-
-    # emacsclient $args
-    if $nw; then
-	emacsclient "${args[@]}"
+    if (( ${#forms} )); then
+        emacsclient -t "${opts[@]}" --eval "(progn ${forms[*]})"
     else
-	(nohup emacsclient "${args[@]}" > /dev/null 2>&1 &) > /dev/null
+        emacsclient -t "${opts[@]}"
     fi
 }
 
