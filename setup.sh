@@ -374,6 +374,7 @@ run_full_setup() {
         setup_alacritty
         setup_syncthing
         setup_rust
+        setup_language_servers
         setup_gitu
         setup_mo
         setup_claude_skills
@@ -410,6 +411,7 @@ run_full_setup() {
         setup_scroll_reverser
         setup_syncthing
         setup_rust
+        setup_language_servers
         setup_gitu
         setup_mo
         setup_claude_skills
@@ -470,6 +472,7 @@ run_selective_setup() {
         if ask_install "Alacritty terminal emulator"; then setup_alacritty; fi
         if ask_install "Syncthing background replication"; then setup_syncthing; fi
         if ask_install "Rust programming language and components"; then setup_rust; fi
+        if ask_install "LSP servers (clangd, ty, gopls, lua, taplo, marksman, bash/yaml/ts/json/html/css)"; then setup_language_servers; fi
         if ask_install "gitu Git TUI"; then setup_gitu; fi
         if ask_install "mo note-taking config"; then setup_mo; fi
         if ask_install "keyd key mapper (Ctrl-n/p -> down/up)"; then setup_keyd; fi
@@ -507,6 +510,7 @@ run_selective_setup() {
         if ask_install "Scroll Reverser (natural scroll for mouse only)"; then setup_scroll_reverser; fi
         if ask_install "Syncthing replication service"; then setup_syncthing; fi
         if ask_install "Rust & cargo tools"; then setup_rust; fi
+        if ask_install "LSP servers (clangd, ty, gopls, lua, taplo, marksman, bash/yaml/ts/json/html/css)"; then setup_language_servers; fi
         if ask_install "gitu Git TUI"; then setup_gitu; fi
         if ask_install "mo note-taking config"; then setup_mo; fi
     fi

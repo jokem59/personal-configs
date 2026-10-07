@@ -152,7 +152,11 @@ function Install-Packages {
         "poshgit",
         "7zip",
         "helix",
-        "alacritty"
+        "alacritty",
+        "nodejs-lts",
+        "golang",
+        "llvm",
+        "python"
     )
     foreach ($pkg in $packages) {
         if ($localPackages -contains $pkg) {
@@ -247,6 +251,62 @@ function Install-Gitu {
     }
 }
 
+# LSP servers for Emacs (eglot auto-starts any that are installed; see
+# emacs/.emacs.d/lisp/init-eglot.el) and Helix. clangd (llvm), node, go and
+# python come from Install-Packages; rust-analyzer ships with rust-ms.
+function Install-LanguageServers {
+    Write-Host "Installing LSP servers..."
+    Invoke-External "Install LSP servers (npm, go, cargo, pip, GitHub releases)" {
+        # Pick up PATH entries from packages Chocolatey just installed.
+        if ($env:ChocolateyInstall) {
+            Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1" -ErrorAction SilentlyContinue
+            refreshenv | Out-Null
+        }
+
+        if (Get-Command npm -ErrorAction SilentlyContinue) {
+            npm install -g typescript typescript-language-server bash-language-server yaml-language-server vscode-langservers-extracted
+        } else { Write-Warning "npm is not in the PATH. Skipping the npm-based servers." }
+
+        if (Get-Command go -ErrorAction SilentlyContinue) {
+            go install golang.org/x/tools/gopls@latest
+        } else { Write-Warning "go is not in the PATH. Skipping gopls." }
+
+        if (Get-Command cargo -ErrorAction SilentlyContinue) {
+            if (-not (Get-Command taplo -ErrorAction SilentlyContinue)) { cargo install taplo-cli --locked }
+        } else { Write-Warning "cargo is not in the PATH. Skipping taplo." }
+
+        if (Get-Command python -ErrorAction SilentlyContinue) {
+            python -m pip install --upgrade ty
+        } else { Write-Warning "python is not in the PATH. Skipping ty." }
+
+        # No Chocolatey packages for these two; use the GitHub release builds.
+        $programs = "$env:LOCALAPPDATA\Programs"
+        $marksmanDir = "$programs\marksman"
+        if (-not (Get-Command marksman -ErrorAction SilentlyContinue)) {
+            New-Item -ItemType Directory -Force -Path $marksmanDir | Out-Null
+            Invoke-WebRequest -UseBasicParsing -OutFile "$marksmanDir\marksman.exe" `
+                -Uri "https://github.com/artempyanykh/marksman/releases/latest/download/marksman.exe"
+        }
+        $luaDir = "$programs\lua-language-server"
+        if (-not (Get-Command lua-language-server -ErrorAction SilentlyContinue)) {
+            $release = Invoke-RestMethod "https://api.github.com/repos/LuaLS/lua-language-server/releases/latest"
+            $asset = $release.assets | Where-Object { $_.name -like "*-win32-x64.zip" } | Select-Object -First 1
+            $zip = "$env:TEMP\$($asset.name)"
+            Invoke-WebRequest -UseBasicParsing -OutFile $zip -Uri $asset.browser_download_url
+            if (Test-Path $luaDir) { Remove-Item -Recurse -Force $luaDir }
+            Expand-Archive -Path $zip -DestinationPath $luaDir
+            Remove-Item $zip
+        }
+
+        # Put both (and gopls in ~\go\bin) on the user PATH.
+        $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+        foreach ($dir in @($marksmanDir, "$luaDir\bin", "$home\go\bin")) {
+            if (-not ($userPath -split ';' -contains $dir)) { $userPath = "$userPath;$dir" }
+        }
+        [Environment]::SetEnvironmentVariable("Path", $userPath, "User")
+    }
+}
+
 function Install-Fonts {
     Write-Host "Installing Roboto Mono fonts..."
     # Check if a Roboto Mono font is already registered
@@ -314,6 +374,7 @@ function Run-FullSetup {
     Install-PoshGit
     Copy-FindToGFind
     Install-Gitu
+    Install-LanguageServers
     Write-Host "Full Windows environment setup complete!" -ForegroundColor Green
 }
 
@@ -333,6 +394,7 @@ function Run-SelectiveSetup {
     if (Ask-Install "Global git ignore configurations") { Set-GitGlobalSettings }
     if (Ask-Install "findutils (gfind) Windows helper") { Copy-FindToGFind }
     if (Ask-Install "gitu Git TUI (Requires Cargo)") { Install-Gitu }
+    if (Ask-Install "LSP servers (clangd, ty, gopls, lua, taplo, marksman, bash/yaml/ts/json/html/css)") { Install-LanguageServers }
 }
 
 function Show-Menu {

@@ -237,6 +237,28 @@ function setup_gitu() {
 	"$BREW_BIN" install gitu
 }
 
+# LSP servers for Emacs (eglot auto-starts any that are installed; see
+# emacs/.emacs.d/lisp/init-eglot.el) and Helix. rust-analyzer comes from
+# setup_rust. Python prefers a project's own .venv/bin/ty; this is the fallback.
+function setup_language_servers() {
+	brew install \
+		ty \
+		gopls \
+		lua-language-server \
+		taplo \
+		marksman \
+		bash-language-server \
+		yaml-language-server \
+		typescript typescript-language-server \
+		vscode-langservers-extracted
+
+	# brew's llvm is keg-only, so expose just clangd (Xcode's isn't on PATH).
+	if ! command -v clangd &>/dev/null; then
+		brew install llvm
+		ln -sf "$(brew --prefix llvm)/bin/clangd" "$(brew --prefix)/bin/clangd"
+	fi
+}
+
 function setup_vim() {
 	"$BREW_BIN" install vim
 	rm "${HOME}/.vimrc" 2>/dev/null || true
@@ -339,6 +361,7 @@ function main() {
 	setup_scroll_reverser
 	setup_syncthing
 	setup_rust
+	setup_language_servers
 	setup_gitu
 	setup_mo
 	setup_claude_skills

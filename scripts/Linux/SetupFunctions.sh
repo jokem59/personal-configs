@@ -273,6 +273,64 @@ function setup_gitu() {
     fi
 }
 
+# LSP servers for Emacs (eglot auto-starts any that are installed; see
+# emacs/.emacs.d/lisp/init-eglot.el) and Helix. rust-analyzer comes from
+# setup_rust. Python prefers a project's own .venv/bin/ty; this is the fallback.
+function setup_language_servers() {
+    local arch
+    case "$(uname -m)" in
+        aarch64|arm64) arch="arm64" ;;
+        *) arch="x64" ;;
+    esac
+
+    if [ "${DRY_RUN:-}" = "true" ]; then
+        echo "[DRY RUN] apt install clangd golang-go pipx nodejs npm -y (NodeSource LTS if apt's node < 18)"
+        echo "[DRY RUN] npm install -g typescript typescript-language-server bash-language-server yaml-language-server vscode-langservers-extracted"
+        echo "[DRY RUN] As ${USERNAME}: go install gopls, pipx install ty, cargo install taplo-cli"
+        echo "[DRY RUN] Would download marksman and lua-language-server (linux-${arch}) into /usr/local"
+        return 0
+    fi
+
+    apt install clangd golang-go pipx nodejs npm -y
+
+    # The npm-based servers need Node >= 18; older Ubuntu ships much older.
+    local node_major
+    node_major=$(node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0)
+    if [ "$node_major" -lt 18 ]; then
+        echo "apt's Node is v${node_major}; installing the NodeSource LTS build..."
+        curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+        apt install nodejs -y
+    fi
+    npm install -g typescript typescript-language-server bash-language-server \
+        yaml-language-server vscode-langservers-extracted
+
+    # Per-user installs: ~/go/bin (init-tools.el adds it to Emacs's exec-path),
+    # ~/.local/bin, ~/.cargo/bin.
+    sudo -u ${USERNAME} -i go install golang.org/x/tools/gopls@latest \
+        || echo "Warning: gopls install failed (it needs Go >= 1.21; apt's golang-go may be older)."
+    sudo -u ${USERNAME} -i pipx install ty || sudo -u ${USERNAME} -i pipx upgrade ty
+    if ! sudo -u ${USERNAME} -i command -v cargo &>/dev/null; then
+        echo "Cargo not found. Installing Rust first to build taplo..."
+        setup_rust
+    fi
+    sudo -u ${USERNAME} -i cargo install taplo-cli --locked
+
+    # No apt packages for these two; use the GitHub release builds.
+    if ! command -v marksman &>/dev/null; then
+        curl -fsSL -o /usr/local/bin/marksman \
+            "https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux-${arch}"
+        chmod +x /usr/local/bin/marksman
+    fi
+    if ! command -v lua-language-server &>/dev/null; then
+        local lua_url
+        lua_url=$(curl -fsSL https://api.github.com/repos/LuaLS/lua-language-server/releases/latest \
+            | grep -o "https://[^\"]*-linux-${arch}\.tar\.gz" | head -1)
+        rm -rf /opt/lua-language-server
+        mkdir -p /opt/lua-language-server
+        curl -fsSL "$lua_url" | tar -xz -C /opt/lua-language-server
+        ln -sf /opt/lua-language-server/bin/lua-language-server /usr/local/bin/lua-language-server
+    fi
+}
 function setup_mo() {
     # Ensure config directory exists
     mkdir -p "${USER_HOME}/.config/mo"
