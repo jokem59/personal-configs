@@ -29,6 +29,12 @@
 ;; MacOS Specific
 (setq mac-command-modifier 'meta)
 
+;; Cmd-` cycles frames, like every other macOS app. With Cmd as Meta it arrives
+;; as `M-`', shadowing only `tmm-menubar' (the text-mode menu; F10 still has it).
+;; eat forwards `M-`' to the terminal in semi-char mode, so init-eat.el binds it
+;; there too.
+(global-set-key (kbd "M-`") #'other-frame)
+
 ;; Expand-region
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)

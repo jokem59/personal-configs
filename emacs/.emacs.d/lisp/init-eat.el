@@ -125,6 +125,10 @@ fresh session instead. Switch back to existing terminals with `C-x b'."
   (define-key eat-semi-char-mode-map (kbd "C-/")
               (lambda () (interactive) (eat-input-char ?\C-_ 1)))
 
+  ;; Cmd-` (`M-`') cycles frames even from a live terminal (see
+  ;; init-keybindings.el); semi-char mode would otherwise send it as ESC `.
+  (define-key eat-semi-char-mode-map (kbd "M-`") #'other-frame)
+
   ;; In emacs/copy mode, also accept a bare `q' to jump back to semi-char input
   ;; (vi-style). Bound only in `eat-mode-map', so it fires solely in emacs-mode:
   ;; during semi-char/char input `eat-semi-char-mode-map' binds `q' to
