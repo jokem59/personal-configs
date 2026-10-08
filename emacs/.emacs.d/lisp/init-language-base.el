@@ -28,6 +28,7 @@
 (setq auto-mode-alist
       (append '(
                 ("\\.cs$" . csharp-mode)
+                ("\\.inl$" . c++-mode)    ; inline/template implementations
                 ("\\.js$" . js3-mode)
                 ("\\.ps1$" . powershell-mode)
                 ("\\.psm1$" . powershell-mode)
