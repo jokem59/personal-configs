@@ -72,6 +72,9 @@ bind -n C-p if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys C-p" "send-k
 # chord (org: insert heading), other programs get the plain Enter they used to.
 bind -n C-Enter if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys C-Enter" "send-keys Enter" #!important
 bind -n C-S-Enter if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys C-S-Enter" "send-keys Enter" #!important
+# tmux re-encodes M-S-Enter as ESC CR (Shift lost), so hand Emacs the raw
+# CSI u bytes (\e[13;4u, decoded in init-keybindings.el); others get M-Enter.
+bind -n M-S-Enter if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys -H 1b 5b 31 33 3b 34 75" "send-keys M-Enter" #!important
 
 # ---- links ----
 # Pass OSC 8 hyperlinks (e.g. Claude Code's) through to Alacritty, which opens

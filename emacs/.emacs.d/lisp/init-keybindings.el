@@ -35,6 +35,13 @@
 ;; there too.
 (global-set-key (kbd "M-`") #'other-frame)
 
+;; In a terminal (emacsclient -t under tmux) M-S-RET can't be ESC CR -- that's
+;; plain M-RET -- so Alacritty/tmux send it as CSI u \e[13;4u, which xterm.el
+;; doesn't decode. `input-decode-map' is terminal-local, hence `tty-setup-hook'.
+(defun my/tty-decode-extra-keys ()
+  (define-key input-decode-map "\e[13;4u" [M-S-return]))
+(add-hook 'tty-setup-hook #'my/tty-decode-extra-keys)
+
 ;; Expand-region
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)

@@ -33,6 +33,12 @@ bindings = [
   # C-RET / C-S-RET (org: insert heading / TODO heading) would otherwise be a bare CR.
   { key = "Enter", mods = "Control", chars = "\u001b[13;5u" },
   { key = "Enter", mods = "Control|Shift", chars = "\u001b[13;6u" },
+  # M-RET / M-S-RET (org: meta-return / insert TODO heading). Cmd is Meta, so
+  # Cmd+Enter is ESC CR like Option+Enter; tmux would drop Shift from ESC CR,
+  # so M-S-RET goes out as CSI u (decoded in init-keybindings.el).
+  { key = "Enter", mods = "Command", chars = "\u001b\r" },
+  { key = "Enter", mods = "Command|Shift", chars = "\u001b[13;4u" },
+  { key = "Enter", mods = "Alt|Shift", chars = "\u001b[13;4u" },
   # Cmd is Meta, as in GUI Emacs (mac-command-modifier 'meta): Cmd+<letter> sends
   # ESC <letter>. Overrides Alacritty's Cmd+W/C/V/N/F/... defaults; Cmd+Q still quits.
   { key = "A", mods = "Command", chars = "\u001ba" },
