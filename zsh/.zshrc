@@ -163,8 +163,21 @@ export COLORTERM=truecolor
 # Files (and +LINE) are opened via --eval find-file rather than as emacsclient
 # args, so they aren't owned by this client and survive C-x C-c / C-x 5 0
 # (server-kill-new-buffers would otherwise kill them when the frame closes).
+# Emacs takes tty color depth from terminfo alone, so under tmux-256color it
+# falls back to themes' 256-color palettes (e.g. a gray org-block). Hand it the
+# direct-color twin of $TERM (tmux-direct, alacritty-direct) when one exists.
+function _em_term()
+{
+    local direct="${TERM%%-*}-direct"
+    if [[ "$COLORTERM" == truecolor ]] && infocmp "$direct" &>/dev/null; then
+        print -r -- "$direct"
+    else
+        print -r -- "$TERM"
+    fi
+}
 function em()
 {
+    local -x TERM="$(_em_term)"
     if [[ "$1" == "-" ]]; then
         local tmp="$(mktemp /tmp/emacsstdin-XXX)"
         cat >"$tmp"

@@ -266,7 +266,14 @@ function setup_vim() {
 }
 
 function setup_tmux() {
-	"$BREW_BIN" install tmux fzf
+	"$BREW_BIN" install tmux fzf ncurses
+
+	# macOS's ncurses has no tmux-direct; `em' hands it to emacsclient -t so
+	# Emacs uses 24-bit color inside tmux. Compile with the system tic so the
+	# system ncurses Emacs links against can read it.
+	"$("$BREW_BIN" --prefix ncurses)/bin/infocmp" -x tmux-direct > /tmp/tmux-direct.src \
+		&& /usr/bin/tic -x -o "${HOME}/.terminfo" /tmp/tmux-direct.src
+	rm -f /tmp/tmux-direct.src
 
 	rm -f "${HOME}/.tmux.conf"
 	git clone https://github.com/gpakosz/.tmux.git "${HOME}/.local/share/tmux/oh-my-tmux" 2>/dev/null || (cd "${HOME}/.local/share/tmux/oh-my-tmux" && git pull)

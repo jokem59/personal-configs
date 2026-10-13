@@ -113,7 +113,7 @@ function setup_gnome_settings() {
 
 function setup_tmux() {
     if [ "${DRY_RUN:-}" = "true" ]; then
-        echo "[DRY RUN] apt install tmux fzf git -y"
+        echo "[DRY RUN] apt install tmux fzf git ncurses-term -y"
         echo "[DRY RUN] Would remove ${USER_HOME}/.tmux.conf"
         echo "[DRY RUN] Would clone/update oh-my-tmux at ${USER_HOME}/.local/share/tmux/oh-my-tmux"
         echo "[DRY RUN] Would create directory ${USER_HOME}/.config/tmux"
@@ -121,7 +121,8 @@ function setup_tmux() {
         echo "[DRY RUN] Would clone/update tmux-resurrect, tmux-continuum, tmux-thumbs to ${USER_HOME}/dev"
         echo "[DRY RUN] Would build tmux-thumbs with cargo (installing Rust first if needed)"
     else
-        apt install tmux fzf git -y
+        # ncurses-term provides tmux-direct, which `em' uses for 24-bit color.
+        apt install tmux fzf git ncurses-term -y
 
         rm -f "${USER_HOME}/.tmux.conf"
         sudo -u ${USERNAME} -i git clone https://github.com/gpakosz/.tmux.git "${USER_HOME}/.local/share/tmux/oh-my-tmux" 2>/dev/null || (cd "${USER_HOME}/.local/share/tmux/oh-my-tmux" && sudo -u ${USERNAME} -i git pull)
