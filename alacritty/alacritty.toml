@@ -20,8 +20,7 @@ style = { blinking = "Always" }
 [keyboard]
 bindings = [
   { key = "Y", mods = "Control", action = "Paste" },
-  { key = "N", mods = "Control", chars = "\u001b[B" },
-  { key = "P", mods = "Control", chars = "\u001b[A" },
+  # C-n / C-p go through as-is; tmux turns them into Down/Up outside Emacs.
   { key = "Slash", mods = "Control", chars = "\u001f" },
   # Emacs chords with no plain-byte form: send CSI u so tmux (extended-keys)
   # can forward them to `emacsclient -t'. Replaces C-=/C-- font zoom (Cmd+=/- still work).
@@ -31,6 +30,9 @@ bindings = [
   { key = ",", mods = "Control", chars = "\u001b[44;5u" },
   { key = "=", mods = "Control", chars = "\u001b[61;5u" },
   { key = "-", mods = "Control", chars = "\u001b[45;5u" },
+  # C-RET / C-S-RET (org: insert heading / TODO heading) would otherwise be a bare CR.
+  { key = "Enter", mods = "Control", chars = "\u001b[13;5u" },
+  { key = "Enter", mods = "Control|Shift", chars = "\u001b[13;6u" },
   # Cmd is Meta, as in GUI Emacs (mac-command-modifier 'meta): Cmd+<letter> sends
   # ESC <letter>. Overrides Alacritty's Cmd+W/C/V/N/F/... defaults; Cmd+Q still quits.
   { key = "A", mods = "Command", chars = "\u001ba" },

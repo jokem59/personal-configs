@@ -62,6 +62,17 @@ bind -T copy-mode C-w send-keys -X copy-pipe-and-cancel "$yank" #!important
 bind -n "C-'" copy-mode #!important
 bind -T copy-mode "C-'" send-keys -X cancel #!important
 
+# ---- C-n / C-p: Emacs gets them, everything else gets Down/Up ----
+# Alacritty and Karabiner pass C-n/C-p through untouched so `emacsclient -t'
+# sees real C-n/C-p (C-c C-n etc. need them); other programs keep the old
+# arrow-key behavior.
+bind -n C-n if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys C-n" "send-keys Down" #!important
+bind -n C-p if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys C-p" "send-keys Up" #!important
+# Same for C-RET / C-S-RET (Alacritty sends them as CSI u): Emacs gets the
+# chord (org: insert heading), other programs get the plain Enter they used to.
+bind -n C-Enter if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys C-Enter" "send-keys Enter" #!important
+bind -n C-S-Enter if -F "#{m:*emacs*,#{pane_current_command}}" "send-keys C-S-Enter" "send-keys Enter" #!important
+
 # ---- links ----
 # Pass OSC 8 hyperlinks (e.g. Claude Code's) through to Alacritty, which opens
 # them and plain URLs on Shift+click (Shift bypasses tmux's mouse mode).

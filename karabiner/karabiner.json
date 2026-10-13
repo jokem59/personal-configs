@@ -567,7 +567,9 @@
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
-                                            "^org\\.gnu\\.Aquamacs$"
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -588,7 +590,9 @@
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
-                                            "^org\\.gnu\\.Aquamacs$"
+                                            "^org\\.gnu\\.Aquamacs$",
+                                            "^io\\.alacritty$",
+                                            "^org\\.alacritty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
