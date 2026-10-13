@@ -68,12 +68,10 @@ setup_emacs() {
   # with Launch Services and set it as the default handler for code/text files
   # (setup_helix no longer claims these).
   #
-  # This applet is NOT the Dock icon. Pin the real /Applications/Emacs.app to the
-  # Dock instead: init-ui.el keeps the daemon owning >=1 GUI frame, so the daemon
-  # is always a registered `org.gnu.Emacs' app whose tile coalesces with the
-  # pinned Emacs.app, and clicking it activates the daemon rather than spawning a
-  # standalone GUI Emacs (the process split behind the old "Opt+3 opens a new
-  # frame" / stray-background-Emacs symptoms).
+  # Pin this applet (not /Applications/Emacs.app) to the Dock: the daemon keeps
+  # no GUI frame once you close them all, and a headless daemon isn't a running
+  # app, so launching Emacs.app would start a standalone GUI Emacs. A bare launch
+  # of EmacsOpener focuses or creates a daemon frame, like Opt+3.
   brew install duti
   local repo="$HOME/dev/personal-configs/emacs"
   local app="$HOME/Applications/EmacsOpener.app"

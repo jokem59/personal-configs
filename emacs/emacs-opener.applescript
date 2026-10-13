@@ -3,11 +3,11 @@
 -- double-clicked / "Open With" files to open-in-emacs.sh, which opens them in the
 -- shared daemon via emacsclient -- the same daemon Opt+3 attaches to.
 --
--- This is NOT the Dock icon: the real /Applications/Emacs.app is pinned instead,
--- and init-ui.el keeps the daemon owning a GUI frame so clicking that tile
--- activates the daemon rather than spawning a standalone Emacs. The `on run' /
--- `on reopen' handlers below are just a harmless fallback: if this applet is ever
--- launched with no document, focus a daemon frame rather than doing nothing.
+-- It's also the Dock icon to pin: the daemon keeps no GUI frame open when you
+-- close them all, and a headless daemon isn't a running macOS app, so launching
+-- /Applications/Emacs.app would start a standalone Emacs. The `on run' /
+-- `on reopen' handlers below cover that: launched with no document, this applet
+-- focuses a daemon frame (or makes one), like Opt+3.
 --
 -- This AppleScript exists only to catch Finder/Launch Services Apple Events (a
 -- plain shell script can't); the real logic lives in open-in-emacs.sh.

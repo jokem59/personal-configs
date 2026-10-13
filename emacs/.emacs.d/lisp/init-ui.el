@@ -475,41 +475,12 @@ on the *same* daemon frames instead of a standalone GUI process:
   (my/flash-active-window)
   (setq my/emacs-had-focus t))
 
-;; Keep the daemon registered as a running macOS app by always owning >=1 GUI
-;; frame. A headless `emacs --fg-daemon' never connects to the WindowServer, so
-;; it isn't a "running application": clicking a pinned /Applications/Emacs.app
-;; tile then finds no running org.gnu.Emacs and launches a *standalone* GUI Emacs
-;; -- a second process, the split behind "the first Opt+3 opens a new frame" and
-;; the stray background Emacs. Once the daemon owns a GUI frame it's a foreground
-;; NSApplication whose Dock tile coalesces with the pinned Emacs.app, and clicking
-;; that tile merely activates it. So pop one frame at daemon startup, and respawn
-;; one whenever the last graphical frame is closed.
-(defun my/ensure-graphic-frame ()
-  "Create a GUI frame for the daemon unless a graphical one already exists."
-  (when (and (daemonp) (featurep 'ns)
-             (not (seq-find #'display-graphic-p (frame-list))))
-    (my/make-graphic-frame)))
-
-(when (daemonp)
-  ;; Defer past startup: making an `ns' frame too early in daemon init is flaky
-  ;; (the NS app isn't fully up yet), so let startup settle first.
-  (add-hook 'emacs-startup-hook
-            (lambda () (run-at-time 0.5 nil #'my/ensure-graphic-frame))))
-
-(defun my/respawn-last-graphic-frame (frame)
-  "Respawn a GUI frame when FRAME is the daemon's last graphical one.
-`delete-frame-functions' runs *before* FRAME is gone, so schedule the
-replacement on a 0-delay timer (after the deletion completes) to avoid
-reentrancy. The daemon's hidden tty frame remains, so deleting the last
-graphical frame is allowed rather than refused as \"the sole frame\"."
-  (when (and (daemonp) (featurep 'ns)
-             (display-graphic-p frame)
-             (not (seq-find (lambda (f)
-                              (and (not (eq f frame)) (display-graphic-p f)))
-                            (frame-list))))
-    (run-at-time 0 nil #'my/ensure-graphic-frame)))
-
-(add-hook 'delete-frame-functions #'my/respawn-last-graphic-frame)
+;; No GUI frame is kept open: closing the last one leaves the daemon headless
+;; until Opt+3 (`my/focus-or-make-frame') makes a new one. While it's headless
+;; the daemon isn't a running macOS app, so launching /Applications/Emacs.app
+;; (Dock tile, Spotlight) would start a separate standalone Emacs -- pin
+;; ~/Applications/EmacsOpener.app to the Dock instead; a bare launch of it
+;; focuses or creates a daemon frame.
 
 ;; macOS Cmd-Q: hide Emacs instead of killing the daemon. The ns port binds `s-q'
 ;; to `save-buffers-kill-emacs', so an accidental Cmd-Q would take down the shared
