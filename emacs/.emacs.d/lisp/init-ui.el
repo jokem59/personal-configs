@@ -35,6 +35,11 @@
           (lambda (frame)
             (unless (display-graphic-p frame)
               (set-frame-parameter frame 'menu-bar-lines 0))))
+;; Ask terminals for mouse events, so under tmux (mouse on) the wheel scrolls
+;; the Emacs window under the pointer instead of going nowhere; clicks and
+;; drags move point / select windows / set the region. Shift+drag still makes
+;; an Alacritty selection.
+(xterm-mouse-mode 1)
 ;; Mode-line clock: 24-hour time, prefixed with the weekday + date, and no
 ;; system load-average number.
 (setq display-time-24hr-format t)
