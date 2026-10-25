@@ -391,6 +391,21 @@ i.e. windows tiled side-by-side."
 ;; Custom hooks to add pulese
 (add-hook 'my-previous-window-hook #'pulsar-pulse-line)
 
+;; In tty frames pulsar overrides `face-background' to return
+;; `pulsar-tty-color' ("red") for *every* face -- including `default', which
+;; pulse.el fades towards -- so terminal pulses are a solid red blink with no
+;; fade. Our terminals are truecolor (tmux + COLORTERM=truecolor), so real face
+;; colours work: take pulsar's graphical path there and keep its red fallback
+;; only for low-colour ttys.
+(defun my/pulsar-real-colors-in-tty (orig locus face)
+  (if (or (display-graphic-p)
+          (< (display-color-cells) 256)
+          (not (pulse-available-p)))
+      (funcall orig locus face)
+    (cl-letf (((symbol-function 'display-graphic-p) #'always))
+      (funcall orig locus face))))
+(advice-add 'pulsar--create-pulse :around #'my/pulsar-real-colors-in-tty)
+
 (pulsar-global-mode 1)
 
 ;; Flash the whole active window when Emacs regains focus from another app, so
