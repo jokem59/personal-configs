@@ -431,7 +431,6 @@ run_shell_setup() {
         fi
         setup_bash_linux
         setup_zsh_linux
-        setup_vim
         setup_tmux
     elif [ "$OS" = "Darwin" ]; then
         if [ "$DRY_RUN" = "false" ] && [ "$(id -u)" = 0 ]; then
@@ -441,7 +440,6 @@ run_shell_setup() {
         setup_homebrew
         setup_zsh
         setup_bash
-        setup_vim
         setup_tmux
     fi
     echo "Shell configuration setup completed!"
