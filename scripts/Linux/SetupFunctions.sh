@@ -226,6 +226,35 @@ function setup_helix() {
     chown -R ${USERNAME}:${USERNAME} "${USER_HOME}/.config/helix"
 }
 
+function setup_neovim() {
+    # The config needs Neovim >= 0.12 (vim.pack); apt's is far older, so use the
+    # official release build.
+    local arch
+    case "$(uname -m)" in
+        aarch64|arm64) arch="arm64" ;;
+        *) arch="x86_64" ;;
+    esac
+
+    # fzf/fd/ripgrep back fzf-lua's pickers (Ubuntu names fd `fdfind', which
+    # fzf-lua also finds). tree-sitter-cli compiles nvim-treesitter's parsers.
+    apt install fzf fd-find ripgrep build-essential nodejs npm -y
+
+    if [ "${DRY_RUN:-}" = "true" ]; then
+        echo "[DRY RUN] Would download nvim-linux-${arch}.tar.gz into /opt and link /usr/local/bin/nvim"
+        echo "[DRY RUN] npm install -g tree-sitter-cli"
+    else
+        rm -rf "/opt/nvim-linux-${arch}"
+        curl -fsSL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-${arch}.tar.gz" | tar -xz -C /opt
+        ln -sf "/opt/nvim-linux-${arch}/bin/nvim" /usr/local/bin/nvim
+        npm install -g tree-sitter-cli
+    fi
+
+    mkdir -p "${USER_HOME}/.config"
+    rm -rf "${USER_HOME}/.config/nvim" || true
+    ln -sf "${PERSONAL_CONFIGS}/nvim" "${USER_HOME}/.config/nvim"
+    chown -h ${USERNAME}:${USERNAME} "${USER_HOME}/.config/nvim"
+}
+
 function setup_rust() {
     # Check if rustup is already installed for the user
     if ! sudo -u ${USERNAME} -i command -v rustup &>/dev/null; then

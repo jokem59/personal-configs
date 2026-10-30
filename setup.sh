@@ -371,6 +371,7 @@ run_full_setup() {
         setup_emacs
         setup_tmux
         setup_helix
+        setup_neovim
         setup_alacritty
         setup_syncthing
         setup_rust
@@ -404,6 +405,7 @@ run_full_setup() {
         setup_emacs
         setup_tmux
         setup_helix
+        setup_neovim
         setup_alacritty
         setup_rectangle
         setup_fonts
@@ -469,6 +471,7 @@ run_selective_setup() {
         if ask_install "Emacs editor configuration"; then setup_emacs; fi
         if ask_install "Tmux terminal multiplexer"; then setup_tmux; fi
         if ask_install "Helix editor configuration"; then setup_helix; fi
+        if ask_install "Neovim editor configuration"; then setup_neovim; fi
         if ask_install "Alacritty terminal emulator"; then setup_alacritty; fi
         if ask_install "Syncthing background replication"; then setup_syncthing; fi
         if ask_install "Rust programming language and components"; then setup_rust; fi
@@ -503,6 +506,7 @@ run_selective_setup() {
         if ask_install "Emacs editor configuration"; then setup_emacs; fi
         if ask_install "Tmux terminal multiplexer"; then setup_tmux; fi
         if ask_install "Helix editor configuration"; then setup_helix; fi
+        if ask_install "Neovim editor configuration"; then setup_neovim; fi
         if ask_install "Alacritty terminal emulator"; then setup_alacritty; fi
         if ask_install "Rectangle window manager"; then setup_rectangle; fi
         if ask_install "Roboto Mono custom fonts"; then setup_fonts; fi

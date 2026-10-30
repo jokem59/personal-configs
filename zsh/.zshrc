@@ -116,6 +116,7 @@ source $ZSH/oh-my-zsh.sh
 alias e='emacsclient -r -n -a "" "$@"'
 alias et='emacsclient -nw -a "" "$@"'
 alias h='hx'
+alias v='nvim'
 alias ll="ls -alt"
 
 # Option+Left/Right (Karabiner remaps Cmd+B/F here) — bind the xterm CSI form

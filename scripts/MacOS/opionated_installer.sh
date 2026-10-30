@@ -131,6 +131,17 @@ function setup_helix() {
 	ln -sF "$HX_CONFIG_DIR" "${HOME}/.config/helix"
 }
 
+function setup_neovim() {
+	# tree-sitter-cli compiles the parsers nvim-treesitter installs; fzf, fd and
+	# ripgrep back fzf-lua's file picker and global search. LSP servers come from
+	# setup_language_servers.
+	"$BREW_BIN" install neovim tree-sitter-cli fzf fd ripgrep
+
+	mkdir -p "${HOME}/.config"
+	rm -rf "${HOME}/.config/nvim" 2>/dev/null || true
+	ln -sF "${PERSONAL_CONFIGS}/nvim" "${HOME}/.config/nvim"
+}
+
 function setup_emacs() {
 	"$BREW_BIN" tap d12frosted/emacs-plus
 	# Homebrew >= 6.0 blocks loading formulae from third-party taps until trusted.

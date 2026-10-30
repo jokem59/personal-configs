@@ -152,6 +152,9 @@ function Install-Packages {
         "poshgit",
         "7zip",
         "helix",
+        "neovim",
+        "fzf",
+        "fd",
         "alacritty",
         "nodejs-lts",
         "golang",
@@ -200,6 +203,10 @@ function Set-SymLinks {
     if (-not (Test-Path "$home\.config") -and -not $DryRun) { New-Item -ItemType Directory -Path "$home\.config" | Out-Null }
     Backup-File $helixConfigDir
     Safe-NewItem -Path "$home\.config" -Name helix -ItemType SymbolicLink -Value "$REPO_ROOT\helix" -Force
+
+    # Neovim config (Windows reads it from %LOCALAPPDATA%\nvim)
+    Backup-File "$env:LOCALAPPDATA\nvim"
+    Safe-NewItem -Path $env:LOCALAPPDATA -Name nvim -ItemType SymbolicLink -Value "$REPO_ROOT\nvim" -Force
 
     # Alacritty config
     $alacrittyConfigDir = "$home\.config\alacritty"
@@ -265,6 +272,8 @@ function Install-LanguageServers {
 
         if (Get-Command npm -ErrorAction SilentlyContinue) {
             npm install -g typescript typescript-language-server bash-language-server yaml-language-server vscode-langservers-extracted
+            # Compiles the parsers Neovim's nvim-treesitter installs.
+            npm install -g tree-sitter-cli
         } else { Write-Warning "npm is not in the PATH. Skipping the npm-based servers." }
 
         if (Get-Command go -ErrorAction SilentlyContinue) {
