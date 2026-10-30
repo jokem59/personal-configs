@@ -529,7 +529,7 @@ show_menu() {
     echo "Dry-Run Mode: $([ "$DRY_RUN" = "true" ] && echo "ENABLED" || echo "DISABLED")"
     echo "-----------------------------------------"
     echo "1) Full Developer Environment (All tools)"
-    echo "2) Shell Configs Only (Bash, Zsh, Vim)"
+    echo "2) Shell Configs Only (Bash, Zsh, tmux)"
     echo "3) Selective Component Setup (Custom)"
     echo "4) Toggle Dry-Run Mode"
     echo "5) Exit"
