@@ -61,6 +61,26 @@ setup_emacs() {
   launchctl bootout "gui/$(id -u)/emacs_server" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$plist_dst"
 
+  # Drop Emacs from macOS's "Reopen windows when logging back in" list. Once the
+  # daemon has a frame up it registers as the org.gnu.Emacs GUI app, so a restart
+  # with that box checked saves it, and the next login relaunches a standalone
+  # GUI Emacs beside the daemon. This only clears entries already saved; close
+  # all daemon frames before restarting to keep it from being re-added.
+  local lw i bid
+  for lw in "$HOME"/Library/Preferences/ByHost/com.apple.loginwindow.*.plist; do
+    [ -e "$lw" ] || continue
+    # `raw` on an array prints its length. Walk indices high-to-low so deletes
+    # don't shift the ones still to check.
+    i=$(plutil -extract TALAppsToRelaunchAtLogin raw "$lw" 2>/dev/null || echo 0)
+    while [ "$i" -gt 0 ]; do
+      i=$((i - 1))
+      bid=$(plutil -extract "TALAppsToRelaunchAtLogin.$i.BundleID" raw "$lw" 2>/dev/null)
+      if [ "$(echo "$bid" | tr '[:upper:]' '[:lower:]')" = "org.gnu.emacs" ]; then
+        plutil -remove "TALAppsToRelaunchAtLogin.$i" "$lw"
+      fi
+    done
+  done
+
   # Build the Finder file-open handler for the daemon: a tiny wrapper .app (from
   # tracked AppleScript source) that hands double-clicked / "Open With" files to
   # open-in-emacs.sh, which opens them in the shared daemon via emacsclient (it
