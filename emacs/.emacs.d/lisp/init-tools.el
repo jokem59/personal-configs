@@ -80,6 +80,14 @@
   ;; package.
   (marginalia-mode))
 
+;; Show xref results (definitions, references, ...) in vertico via
+;; `consult-xref' instead of the *xref* buffer -- live preview as you move,
+;; like `consult-ls-git'. Global, so it covers every xref backend (eglot in
+;; any language, elisp `M-.', etags). A lone definition still jumps straight there.
+(with-eval-after-load 'xref
+  (setq xref-show-xrefs-function       #'consult-xref
+        xref-show-definitions-function #'consult-xref))
+
 (cond ((eq system-type 'windows-nt)
        ;; Windows-specific code goes here.
        (setq explicit-shell-file-name "c:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
