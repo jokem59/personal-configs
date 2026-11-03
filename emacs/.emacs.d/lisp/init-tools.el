@@ -101,6 +101,20 @@
 ;; Enable Hide Show minor mode globally
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
+;; --- Folding keybindings under the `C-c z' prefix (vim `z' fold mnemonics) --
+;; Friendlier than hideshow's default `C-c @' prefix. Active only where
+;; hs-minor-mode is on. `C-c z' then wait shows the menu.
+(with-eval-after-load 'hideshow
+  (define-prefix-command 'my/fold-map)
+  (keymap-set hs-minor-mode-map "C-c z" 'my/fold-map)
+  (dolist (b '(("a" . toggle-fold)        ; toggle block (like vim za)
+               ("c" . hs-hide-block)      ; close block
+               ("o" . hs-show-block)      ; open block
+               ("M" . hs-hide-all)        ; close all
+               ("R" . hs-show-all)        ; open all
+               ("l" . hs-hide-level)))    ; close blocks nested below this one
+    (keymap-set my/fold-map (car b) (cdr b))))
+
 ;; EDiff config
 (custom-set-variables
  '(ediff-split-window-function (quote split-window-horizontally))  ;; Split side by side
