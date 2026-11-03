@@ -30,6 +30,8 @@ bindings = [
   { key = ",", mods = "Control", chars = "\u001b[44;5u" },
   { key = "=", mods = "Control", chars = "\u001b[61;5u" },
   { key = "-", mods = "Control", chars = "\u001b[45;5u" },
+  # C-<tab> (hideshow `toggle-fold') would otherwise be a bare TAB.
+  { key = "Tab", mods = "Control", chars = "\u001b[9;5u" },
   # C-RET / C-S-RET (org: insert heading / TODO heading) would otherwise be a bare CR.
   { key = "Enter", mods = "Control", chars = "\u001b[13;5u" },
   { key = "Enter", mods = "Control|Shift", chars = "\u001b[13;6u" },
