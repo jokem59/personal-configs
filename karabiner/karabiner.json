@@ -4,6 +4,1092 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Hee: Command is Meta (as Emacs's mac-command-modifier 'meta); Cmd-Q, Cmd-Tab, Cmd-`, and Cmd-Space are left alone",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "a",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "a",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "b",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "b",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "c",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "d",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "e",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "g",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "g",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "h",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "i",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "i",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "j",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "k",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "l",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "m",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "m",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "n",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "o",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "o",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "p",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "p",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "r",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "r",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "s",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "t",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "t",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "u",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "w",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "x",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "x",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "y",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "y",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "z",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "z",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "1",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "1",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "2",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "2",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "3",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "3",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "4",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "5",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "5",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "6",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "6",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "7",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "7",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "8",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "8",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "9",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "9",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "hyphen",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "hyphen",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "equal_sign",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "equal_sign",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "open_bracket",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "open_bracket",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "close_bracket",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "close_bracket",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "backslash",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "backslash",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "semicolon",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "semicolon",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "quote",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "quote",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "comma",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "comma",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "period",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "period",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "slash",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "slash",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "return_or_enter",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "file_paths": ["/hee$"],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Opt + Num opens Certain Apps",
                         "manipulators": [
                             {
@@ -313,12 +1399,14 @@
                                             "^com\\.microsoft\\.rdc\\.",
                                             "^com\\.thinomenon\\.RemoteDesktopConnection$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -342,12 +1430,14 @@
                                             "^com\\.microsoft\\.rdc\\.",
                                             "^com\\.thinomenon\\.RemoteDesktopConnection$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -406,12 +1496,14 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.tinyspeck\\.slackmacgap$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -566,11 +1658,13 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -589,11 +1683,13 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -617,11 +1713,13 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
                                             "^org\\.alacritty$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -645,9 +1743,11 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -676,12 +1776,14 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^org\\.alacritty$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -743,11 +1845,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -804,11 +1908,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -865,11 +1971,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -926,11 +2034,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$" 
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -992,11 +2102,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$" 
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1053,11 +2165,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1114,11 +2228,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1180,11 +2296,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1246,11 +2364,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1312,11 +2432,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1378,10 +2500,12 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1443,11 +2567,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1510,11 +2636,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1576,11 +2704,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1642,11 +2772,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1708,11 +2840,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1774,11 +2908,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1835,11 +2971,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1896,11 +3034,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -1962,11 +3102,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$" 
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -2418,6 +3560,7 @@
                                             "^com\\.parallels\\.winapp\\.",
                                             "^com\\.utmapp\\.UTM$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
@@ -2425,6 +3568,7 @@
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -2850,11 +3994,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
@@ -2978,11 +4124,13 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
+                                            "^dev\\.hee\\.Hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
                                             "^com\\.github\\.wez\\.wezterm$"
                                         ],
+                                        "file_paths": ["/hee$"],
                                         "type": "frontmost_application_unless"
                                     }
                                 ],
