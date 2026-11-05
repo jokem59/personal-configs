@@ -216,6 +216,18 @@ fi
 # wezterm, tmux, st) regardless of that terminal's color-0/8 mapping.
 ZSH_HIGHLIGHT_STYLES[comment]='fg=245'
 
+# zsh-syntax-highlighting (0.8.0) clears its colors before skipping a repaint
+# when keys are queued, so holding a key or typing faster than it highlights
+# redraws the line uncolored for a few frames, a flash in any terminal. Skip
+# before the clearing instead: the old colors stay until the input drains.
+functions[_zsh_highlight_unqueued]=$functions[_zsh_highlight]
+_zsh_highlight() {
+    local ret=$?
+    (( PENDING || KEYS_QUEUED_COUNT )) && return $ret
+    () { return $1 } $ret
+    _zsh_highlight_unqueued
+}
+
 # This must be at the bottom to prevent oh-my-zsh settings from overriding
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=1000000000
