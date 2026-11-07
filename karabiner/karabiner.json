@@ -313,7 +313,7 @@
                                             "^com\\.microsoft\\.rdc\\.",
                                             "^com\\.thinomenon\\.RemoteDesktopConnection$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -344,7 +344,7 @@
                                             "^com\\.microsoft\\.rdc\\.",
                                             "^com\\.thinomenon\\.RemoteDesktopConnection$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -410,7 +410,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -572,7 +572,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
@@ -597,7 +597,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
@@ -627,7 +627,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
@@ -657,7 +657,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$"
                                         ],
@@ -690,7 +690,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^com\\.googlecode\\.iterm2$",
@@ -759,7 +759,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -822,7 +822,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -885,7 +885,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -948,7 +948,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1016,7 +1016,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1079,7 +1079,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1142,7 +1142,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1210,7 +1210,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1278,7 +1278,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1346,7 +1346,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1414,7 +1414,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$"
@@ -1481,7 +1481,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1550,7 +1550,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1618,7 +1618,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1686,7 +1686,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1754,7 +1754,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1822,7 +1822,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1885,7 +1885,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -1948,7 +1948,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -2016,7 +2016,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -2474,7 +2474,7 @@
                                             "^com\\.parallels\\.winapp\\.",
                                             "^com\\.utmapp\\.UTM$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^io\\.alacritty$",
@@ -2908,7 +2908,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -3038,7 +3038,7 @@
                                             "^net\\.kovidgoyal\\.kitty$",
                                             "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.gnu\\.Emacs$",
-                                            "^dev\\.hee\\.Hee$",
+                                            "^dev\\.hee\\.hee$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
                                             "^org\\.pqrs\\.unknownapp\\.conkeror$",
@@ -3063,12 +3063,12 @@
                         ]
                     },
                     {
-                        "description": "Hee: Command is Meta (as Emacs's mac-command-modifier 'meta); last, so the global Cmd shortcuts above win (Cmd-S, Cmd-E, Cmd-L, Cmd-.), and Cmd-Q, Cmd-Tab, Cmd-`, and Cmd-Space are left alone",
+                        "description": "hee: Command is Meta (as Emacs's mac-command-modifier 'meta); last, so the global Cmd shortcuts above win (Cmd-S, Cmd-E, Cmd-L, Cmd-.), and Cmd-Q, Cmd-Tab, Cmd-`, and Cmd-Space are left alone",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3091,7 +3091,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3114,7 +3114,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3137,7 +3137,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3160,7 +3160,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3183,7 +3183,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3206,7 +3206,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3229,7 +3229,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3252,7 +3252,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3275,7 +3275,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3298,7 +3298,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3321,7 +3321,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3344,7 +3344,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3367,7 +3367,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3390,7 +3390,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3413,7 +3413,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3436,7 +3436,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3459,7 +3459,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3482,7 +3482,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3505,7 +3505,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3528,7 +3528,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3551,7 +3551,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3574,7 +3574,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3597,7 +3597,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3620,7 +3620,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3643,7 +3643,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3666,7 +3666,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3689,7 +3689,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3712,7 +3712,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3735,7 +3735,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3758,7 +3758,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3781,7 +3781,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3804,7 +3804,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3827,7 +3827,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3850,7 +3850,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3873,7 +3873,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3896,7 +3896,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3919,7 +3919,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3942,7 +3942,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3965,7 +3965,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -3988,7 +3988,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -4011,7 +4011,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -4034,7 +4034,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -4057,7 +4057,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -4080,7 +4080,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -4103,7 +4103,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }
@@ -4126,7 +4126,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "bundle_identifiers": ["^dev\\.hee\\.Hee$"],
+                                        "bundle_identifiers": ["^dev\\.hee\\.hee$"],
                                         "file_paths": ["/hee$"],
                                         "type": "frontmost_application_if"
                                     }

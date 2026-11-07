@@ -129,7 +129,7 @@ bindkey '^[[3;3~' kill-word
 export ALTERNATE_EDITOR=""
 export EDITOR="hx"                  # $EDITOR opens in terminal
 export VISUAL='hx'         # $VISUAL opens in GUI mode
-# In a Hee terminal, edit in Hee: it sets $GIT_EDITOR to `hee --edit`
+# In a hee terminal, edit in hee: it sets $GIT_EDITOR to `hee --edit`
 # (which opens the file in the terminal's window and waits), and
 # $HEE_TERMINAL to say it's there.
 [[ -n $HEE_TERMINAL ]] && export EDITOR=$GIT_EDITOR VISUAL=$GIT_EDITOR
