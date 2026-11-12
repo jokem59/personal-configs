@@ -164,6 +164,13 @@ setup_gitu() {
   brew install gitu
 }
 
+setup_cli_helpers() {
+  # tldr (tealdeer) and navi for shell commands' options and examples; GNU
+  # tools beside the BSD ones (gsed, gfind, gxargs, gdate, gawk, ggrep).
+  brew install tealdeer navi gnu-sed findutils coreutils gawk grep
+  tldr --update
+}
+
 setup_scroll_reverser() {
   # Install Scroll Reverser (natural scroll for mouse, not trackpad)
   brew install --cask scroll-reverser
@@ -185,7 +192,7 @@ setup_tmux() {
 }
 
 # Components in run-all order. prereqs is always run first.
-COMPONENTS=(emacs zsh iterm2 karabiner helix gitu scroll_reverser tmux)
+COMPONENTS=(emacs zsh iterm2 karabiner helix gitu cli_helpers scroll_reverser tmux)
 
 run_all() {
   setup_prereqs

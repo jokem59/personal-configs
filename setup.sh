@@ -377,6 +377,7 @@ run_full_setup() {
         setup_rust
         setup_language_servers
         setup_gitu
+        setup_cli_helpers
         setup_mo
         setup_claude_skills
         setup_roam_notes
@@ -415,6 +416,7 @@ run_full_setup() {
         setup_rust
         setup_language_servers
         setup_gitu
+        setup_cli_helpers
         setup_mo
         setup_claude_skills
         setup_roam_notes
@@ -475,6 +477,7 @@ run_selective_setup() {
         if ask_install "Rust programming language and components"; then setup_rust; fi
         if ask_install "LSP servers (clangd, ty, gopls, lua, taplo, marksman, bash/yaml/ts/json/html/css, shellcheck, shfmt)"; then setup_language_servers; fi
         if ask_install "gitu Git TUI"; then setup_gitu; fi
+        if ask_install "Command-line helpers (tldr, navi, GNU sed/find/coreutils/awk/grep on macOS)"; then setup_cli_helpers; fi
         if ask_install "mo note-taking config"; then setup_mo; fi
         if ask_install "keyd key mapper (Ctrl-n/p -> down/up)"; then setup_keyd; fi
         if ask_install "LaTeX complete package suite (Large download)"; then get_latex_packages; fi
@@ -514,6 +517,7 @@ run_selective_setup() {
         if ask_install "Rust & cargo tools"; then setup_rust; fi
         if ask_install "LSP servers (clangd, ty, gopls, lua, taplo, marksman, bash/yaml/ts/json/html/css, shellcheck, shfmt)"; then setup_language_servers; fi
         if ask_install "gitu Git TUI"; then setup_gitu; fi
+        if ask_install "Command-line helpers (tldr, navi, GNU sed/find/coreutils/awk/grep on macOS)"; then setup_cli_helpers; fi
         if ask_install "mo note-taking config"; then setup_mo; fi
     fi
     echo "Selective component setup completed!"

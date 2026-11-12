@@ -248,6 +248,19 @@ function setup_gitu() {
 	"$BREW_BIN" install gitu
 }
 
+# Help putting shell commands together: tldr (tealdeer) for short example
+# pages, navi for picking and filling in cheats (Ctrl-G, see zsh), and the
+# GNU tools beside macOS's BSD ones (gsed, gfind, gxargs, gdate, gawk,
+# ggrep), so GNU syntax from answers online works when asked for by name.
+function setup_cli_helpers() {
+	"$BREW_BIN" install tealdeer navi gnu-sed findutils coreutils gawk grep
+	if [ "${DRY_RUN:-}" = "true" ]; then
+		echo "[DRY RUN] tldr --update"
+	else
+		tldr --update
+	fi
+}
+
 # LSP servers for Emacs (eglot auto-starts any that are installed; see
 # emacs/.emacs.d/lisp/init-eglot.el) and Helix. rust-analyzer comes from
 # setup_rust. Python prefers a project's own .venv/bin/ty; this is the fallback.
@@ -385,6 +398,7 @@ function main() {
 	setup_rust
 	setup_language_servers
 	setup_gitu
+	setup_cli_helpers
 	setup_mo
 	setup_claude_skills
 	setup_roam_notes

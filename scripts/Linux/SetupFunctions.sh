@@ -303,6 +303,28 @@ function setup_gitu() {
     fi
 }
 
+# Help putting shell commands together: tldr (tealdeer) for short example
+# pages and navi for picking and filling in cheats (Ctrl-G, see zsh). The
+# GNU tools are Linux's own already. tealdeer is in apt from Ubuntu 23.04;
+# older releases, and navi always, come from cargo.
+function setup_cli_helpers() {
+    if [ "${DRY_RUN:-}" = "true" ]; then
+        echo "[DRY RUN] apt install tealdeer -y (else cargo install tealdeer), cargo install --locked navi, tldr --update"
+        return 0
+    fi
+    if ! sudo -u ${USERNAME} -i command -v cargo &>/dev/null; then
+        echo "Cargo is not installed. Installing Rust first..."
+        setup_rust
+    fi
+    if ! sudo -u ${USERNAME} -i command -v tldr &>/dev/null; then
+        apt install tealdeer -y || sudo -u ${USERNAME} -i cargo install tealdeer
+    fi
+    if ! sudo -u ${USERNAME} -i command -v navi &>/dev/null; then
+        sudo -u ${USERNAME} -i cargo install --locked navi
+    fi
+    sudo -u ${USERNAME} -i tldr --update
+}
+
 # LSP servers for Emacs (eglot auto-starts any that are installed; see
 # emacs/.emacs.d/lisp/init-eglot.el) and Helix. rust-analyzer comes from
 # setup_rust. Python prefers a project's own .venv/bin/ty; this is the fallback.
