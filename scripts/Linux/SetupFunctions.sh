@@ -306,6 +306,8 @@ function setup_gitu() {
 # LSP servers for Emacs (eglot auto-starts any that are installed; see
 # emacs/.emacs.d/lisp/init-eglot.el) and Helix. rust-analyzer comes from
 # setup_rust. Python prefers a project's own .venv/bin/ty; this is the fallback.
+# bash-language-server runs shellcheck (its diagnostics) and shfmt (its
+# formatting) when they're on PATH.
 function setup_language_servers() {
     local arch
     case "$(uname -m)" in
@@ -314,14 +316,14 @@ function setup_language_servers() {
     esac
 
     if [ "${DRY_RUN:-}" = "true" ]; then
-        echo "[DRY RUN] apt install clangd golang-go pipx nodejs npm -y (NodeSource LTS if apt's node < 18)"
+        echo "[DRY RUN] apt install clangd golang-go pipx nodejs npm shellcheck shfmt -y (NodeSource LTS if apt's node < 18)"
         echo "[DRY RUN] npm install -g typescript typescript-language-server bash-language-server yaml-language-server vscode-langservers-extracted"
         echo "[DRY RUN] As ${USERNAME}: go install gopls, pipx install ty, cargo install taplo-cli"
         echo "[DRY RUN] Would download marksman and lua-language-server (linux-${arch}) into /usr/local"
         return 0
     fi
 
-    apt install clangd golang-go pipx nodejs npm -y
+    apt install clangd golang-go pipx nodejs npm shellcheck shfmt -y
 
     # The npm-based servers need Node >= 18; older Ubuntu ships much older.
     local node_major

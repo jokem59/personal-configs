@@ -251,6 +251,8 @@ function setup_gitu() {
 # LSP servers for Emacs (eglot auto-starts any that are installed; see
 # emacs/.emacs.d/lisp/init-eglot.el) and Helix. rust-analyzer comes from
 # setup_rust. Python prefers a project's own .venv/bin/ty; this is the fallback.
+# bash-language-server runs shellcheck (its diagnostics) and shfmt (its
+# formatting) when they're on PATH.
 function setup_language_servers() {
 	brew install \
 		ty \
@@ -259,6 +261,8 @@ function setup_language_servers() {
 		taplo \
 		marksman \
 		bash-language-server \
+		shellcheck \
+		shfmt \
 		yaml-language-server \
 		typescript typescript-language-server \
 		vscode-langservers-extracted
