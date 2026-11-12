@@ -247,6 +247,25 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 
+# navi (setup_cli_helpers): Ctrl-G picks a cheat, asks for its blanks, and
+# leaves the command on the prompt to edit or run. `navi --tldr find` reads
+# tldr's pages instead of navi's own cheats.
+if command -v navi &>/dev/null; then
+    eval "$(navi widget zsh)"
+fi
+
+# The GNU tools (gsed, gfind, ...) first on PATH as plain sed, find, date,
+# xargs, awk, grep, so answers written for GNU work as typed. Off: scripts
+# written for macOS's BSD tools break under them (`sed -i ''`, as
+# ~/git/roblox/scripts' std_to_rsl.sh and .rbx_zshrc use). Set
+# GNU_TOOLS_FIRST=1 before this line, or type gsed and gfind by name.
+if [[ -n $GNU_TOOLS_FIRST && "$OSTYPE" == darwin* ]]; then
+    for _gnu in gnu-sed findutils coreutils gawk grep; do
+        [[ -d /opt/homebrew/opt/$_gnu/libexec/gnubin ]] && export PATH="/opt/homebrew/opt/$_gnu/libexec/gnubin:$PATH"
+    done
+    unset _gnu
+fi
+
 # eat (emacs terminal) shell integration: prompt + directory tracking.
 # Sourced last so its precmd/preexec hooks and widgets aren't overridden by
 # oh-my-zsh or the plugins above. No-op outside eat.
